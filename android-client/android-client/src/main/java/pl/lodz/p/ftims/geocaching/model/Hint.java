@@ -5,18 +5,18 @@ package pl.lodz.p.ftims.geocaching.model;
  */
 public class Hint {
 
-    private GeoCoords position;
+    private int position;
     private String description;
 //    private Image photo;  // TODO: Trzeba wybrać jakąś opdpowiednią klasę
 
     public Hint() {
     }
 
-    public GeoCoords getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(GeoCoords position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 

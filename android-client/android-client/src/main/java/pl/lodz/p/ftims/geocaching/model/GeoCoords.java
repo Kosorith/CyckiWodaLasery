@@ -5,30 +5,31 @@ package pl.lodz.p.ftims.geocaching.model;
  */
 public class GeoCoords {
 
-    private int foo;  // TODO: Jak to zamodelować? Czy GPS API nie dostarcza własnych klas?
-    private int bar;
+    private double latitude;  // TODO: Jak to zamodelować? Czy GPS API nie dostarcza własnych klas?
+    private double longitude; // Jest klasa Location: http://developer.android.com/reference/android/location/Location.html
+                              // udostępnia więcej informacji niż nam trzeba, w tym koordynaty jako double, więc chyba tak
 
     public GeoCoords() {
     }
 
-    public GeoCoords(int foo, int bar) {
-        this.foo = foo;
-        this.bar = bar;
+    public GeoCoords(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public int getFoo() {
-        return foo;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setFoo(int foo) {
-        this.foo = foo;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public int getBar() {
-        return bar;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setBar(int bar) {
-        this.bar = bar;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

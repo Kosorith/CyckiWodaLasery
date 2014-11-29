@@ -31,6 +31,4 @@ public class KHint {
 	public void setDistance(int distance) {
 		this.distance = distance;
 	}
-	
-	
 }

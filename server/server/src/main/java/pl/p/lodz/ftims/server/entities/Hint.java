@@ -40,7 +40,7 @@ public class Hint implements Serializable {
     
     @NotNull
     @Column(name = "distance", nullable = false)
-    private Double distance;
+    private int distance;
 
     @Column(name = "photo", nullable = false)
     private String photo;
@@ -68,11 +68,11 @@ public class Hint implements Serializable {
         this.text = text;
     }
 
-    public Double getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(Double distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 

@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "challenges")
 @NamedQueries({
-    @NamedQuery(name = "Challenge.findAll", query = "SELECT c FROM Challenge c")})
+    @NamedQuery(name = "Challenge.findByCoords", query = "select c from Challenge c where c.coords = :coordsParam")})
 public class Challenge implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -39,7 +39,7 @@ public class Challenge implements Serializable {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
-
+    
     @Column(name = "password", nullable = false)
     private String password;
 

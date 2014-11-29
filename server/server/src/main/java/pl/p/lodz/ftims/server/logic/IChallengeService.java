@@ -1,5 +1,7 @@
 package pl.p.lodz.ftims.server.logic;
 
+import dataModel.Coordinates;
+import dataModel.Solution;
 import java.util.List;
 import pl.p.lodz.ftims.server.entities.Challenge;
 
@@ -13,14 +15,14 @@ public interface IChallengeService {
      * Metoda dodaje nowe wyzwanie na podstawie podanych danych użytkownika.
      * @param challengeData - DTO do zrobienia
      */
-    void createChallenge(/**/);
+    void createChallenge(dataModel.Challenge challengeData);
     
     /**
      * Metoda zwraca listę zadań dobranych według podanych współrzędnych geograficznych.
-     * @param coords współrzędne geograficzne wg których wybierane są zadania (DTO? czy coś innego)
+     * @param coords współrzędne geograficzne wg których wybierane są zadania 
      * @return lista zadań (obiektów klasy @link Challenge)
      */
-    List<Challenge> getChallenges(/*coords*/);
+    List<Challenge> getChallenges(Coordinates coords);
     
     /**
      * Metoda zwraca zadanie o podanym identyfikatorze. Hasło jest opcjonalne,
@@ -34,12 +36,11 @@ public interface IChallengeService {
     /**
      * Metoda odpowiedzialna za 'kończenie' wyzwania o podanym identyfikatorze przez
      * użytkownika o danym ID
-     * @param challengeId identyfiaktor zadania, które ma zostać zakończone
+     * @param solution podane rozwiązanie do zadania
      * @param userId identyfikator użytkownika podejmującego próbę zakończenia wyzwania
-     * @param challengePassword hasło wyzwania
      * @return wartość logiczna mówiąca czy udało się zakończyć wyzwanie
      */
-    boolean doCompleteChallenge(int challengeId, int userId, String challengePassword);
+    boolean doCompleteChallenge(Solution solution, int userId);
     
     /**
      * Metoda zmieniająca status zadania o podanym identyfikatorze

@@ -22,7 +22,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "administrators")
 @NamedQueries({
-    @NamedQuery(name = "Administrator.findAll", query = "SELECT a FROM Administrator a")})
+    @NamedQuery(name = "Administrator.findByLoginPasswd", 
+            query = "SELECT a FROM Administrator a where a.login = :loginParam and a.password = :passwdParam")})
 public class Administrator implements Serializable {
     
     private static final long serialVersionUID = 1L;

@@ -12,7 +12,7 @@ public interface IAuthenticationService {
      * Metoda uwierzytelnia użytkownika, w rezultacie zwraca jego profil
      * @param login login użytkownika
      * @param password hasło użytkownika
-     * @return profil użytkownika
+     * @return profil użytkownika, w przypadku niepowodzenia autentykacji zwracany null.
      */
     User authenticateUser(String login, String password);
     

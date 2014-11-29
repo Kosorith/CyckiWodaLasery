@@ -1,14 +1,12 @@
 package dataModel;
 
-import java.awt.Image;
-
 public class KHint {
 
     private String text;
-    private Image photo;
+    private byte[] photo;
     private int distance;
 
-    public KHint(String text, Image photo, int distance) {
+    public KHint(String text, byte[] photo, int distance) {
         this.text = text;
         this.photo = photo;
         this.distance = distance;
@@ -22,11 +20,11 @@ public class KHint {
         this.text = text;
     }
 
-    public Image getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Image photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 

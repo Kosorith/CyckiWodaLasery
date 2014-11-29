@@ -1,5 +1,7 @@
 package pl.p.lodz.ftims.server.logic;
 
+import dataModel.NewUserData;
+
 /**
  * Interfejs udostępniający operacje na profilach użytkowników gry.
  * @author Piotr Grzelak
@@ -10,7 +12,7 @@ public interface IUserProfileService {
      * Metoda dodaję nowego użytkownika na podstawie otrzymanych danych.
      * @param userData - DTO, które powstanie
      */
-    void addUser(/* userData*/);
+    void addUser(NewUserData userData);
     
     /**
      * Metoda usuwa użytkownika o wskazanym identyfikatorze.

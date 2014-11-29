@@ -1,17 +1,18 @@
 package dataModel;
 
 public class ChallengesListRequest {
-	private COORD location;
 
-	public ChallengesListRequest(COORD location) {
-		this.location = location;
-	}
+    private Coordinates location;
 
-	public COORD getLocation() {
-		return location;
-	}
-	public void setLocation(COORD location) {
-		this.location = location;
-	}
-	
+    public ChallengesListRequest(Coordinates location) {
+        this.location = location;
+    }
+
+    public Coordinates getLocation() {
+        return location;
+    }
+
+    public void setLocation(Coordinates location) {
+        this.location = location;
+    }
 }

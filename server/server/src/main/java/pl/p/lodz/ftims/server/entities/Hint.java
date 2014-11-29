@@ -37,6 +37,10 @@ public class Hint implements Serializable {
     @NotNull
     @Column(name = "text", nullable = false)
     private String text;
+    
+    @NotNull
+    @Column(name = "distance", nullable = false)
+    private Double distance;
 
     @Column(name = "photo", nullable = false)
     private String photo;
@@ -64,6 +68,14 @@ public class Hint implements Serializable {
         this.text = text;
     }
 
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
     public String getPhoto() {
         return photo;
     }
@@ -85,6 +97,7 @@ public class Hint implements Serializable {
         int hash = 3;
         hash = 89 * hash + this.id;
         hash = 89 * hash + Objects.hashCode(this.text);
+        hash = 89 * hash + Objects.hashCode(this.distance);
         hash = 89 * hash + Objects.hashCode(this.photo);
         hash = 89 * hash + Objects.hashCode(this.challenge);
         return hash;
@@ -103,6 +116,9 @@ public class Hint implements Serializable {
             return false;
         }
         if (!Objects.equals(this.text, other.text)) {
+            return false;
+        }
+        if (!Objects.equals(this.distance, other.distance)) {
             return false;
         }
         if (!Objects.equals(this.photo, other.photo)) {

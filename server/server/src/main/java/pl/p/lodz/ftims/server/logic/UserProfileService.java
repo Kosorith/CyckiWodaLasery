@@ -5,11 +5,11 @@
  */
 package pl.p.lodz.ftims.server.logic;
 
-import dataModel.NewUserData;
+import dataModel.CreateUserRequest;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.p.lodz.ftims.server.controllerDataModel.Credentials;
+import dataModel.Credentials;
 import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 import pl.p.lodz.ftims.server.persistence.IProfilesPersistence;
@@ -24,7 +24,7 @@ public class UserProfileService implements IUserProfileService {
     private IAuthenticationService authenticationService;
     
     @Override
-    public void addUser(NewUserData userData) {
+    public void addUser(CreateUserRequest userData) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

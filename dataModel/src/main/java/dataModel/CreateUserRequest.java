@@ -4,7 +4,7 @@ package dataModel;
  * Klasa DTO zawierająca dane potrzebne do utworzenia profilu. 
  * @author Piotr Grzelak
  */
-public class NewUserData {
+public class CreateUserRequest {
 
     private String login = "";
 

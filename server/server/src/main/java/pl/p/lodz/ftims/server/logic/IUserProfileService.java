@@ -1,8 +1,8 @@
 package pl.p.lodz.ftims.server.logic;
 
-import dataModel.NewUserData;
+import dataModel.CreateUserRequest;
 import java.util.List;
-import pl.p.lodz.ftims.server.controllerDataModel.Credentials;
+import dataModel.Credentials;
 import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 
@@ -16,7 +16,7 @@ public interface IUserProfileService {
      * Metoda dodaję nowego użytkownika na podstawie otrzymanych danych.
      * @param userData - DTO, które powstanie
      */
-    void addUser(NewUserData userData);
+    void addUser(CreateUserRequest userData);
     
     /**
      * Metoda usuwa użytkownika o wskazanym identyfikatorze. Nie potrzebne dodatkowe uwierzytelnienie

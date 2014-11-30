@@ -1,10 +1,10 @@
 package dataModel;
 
-public class ChallengesListRequest {
+public class ChallengeListRequest {
 
     private Coordinates location;
 
-    public ChallengesListRequest(Coordinates location) {
+    public ChallengeListRequest(Coordinates location) {
         this.location = location;
     }
 

@@ -51,8 +51,7 @@ public class RESTController {
 	 * @param challengeRequest
 	 * @return ChallengeReply
 	 *//*
-	//zmien na parametr
-	@RequestMapping(value = "/Challenge", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value = "/challenge", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<ChallengeRequest> getChallengeRest(@RequestBody ChallengeRequest challengeRequest){		
 		Challenge challenge=challengeService.getChallenge(challengeRequest.getChallengeId(), challengeRequest.getChallengePassword());
 		return new ResponseEntity<ChallengeResponse>(challenge, HttpStatus.OK);
@@ -63,60 +62,73 @@ public class RESTController {
 	 * @param challengeListRequest
 	 * @return ChallenListReply
 	 *//*
-	@RequestMapping(value = "/Challenges",method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value = "/challenges",method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<ChallengeListRequest> getChallengeListRest(@RequestBody ChallengeListRequest challengeListRequest){
-		ChallengeListReply challengesListReply=challengeService.getChallenges(challengeListRequest.getLocation());
-		return new ResponseEntity<ChallengeRequest>(challengeListReply, HttpStatus.OK);
+		ChallengeListReply challengeListReply=challengeService.getChallenges(challengeListRequest.getLocation());
+		return new ResponseEntity<ChallengeListRequest>(challengeListReply, HttpStatus.OK);
 	}
 	
 	*//**
 	 * Metoda odpowiadająca za pobranie rankingu.
 	 * @return List<Ranking>
 	 *//*
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value = "/ranking", method=RequestMethod.GET)
 	public ResponseEntity<List<Ranking>> getRankingRest(){
 		List<Ranking> ranking=rankingService.getRanking();
 		return new ResponseEntity<List<Ranking>>(ranking, HttpStatus.OK);
 	}	
 	
-	
-	
-	
-	//todo 
-	
-	
-	
-	
+	*//**
+	 * Metoda odpowiadająca za logowanie.
+	 * @param LoginRequest
+	 * @return User
+	 *//*
 	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<> loginRest(@RequestBody LoginRequest loginRequest){
+	public ResponseEntity<User> loginRest(@RequestBody LoginRequest loginRequest){
 		String login=loginRequest.getCredentials().getLogin();
 		String password=loginRequest.getCredentials().getPassword();
-		authenticationService.authenticateUser(login,password);
-		return new ResponseEntity<>(HttpStatus.OK);
+		User user=authenticationService.authenticateUser(login,password);
+		return new ResponseEntity<User>(user,HttpStatus.OK);
+	}
+	
+	*//**
+	 * Metoda zmieniająca hasło użytkownika.
+	 * @param ChangePasswordRequest
+	 *//*
+	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> changePasswordRest(@RequestBody ChangePasswordRequest changeRequest){
+		userProfileService.changePassword(userId, newPasswd);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}	
+	
+	*//**
+	 * Metoda tworząca nowy profil użytkownika.
+	 * @param CreateUserRequest
+	 *//*
+	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> createProfileRest(@RequestBody CreateUserRequest createUserRequest){
+		userProfileService.addUser(createUserRequest);		
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	*//**
+	 * Metoda pobierająca profil użytkownika.
+	 * @param ProfileRequest
+	 * @return Profile
+	 *//*
+	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<Profile> getProfileRest(@RequestBody ProfileRequest profileRequest){
+		String login=profileRequest.getCredentials().getLogin();
+		String password=profileRequest.getCredentials().getPassword();
+		Profile profile=authenticationService.authenticateUser(login, password)		
+		return new ResponseEntity<Profile>(HttpStatus.OK);
 	}
 
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<User> createeRest(@RequestBody ProfileRequest profileRequest){
-		Profile profile=
-		
-		
-		return new ResponseEntity<User>(HttpStatus.OK);
-	}
+	//todo		
 	
-	
-
-	
-	
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<User> getProfileRest(@RequestBody ProfileRequest profileRequest){
-		User user=userProfileService.
-		
-		
-		return new ResponseEntity<User>(HttpStatus.OK);
-	}
-	
-	
-	
+	*//**
+	 * Metoda weryfikująca rozwiązanie
+	 *//*	
 }
 	
 	

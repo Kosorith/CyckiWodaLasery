@@ -5,8 +5,9 @@
  */
 package pl.p.lodz.ftims.server.logic;
 
+import dataModel.ChallengeRequest;
 import dataModel.Coordinates;
-import dataModel.Solution;
+import dataModel.SolutionSubmission;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class ChallengeService implements IChallengeService {
 
     @Autowired
     private IChallengesPersistence challengesDAO;
+    
+    @Autowired
+    private IAuthenticationService authenticationService;
     
     @Autowired
     private IRankingService rankingService;
@@ -33,12 +37,12 @@ public class ChallengeService implements IChallengeService {
     }
 
     @Override
-    public Challenge getChallenge(int challengeId, String passwd) {
+    public Challenge getChallenge(ChallengeRequest request) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean doCompleteChallenge(Solution solution, int userId) {
+    public boolean doCompleteChallenge(SolutionSubmission submission) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -54,6 +58,11 @@ public class ChallengeService implements IChallengeService {
 
     @Override
     public void deleteChallenge(int challengeId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Challenge> getAllChallenges() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

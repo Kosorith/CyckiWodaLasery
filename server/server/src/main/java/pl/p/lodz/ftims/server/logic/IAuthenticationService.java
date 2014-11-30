@@ -1,6 +1,8 @@
 package pl.p.lodz.ftims.server.logic;
 
+import dataModel.Credentials;
 import pl.p.lodz.ftims.server.entities.User;
+import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 
 /**
  * Interfejs udostępniający metody związane z uwierzytelnieniem użytkowników.
@@ -10,11 +12,12 @@ public interface IAuthenticationService {
     
     /**
      * Metoda uwierzytelnia użytkownika, w rezultacie zwraca jego profil
-     * @param login login użytkownika
-     * @param password hasło użytkownika
-     * @return profil użytkownika, w przypadku niepowodzenia autentykacji zwracany null.
+     * @param credentials dane logowania użytkownika
+     * @return profil użytkownika.
+     * @throws pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException
+     * rzucany w razie niepowodzenia autentykacji
      */
-    User authenticateUser(String login, String password);
+    User authenticateUser(Credentials credentials) throws UserAuthenticationFailedException;
     
     /**
      * Metoda uwierzytelnia administratora.

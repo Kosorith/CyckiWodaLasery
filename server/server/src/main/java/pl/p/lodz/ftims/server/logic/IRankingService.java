@@ -1,7 +1,9 @@
 package pl.p.lodz.ftims.server.logic;
 
+import dataModel.Credentials;
 import java.util.List;
 import pl.p.lodz.ftims.server.entities.Ranking;
+import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 
 /**
  * Interfejs udostępniający metody do zarządzania rankingiem użytkowników.
@@ -17,11 +19,13 @@ public interface IRankingService {
     public void addPointsToUser(int userId, int points);
     
     /**
-     * Pobiera pozycję użytkownika o wskazanym identyfikatorze w rankingu.
-     * @param userId identyfikator użytkownika 
+     * Pobiera pozycję w rankingu dla użytkownika o wskazanych danych.
+     * @param userCredentials dane użytkownika, którego ranking ma zostać pobrany 
      * @return pozycja użytkownika w rankingu
+     * @throws pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException 
+     * rzucany w sytuacji niepowodzenia uwierzytenienia
      */
-    int getUserPosition(int userId);
+    int getUserPosition(Credentials userCredentials) throws UserAuthenticationFailedException;
     
     /**
      * Pobiera cały ranking.

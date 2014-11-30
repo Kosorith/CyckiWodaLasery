@@ -1,9 +1,11 @@
 package pl.p.lodz.ftims.server.logic;
 
+import dataModel.ChallengeRequest;
 import dataModel.Coordinates;
-import dataModel.Solution;
+import dataModel.SolutionSubmission;
 import java.util.List;
 import pl.p.lodz.ftims.server.entities.Challenge;
+import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 
 /**
  * Interfejs udostępniający metody służące do zarządzania zadaniami w grze.
@@ -20,27 +22,32 @@ public interface IChallengeService {
     /**
      * Metoda zwraca listę zadań dobranych według podanych współrzędnych geograficznych.
      * @param coords współrzędne geograficzne wg których wybierane są zadania 
-     * @return lista zadań (obiektów klasy @link Challenge)
+     * @return lista zadań
      */
     List<Challenge> getChallenges(Coordinates coords);
     
     /**
-     * Metoda zwraca zadanie o podanym identyfikatorze. Hasło jest opcjonalne,
-     * dotyczy zadań prywatnych.
-     * @param challengeId identyfikator zadania
-     * @param passwd hasło do zadania, opcjonalne
-     * @return zadanie
+     * Metoda zwraca wszystkie zadania.
+     * @return lista wszystkich zadań
      */
-    Challenge getChallenge(int challengeId, String passwd);
+    List<Challenge> getAllChallenges();
     
     /**
-     * Metoda odpowiedzialna za 'kończenie' wyzwania o podanym identyfikatorze przez
-     * użytkownika o danym ID
-     * @param solution podane rozwiązanie do zadania
-     * @param userId identyfikator użytkownika podejmującego próbę zakończenia wyzwania
-     * @return wartość logiczna mówiąca czy udało się zakończyć wyzwanie
+     * Metoda zwraca zadanie odpowiadające danym wyspecyfikowanym w żadaniu.
+     * @param challengeRequest żądanie zadania
+     * @return zadanie
      */
-    boolean doCompleteChallenge(Solution solution, int userId);
+    Challenge getChallenge(ChallengeRequest challengeRequest);
+    
+    /**
+     * Metoda odpowiedzialna za 'kończenie' wyzwania na podstawie podanego zgłoszenia.
+     * @param submission paczka z rozwiązaniem od użytkownika
+     * @return wartość logiczna mówiąca czy udało się zakończyć wyzwanie
+     * @throws pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException
+     * rzucany w sytuacji gdy uwierzytelnienie użytkownika zgłaszającego się nie powiedzie
+     */
+    boolean doCompleteChallenge(SolutionSubmission submission) 
+            throws UserAuthenticationFailedException;
     
     /**
      * Metoda zmieniająca status zadania o podanym identyfikatorze

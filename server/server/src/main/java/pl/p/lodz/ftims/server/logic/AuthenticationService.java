@@ -5,6 +5,7 @@
  */
 package pl.p.lodz.ftims.server.logic;
 
+import dataModel.Credentials;
 import org.springframework.stereotype.Service;
 import pl.p.lodz.ftims.server.entities.User;
 
@@ -12,7 +13,7 @@ import pl.p.lodz.ftims.server.entities.User;
 public class AuthenticationService implements IAuthenticationService {
 
     @Override
-    public User authenticateUser(String login, String password) {
+    public User authenticateUser(Credentials credentials) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

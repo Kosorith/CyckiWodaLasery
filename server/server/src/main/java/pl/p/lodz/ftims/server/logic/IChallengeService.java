@@ -57,4 +57,10 @@ public interface IChallengeService {
      * @return wartość logiczna mówiąca czy wyzwanie istnieje
      */
     boolean challengeExists(int challengeId);
+    
+    /**
+     * Metoda usuwa wyzwanie o wskazanym id.
+     * @param challengeId id wyzwania do usunięcia
+     */
+    void deleteChallenge(int challengeId);
 }

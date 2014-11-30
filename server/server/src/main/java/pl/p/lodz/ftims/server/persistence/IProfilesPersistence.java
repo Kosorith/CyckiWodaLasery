@@ -1,6 +1,5 @@
 package pl.p.lodz.ftims.server.persistence;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import pl.p.lodz.ftims.server.entities.User;
 

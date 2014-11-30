@@ -1,6 +1,8 @@
 package pl.p.lodz.ftims.server.logic;
 
 import dataModel.NewUserData;
+import java.util.List;
+import pl.p.lodz.ftims.server.entities.User;
 
 /**
  * Interfejs udostępniający operacje na profilach użytkowników gry.
@@ -26,4 +28,10 @@ public interface IUserProfileService {
      * @param newPasswd nowe hasło użytkownika
      */
     void changePassword(int userId, String newPasswd);
+    
+    /**
+     * Metoda odpowiedzialna za pobranie wszystkich użytkowników.
+     * @return lista użytkowników
+     */
+    List<User> getAllUsers();
 }

@@ -15,6 +15,9 @@ public class ChallengeRequest {
 	@XmlElement(name = "challengePassword")
     private String challengePassword;
 
+    public ChallengeRequest() {
+    }
+        
     public ChallengeRequest(int challengeId, String challengePassword) {
         this.challengeId = challengeId;
         this.challengePassword = challengePassword;

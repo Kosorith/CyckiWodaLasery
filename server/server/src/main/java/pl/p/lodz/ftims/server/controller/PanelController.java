@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pl.p.lodz.ftims.server.controllerDataModel.ChallengeRequest;
-import pl.p.lodz.ftims.server.controllerDataModel.DeleteUserRequest;
 import pl.p.lodz.ftims.server.entities.Challenge;
 import pl.p.lodz.ftims.server.logic.IAuthenticationService;
 import pl.p.lodz.ftims.server.logic.IChallengeService;
@@ -69,7 +68,7 @@ public class PanelController {
 	 * Metoda usuwająca wyzwanie
 	 *//*
 	public removeChallenge(){
-		//TODO
+		challengeService.deleteChallenge(challengeId);
 	}
 	
 	
@@ -77,27 +76,14 @@ public class PanelController {
 	 * Metoda pobierająca użytkownika
 	 *//*
 	public getUser(){
-		//TODO
+		authenticationService.authenticateUser(credentials);
 	}
 	
 	*//**
 	 * Metoda pobierająca listę użytkowników
 	 *//*	
 	public getUsers(){
-		//TODO
+		userProfileService.getAllUsers();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 */

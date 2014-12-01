@@ -5,16 +5,27 @@
  */
 package dataModel;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author Wojciech Szałapski
  */
-public class Coordinates {
 
+@XmlRootElement(name="Coordinates")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Coordinates {
+	
+	@XmlElement(name = "EARTH_RADIUS")
     public static final int EARTH_RADIUS = 6371000;
 
+	@XmlElement(name = "latitude")
     private double latitude;
 
+	@XmlElement(name = "longtitude")
     private double longitude;
 
     public Coordinates(double latitude, double longitude) {

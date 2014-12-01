@@ -91,7 +91,7 @@ public class RESTController {
 	 * @param LoginRequest
 	 * @return User
 	 */
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value ="/login", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<User> loginRest(@RequestBody LoginRequest loginRequest){
 		String login=loginRequest.getCredentials().getLogin();
 		String password=loginRequest.getCredentials().getPassword();
@@ -108,7 +108,7 @@ public class RESTController {
 	 * Metoda zmieniająca hasło użytkownika.
 	 * @param ChangePasswordRequest
 	 */
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value="/password", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<String> changePasswordRest(@RequestBody ChangePasswordRequest changePasswordRequest){
 		Credentials credentials=changePasswordRequest.getCredentials();
 		String newPasswd=changePasswordRequest.getNewPasswd();
@@ -124,7 +124,7 @@ public class RESTController {
 	 * Metoda tworząca nowy profil użytkownika.
 	 * @param CreateUserRequest
 	 */
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value="/profile", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<String> createProfileRest(@RequestBody CreateUserRequest createUserRequest){
 		userProfileService.addUser(createUserRequest);		
 		return new ResponseEntity<String>(HttpStatus.OK);

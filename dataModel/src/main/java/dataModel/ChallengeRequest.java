@@ -1,8 +1,18 @@
 package dataModel;
 
-public class ChallengeRequest {
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name="ChallengeRequest")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class ChallengeRequest {
+	
+	@XmlElement(name = "challengeId")
     private int challengeId;
+	
+	@XmlElement(name = "challengePassword")
     private String challengePassword;
 
     public ChallengeRequest(int challengeId, String challengePassword) {

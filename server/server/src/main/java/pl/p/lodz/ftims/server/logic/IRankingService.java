@@ -28,6 +28,14 @@ public interface IRankingService {
     int getUserPosition(Credentials userCredentials) throws UserAuthenticationFailedException;
     
     /**
+     * 
+     * @param userCredentials
+     * @return 
+     * @throws pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException 
+     */
+    Ranking getUserRanking(Credentials userCredentials) throws UserAuthenticationFailedException;
+    
+    /**
      * Pobiera cały ranking.
      * @return lista rankingowa
      */

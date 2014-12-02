@@ -3,6 +3,10 @@ package pl.p.lodz.ftims.server.persistence;
 import org.springframework.data.repository.CrudRepository;
 import pl.p.lodz.ftims.server.entities.User;
 
+/**
+ *
+ * @author Piotr Grzelak
+ */
 public interface IProfilesPersistence extends CrudRepository<User, Integer> {
 
     /**

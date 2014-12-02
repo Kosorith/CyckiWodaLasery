@@ -36,5 +36,10 @@ public class RankingService implements IRankingService {
     public List<Ranking> getRanking() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Ranking getUserRanking(Credentials userCredentials) throws UserAuthenticationFailedException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

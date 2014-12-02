@@ -13,8 +13,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,8 +23,6 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "challenges")
-@NamedQueries({
-    @NamedQuery(name = "Challenge.findByCoords", query = "select c from Challenge c where c.coords = :coordsParam")})
 public class Challenge implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -45,7 +41,7 @@ public class Challenge implements Serializable {
 
     @NotNull
     @Column(name = "coords", nullable = false)
-    private String coords;
+    private String location;
 
     @NotNull
     @Column(name = "secret_password", nullable = false)
@@ -96,12 +92,12 @@ public class Challenge implements Serializable {
         this.password = password;
     }
 
-    public String getCoords() {
-        return coords;
+    public String getLocation() {
+        return location;
     }
 
-    public void setCoords(String coords) {
-        this.coords = coords;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getSecretPassword() {

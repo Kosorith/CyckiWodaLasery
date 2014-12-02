@@ -5,10 +5,13 @@
  */
 package pl.p.lodz.ftims.server.persistence;
 
+import org.springframework.data.repository.CrudRepository;
+import pl.p.lodz.ftims.server.entities.Ranking;
+
 /**
  *
  * @author Piotr Grzelak
  */
-public interface IRankingPersistence {
+public interface IRankingPersistence extends CrudRepository<Ranking, Integer> {
     
 }

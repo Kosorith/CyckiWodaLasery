@@ -11,7 +11,7 @@ public interface IProfilesAccess {
     
 	Credentials verifyCredentials();
 	
-	void changeCredentials(credentials: Credentials);
+	void changeCredentials(Credentials credentials);
 	
 	void pickRanking();
 	

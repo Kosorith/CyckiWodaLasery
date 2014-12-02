@@ -10,6 +10,7 @@ apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
+    mavenLocal()
 }
 
 android {
@@ -35,4 +36,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.+'
     compile 'com.google.android.gms:play-services:4.2.42'
+    compile 'ftims.p.lodz.pl:dataModel:0.0.1-SNAPSHOT'
 }

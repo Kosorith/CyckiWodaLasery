@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "ranking")
 @NamedQueries({
     @NamedQuery(name = "Ranking.findAll", query = "SELECT r FROM Ranking r")})
-public class Ranking implements Serializable {
+public class Ranking implements Serializable, Comparable<Ranking> {
     
     private static final long serialVersionUID = 1L;
     
@@ -107,5 +107,14 @@ public class Ranking implements Serializable {
             return false;
         }
         return Objects.equals(this.user, other.user);
+    }
+
+    @Override
+    public int compareTo(Ranking r) {
+        if (points == r.getPoints()) {
+            return completedChallengesNum - r.getCompletedChallengesNum();
+        } else {
+            return points - r.getPoints();
+        }
     }
 }

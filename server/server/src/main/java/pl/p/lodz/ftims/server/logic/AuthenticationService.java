@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.p.lodz.ftims.server.entities.Administrator;
 import pl.p.lodz.ftims.server.entities.User;
+import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 import pl.p.lodz.ftims.server.persistence.AdminRepository;
 import pl.p.lodz.ftims.server.persistence.IProfilesPersistence;
 
@@ -28,12 +29,16 @@ public class AuthenticationService implements IAuthenticationService {
     private AdminRepository adminDAO;
 
     @Override
-    public User authenticateUser(Credentials credentials) {
+    public User authenticateUser(Credentials credentials) throws UserAuthenticationFailedException {
         try {
             String passwordDigest = generateDigest(credentials.getPassword());
-            return profilesDAO.findByLoginAndPassword(credentials.getLogin(), passwordDigest);
+            User user = profilesDAO.findByLoginAndPassword(credentials.getLogin(), passwordDigest);
+            if (user == null) {
+                throw new UserAuthenticationFailedException();
+            }
+            return user;
         } catch (NoSuchAlgorithmException ex) {
-            return null;
+            throw new UserAuthenticationFailedException();
         }
     }
 

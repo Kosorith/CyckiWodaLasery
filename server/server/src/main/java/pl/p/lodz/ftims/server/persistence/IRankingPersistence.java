@@ -7,6 +7,7 @@ package pl.p.lodz.ftims.server.persistence;
 
 import org.springframework.data.repository.CrudRepository;
 import pl.p.lodz.ftims.server.entities.Ranking;
+import pl.p.lodz.ftims.server.entities.User;
 
 /**
  *
@@ -14,4 +15,5 @@ import pl.p.lodz.ftims.server.entities.Ranking;
  */
 public interface IRankingPersistence extends CrudRepository<Ranking, Integer> {
     
+    Ranking findByUser(User user);
 }

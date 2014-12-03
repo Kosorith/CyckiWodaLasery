@@ -42,7 +42,7 @@ public class Ranking implements Serializable {
     @Column(name = "completed_challenges_num", nullable = false)
     private int completedChallengesNum;
     
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true)
     @OneToOne(optional = false)
     private User user;
 

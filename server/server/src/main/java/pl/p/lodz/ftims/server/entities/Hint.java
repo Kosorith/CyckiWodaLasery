@@ -42,7 +42,7 @@ public class Hint implements Serializable {
     @Column(name = "distance", nullable = false)
     private int distance;
 
-    @Column(name = "photo", nullable = false)
+    @Column(name = "photo")
     private String photo;
     
     @JoinColumn(name = "challenge_id", referencedColumnName = "id")

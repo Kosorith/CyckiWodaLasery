@@ -5,11 +5,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="ChallengeListRequest")
+@XmlRootElement(name = "ChallengeListRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ChallengeListRequest {
-	
-	@XmlElement(name = "location")
+
+    @XmlElement(name = "location")
     private Coordinates location;
 
     public ChallengeListRequest(Coordinates location) {

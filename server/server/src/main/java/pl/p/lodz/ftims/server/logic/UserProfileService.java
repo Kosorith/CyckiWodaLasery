@@ -10,29 +10,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import dataModel.Credentials;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 import pl.p.lodz.ftims.server.persistence.IProfilesPersistence;
 
 @Service
 public class UserProfileService implements IUserProfileService {
-    
+
     @Autowired
     private IProfilesPersistence profilesDAO;
-    
+
     @Autowired
     private IAuthenticationService authenticationService;
     
-    private CollectionUtils collectionUtils = new CollectionUtils();
+    @Autowired
+    private CollectionUtils collectionUtils;
+    
+    @Autowired
+    private AuthenticationUtils authenticationUtils;
+
+    private static final Logger logger = Logger.getLogger(UserProfileService.class.getName());
     
     @Override
-    public void addUser(CreateUserRequest userData) {        
+    public void addUser(CreateUserRequest userData) {
         User user = new User();
         user.setLogin(userData.getLogin());
         user.setNick(userData.getNick());
-        user.setPassword(userData.getPassword());
+        try {
+            user.setPassword(authenticationUtils.generateDigest(userData.getPassword()));
+        } catch (NoSuchAlgorithmException ex) {
+            logger.log(Level.SEVERE, null, ex);
+        }
         user.setEmail(userData.getEmail());
-        
+
         profilesDAO.save(user);
     }
 
@@ -42,11 +55,15 @@ public class UserProfileService implements IUserProfileService {
     }
 
     @Override
-    public void changePassword(Credentials userCredentials, String newPasswd) 
+    public void changePassword(Credentials userCredentials, String newPasswd)
             throws UserAuthenticationFailedException {
-        User user = authenticationService.authenticateUser(userCredentials);
-        user.setPassword(newPasswd);
-        profilesDAO.save(user);
+        try {
+            User user = authenticationService.authenticateUser(userCredentials);
+            user.setPassword(authenticationUtils.generateDigest(newPasswd));
+            profilesDAO.save(user);
+        } catch (NoSuchAlgorithmException ex) {
+            logger.log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

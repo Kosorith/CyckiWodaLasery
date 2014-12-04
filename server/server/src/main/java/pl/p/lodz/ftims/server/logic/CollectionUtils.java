@@ -7,11 +7,13 @@ package pl.p.lodz.ftims.server.logic;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Wojciech Szałapski
  */
+@Component
 public class CollectionUtils {
     
     public <T> List<T> iterableToList(Iterable<T> iterable) {

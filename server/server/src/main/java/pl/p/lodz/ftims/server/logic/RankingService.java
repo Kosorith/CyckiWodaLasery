@@ -6,7 +6,6 @@
 package pl.p.lodz.ftims.server.logic;
 
 import dataModel.Credentials;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,8 @@ public class RankingService implements IRankingService {
     @Autowired
     private IProfilesPersistence profilesDAO;
     
-    private CollectionUtils collectionUtils = new CollectionUtils();
+    @Autowired
+    private CollectionUtils collectionUtils;
 
     @Override
     public void addPointsToUser(int userId, int points) {

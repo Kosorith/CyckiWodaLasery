@@ -25,11 +25,21 @@ public class ChallengeService implements IChallengeService {
     @Autowired
     private IAuthenticationService authenticationService;
 
-    private CollectionUtils collectionUtils = new CollectionUtils();
+    @Autowired
+    private CollectionUtils collectionUtils;
 
     @Override
     public void createChallenge(dataModel.Challenge challengeData) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Challenge challenge = new Challenge();
+        challenge.setDescription(challengeData.getDescription());
+        // TODO : set Hints (need to insert all hints and not violate foreign keys)
+        challenge.setLocation(challengeData.getLocation().toString()); // coordinates added by me to dataModel.Challenge
+        challenge.setName(challengeData.getName());
+        // TODO : set Password (why there is no password in dataModel.Challenge class?)
+        // TODO : set Photo (need to decide on whether to store bytes or file names)
+        challenge.setPoints(challengeData.getPoints());
+        // TODO : set SecretPassword (again, there is no secret password in dataModel.Challenge class)
+        // TODO : set Status (the same as above)
     }
 
     @Override

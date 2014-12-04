@@ -10,7 +10,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import dataModel.Credentials;
-import java.util.ArrayList;
 import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 import pl.p.lodz.ftims.server.persistence.IProfilesPersistence;
@@ -23,6 +22,8 @@ public class UserProfileService implements IUserProfileService {
     
     @Autowired
     private IAuthenticationService authenticationService;
+    
+    private CollectionUtils collectionUtils = new CollectionUtils();
     
     @Override
     public void addUser(CreateUserRequest userData) {
@@ -57,12 +58,7 @@ public class UserProfileService implements IUserProfileService {
 
     @Override
     public List<User> getAllUsers() {
-        Iterable<User> users = profilesDAO.findAll();
-        List<User> usersList = new ArrayList<>();
-        for (User u : users) {
-            usersList.add(u);
-        }
-        return usersList;
+        return collectionUtils.iterableToList(profilesDAO.findAll());
     }
 
     @Override

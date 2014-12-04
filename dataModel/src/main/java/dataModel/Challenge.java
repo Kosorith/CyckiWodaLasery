@@ -1,6 +1,5 @@
 package dataModel;
 
-import java.awt.Image;
 import java.util.List;
 
 public class Challenge {

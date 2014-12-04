@@ -27,6 +27,8 @@ public class RankingService implements IRankingService {
 
     @Autowired
     private IProfilesPersistence profilesDAO;
+    
+    private CollectionUtils collectionUtils = new CollectionUtils();
 
     @Override
     public void addPointsToUser(int userId, int points) {
@@ -54,12 +56,7 @@ public class RankingService implements IRankingService {
 
     @Override
     public List<Ranking> getRanking() {
-        Iterable<Ranking> rankings = rankingDAO.findAll();
-        List<Ranking> rankingsList = new ArrayList<>();
-        for (Ranking r : rankings) {
-            rankingsList.add(r);
-        }
-        return rankingsList;
+        return collectionUtils.iterableToList(rankingDAO.findAll());
     }
 
     @Override

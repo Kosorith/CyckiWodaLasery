@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -25,26 +26,27 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "User.findByLoginPasswd", query = "SELECT u FROM User u where "
             + "u.login = :loginParam and u.password = :passwdParam")})
 public class User implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
+    @GeneratedValue
     @NotNull
     @Column(name = "id", nullable = false)
     private int id;
-    
+
     @NotNull
     @Column(name = "login", nullable = false, unique = true)
     private String login;
-    
+
     @NotNull
     @Column(name = "password", nullable = false)
     private String password;
-    
+
     @NotNull
     @Column(name = "nick", nullable = false)
     private String nick;
-    
+
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @NotNull
     @Column(name = "email", nullable = false)

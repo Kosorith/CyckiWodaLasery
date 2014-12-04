@@ -26,15 +26,8 @@ public class UserProfileService implements IUserProfileService {
     private CollectionUtils collectionUtils = new CollectionUtils();
     
     @Override
-    public void addUser(CreateUserRequest userData) {
-        Iterable<User> users = profilesDAO.findAll();
-        int maxId = 0;
-        for (User u : users) {
-            maxId = Math.max(maxId, u.getId());
-        }
-        
+    public void addUser(CreateUserRequest userData) {        
         User user = new User();
-        user.setId(maxId + 1);
         user.setLogin(userData.getLogin());
         user.setNick(userData.getNick());
         user.setPassword(userData.getPassword());

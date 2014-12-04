@@ -63,7 +63,7 @@ public class PersistenceTest {
     public void testInsert() {
         Random r = new Random(new Random().nextLong());
         User user = new User();
-        user.setId(r.nextInt());
+//        user.setId(r.nextInt());
         user.setLogin("cos" + r.nextInt());
         user.setPassword("pswd");
         user.setNick("n");

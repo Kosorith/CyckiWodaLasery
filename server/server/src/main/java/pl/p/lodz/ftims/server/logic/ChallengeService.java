@@ -25,9 +25,6 @@ public class ChallengeService implements IChallengeService {
     @Autowired
     private IAuthenticationService authenticationService;
 
-    @Autowired
-    private IRankingService rankingService;
-
     private CollectionUtils collectionUtils = new CollectionUtils();
 
     @Override

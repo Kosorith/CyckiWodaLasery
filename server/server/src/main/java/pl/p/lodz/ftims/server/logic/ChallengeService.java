@@ -7,20 +7,26 @@ package pl.p.lodz.ftims.server.logic;
 
 import dataModel.ChallengeRequest;
 import dataModel.Coordinates;
+import dataModel.KHint;
 import dataModel.Solution;
 import dataModel.SolutionSubmission;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.p.lodz.ftims.server.entities.Challenge;
+import pl.p.lodz.ftims.server.entities.Hint;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 import pl.p.lodz.ftims.server.persistence.IChallengesPersistence;
+import pl.p.lodz.ftims.server.persistence.IHintsPersistence;
 
 @Service
 public class ChallengeService implements IChallengeService {
 
     @Autowired
     private IChallengesPersistence challengesDAO;
+    
+    @Autowired
+    private IHintsPersistence hintsDAO;
 
     @Autowired
     private IAuthenticationService authenticationService;
@@ -32,14 +38,25 @@ public class ChallengeService implements IChallengeService {
     public void createChallenge(dataModel.Challenge challengeData) {
         Challenge challenge = new Challenge();
         challenge.setDescription(challengeData.getDescription());
-        // TODO : set Hints (need to insert all hints and not violate foreign keys)
-        challenge.setLocation(challengeData.getLocation().toString()); // coordinates added by me to dataModel.Challenge
+        challenge.setLocation(challengeData.getLocation().toString());
         challenge.setName(challengeData.getName());
-        // TODO : set Password (why there is no password in dataModel.Challenge class?)
-        // TODO : set Photo (need to decide on whether to store bytes or file names)
+        challenge.setPassword(challengeData.getPassword());
+        challenge.setPhoto(challengeData.getPhoto());
         challenge.setPoints(challengeData.getPoints());
-        // TODO : set SecretPassword (again, there is no secret password in dataModel.Challenge class)
-        // TODO : set Status (the same as above)
+        challenge.setSecretPassword(challengeData.getSecretPassword());
+        challenge.setStatus(challengeData.getStatus());
+        challenge = challengesDAO.save(challenge);
+
+        for (KHint khint : challengeData.getHints()) {
+            Hint hint = new Hint();
+            hint.setDistance(khint.getDistance());
+            hint.setPhoto(khint.getPhoto());
+            hint.setText(khint.getText());
+            hint.setChallenge(challenge);
+            challenge.addHint(hint);
+            
+            hintsDAO.save(hint);
+        }
     }
 
     @Override

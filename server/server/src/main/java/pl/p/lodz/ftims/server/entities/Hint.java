@@ -46,7 +46,7 @@ public class Hint implements Serializable {
     private int distance;
 
     @Column(name = "photo")
-    private String photo;
+    private byte[] photo;
     
     @JoinColumn(name = "challenge_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -79,11 +79,11 @@ public class Hint implements Serializable {
         this.distance = distance;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
@@ -101,7 +101,6 @@ public class Hint implements Serializable {
         hash = 89 * hash + this.id;
         hash = 89 * hash + Objects.hashCode(this.text);
         hash = 89 * hash + Objects.hashCode(this.distance);
-        hash = 89 * hash + Objects.hashCode(this.photo);
         hash = 89 * hash + Objects.hashCode(this.challenge);
         return hash;
     }
@@ -122,9 +121,6 @@ public class Hint implements Serializable {
             return false;
         }
         if (!Objects.equals(this.distance, other.distance)) {
-            return false;
-        }
-        if (!Objects.equals(this.photo, other.photo)) {
             return false;
         }
         return Objects.equals(this.challenge, other.challenge);

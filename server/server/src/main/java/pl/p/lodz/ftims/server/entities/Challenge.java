@@ -26,9 +26,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "challenges")
 public class Challenge implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
@@ -38,7 +38,7 @@ public class Challenge implements Serializable {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
-    
+
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -59,12 +59,12 @@ public class Challenge implements Serializable {
     private boolean status;
 
     @Column(name = "photo")
-    private String photo;
-    
+    private byte[] photo;
+
     @NotNull
     @Column(name = "points", nullable = false)
     private int points;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "challenge")
     private Collection<Hint> hints = new ArrayList<>();
 
@@ -127,11 +127,11 @@ public class Challenge implements Serializable {
         this.status = status;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
@@ -149,6 +149,10 @@ public class Challenge implements Serializable {
 
     public void setHints(Collection<Hint> hints) {
         this.hints = hints;
+    }
+
+    public void addHint(Hint hint) {
+        hints.add(hint);
     }
 
     @Override

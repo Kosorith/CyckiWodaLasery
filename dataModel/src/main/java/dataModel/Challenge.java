@@ -10,16 +10,12 @@ public class Challenge {
     private List<KHint> hints;
     private int points;
     private String name;
+    private String password;
+    private boolean status;
+    private String secretPassword;
     private Coordinates location;
 
-    public Challenge(int id, String desciption, byte[] photo, List<KHint> hints, int point, String name, Coordinates location) {
-        this.id = id;
-        this.description = desciption;
-        this.photo = photo;
-        this.hints = hints;
-        this.points = point;
-        this.name = name;
-        this.location = location;
+    public Challenge() {
     }
 
     public int getId() {
@@ -76,5 +72,29 @@ public class Challenge {
 
     public void setLocation(Coordinates location) {
         this.location = location;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getSecretPassword() {
+        return secretPassword;
+    }
+
+    public void setSecretPassword(String secretPassword) {
+        this.secretPassword = secretPassword;
     }
 }

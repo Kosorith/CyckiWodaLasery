@@ -1,17 +1,14 @@
 package dataModel;
 
 public class ChallengeEntry {
-
+    
+    private int id;
     private String name;
     private boolean publicAccess;
     private Coordinates location;
     private String description;
 
-    public ChallengeEntry(String name, boolean publicAccess, Coordinates location, String description) {
-        this.name = name;
-        this.publicAccess = publicAccess;
-        this.location = location;
-        this.description = description;
+    public ChallengeEntry() {
     }
 
     public String getName() {
@@ -44,5 +41,13 @@ public class ChallengeEntry {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

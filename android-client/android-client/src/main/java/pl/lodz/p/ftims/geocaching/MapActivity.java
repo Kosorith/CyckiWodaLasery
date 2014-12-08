@@ -1,5 +1,7 @@
 package pl.lodz.p.ftims.geocaching;
 
+import android.content.Context;
+import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -7,16 +9,23 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import pl.lodz.p.ftims.geocaching.logic.gps.LocationService;
+import pl.lodz.p.ftims.geocaching.logic.gps.LocationServiceImpl;
 
 public class MapActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private LocationService locationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         setUpMapIfNeeded();
+
+        // podaję tu przykład jak uzyskać serwisy, jakby były potrzebne gdzieś w widoku :)
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationService = LocationServiceImpl.getService(locationManager);
     }
 
     @Override

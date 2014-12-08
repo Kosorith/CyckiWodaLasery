@@ -13,17 +13,7 @@ public class LoginServiceImpl implements LoginService {
 
     private UserSession userSession;
 
-    private LoginServiceImpl() {
-    }
-
-    private static LoginServiceImpl serviceInstance;
-
-    public static LoginService getService() {
-        if (serviceInstance == null) {
-            serviceInstance = new LoginServiceImpl();
-        }
-
-        return serviceInstance;
+    public LoginServiceImpl() {
     }
 
     @Override

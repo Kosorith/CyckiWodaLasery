@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.location.LocationManager;
-import pl.lodz.p.ftims.geocaching.logic.challenges.ChallengesService;
-import pl.lodz.p.ftims.geocaching.logic.challenges.HintsService;
+import pl.lodz.p.ftims.geocaching.logic.challenges.*;
 import pl.lodz.p.ftims.geocaching.logic.gps.LocationService;
 import pl.lodz.p.ftims.geocaching.logic.gps.LocationServiceImpl;
 import pl.lodz.p.ftims.geocaching.logic.user.LoginService;
+import pl.lodz.p.ftims.geocaching.logic.user.LoginServiceImpl;
 import pl.lodz.p.ftims.geocaching.logic.user.ProfilesService;
+import pl.lodz.p.ftims.geocaching.logic.user.ProfilesServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,16 +26,18 @@ public class ServiceRegistryImpl implements ServiceRegistry {
     }
 
     public void initialize(Application application) {
-        registerService(ChallengesService.class, null);
+        registerService(ChallengeCreationService.class, new ChallengeCreationServiceImpl());
 
-        registerService(HintsService.class, null);
+        registerService(ChallengesService.class, new ChallengesServiceImpl());
+
+        registerService(HintsService.class, new HintsServiceImpl());
 
         LocationManager locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
         registerService(LocationService.class, new LocationServiceImpl(locationManager));
 
-        registerService(LoginService.class, null);
+        registerService(LoginService.class, new LoginServiceImpl());
 
-        registerService(ProfilesService.class, null);
+        registerService(ProfilesService.class, new ProfilesServiceImpl());
     }
 
     @Override

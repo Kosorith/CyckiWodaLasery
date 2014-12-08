@@ -1,17 +1,29 @@
 package dataModel;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Klasa DTO zawierająca dane potrzebne do utworzenia profilu. 
  * @author Piotr Grzelak
  */
+
+@XmlRootElement(name = "CreateUserRequest")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CreateUserRequest {
 
+    @XmlElement(name = "login")
     private String login = "";
 
+    @XmlElement(name = "password")
     private String password = "";
 
+    @XmlElement(name = "nick")
     private String nick = "";
 
+    @XmlElement(name = "email")
     private String email = "";
 
     public String getLogin() {

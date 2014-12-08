@@ -10,7 +10,9 @@ public interface LoginService {
 
     UserSession getCurrentSession();
 
-    boolean login(Credentials credentials);
+    boolean login(Credentials credentials, boolean remember);
+
+    Credentials getRememberedCredentials();
 
     boolean register(Credentials credentials);
 

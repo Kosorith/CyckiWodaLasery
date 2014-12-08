@@ -3,6 +3,7 @@
     package="pl.lodz.p.ftims.geocaching" >
 
     <application
+        android:name="pl.lodz.p.ftims.geocaching.logic.inject.InjectingApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"

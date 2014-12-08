@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dataModel.ChallengeListReply;
 import dataModel.ChallengeListRequest;
+import dataModel.ChangePasswordRequest;
 import dataModel.CreateUserRequest;
 import dataModel.Credentials;
 import dataModel.LoginRequest;
 import dataModel.ChallengeRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import pl.p.lodz.ftims.server.controllerDataModel.ChangePasswordRequest;
+
 import pl.p.lodz.ftims.server.entities.Challenge;
 import pl.p.lodz.ftims.server.entities.Ranking;
 import pl.p.lodz.ftims.server.entities.User;
@@ -47,10 +47,25 @@ public class RESTController {
 </ChallengeRequest>
 */
 	
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value="/test", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<ChallengeRequest> temp(@RequestBody ChallengeRequest challengeRequest){
 		challengeRequest.setChallengeId(5);
 		return new ResponseEntity<ChallengeRequest>(challengeRequest, HttpStatus.OK);		
+	}
+	
+/*	<LoginRequest>
+	<credentials>
+<login>a</login>
+<password>b</password>
+
+       </credentials>
+</LoginRequest>*/
+	
+	@RequestMapping(value = "/test2", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<LoginRequest> temp2(@RequestBody LoginRequest lr){
+		System.out.println(lr.getCredentials());
+		lr.getCredentials().setLogin("dsadasdasd");
+		return new ResponseEntity<LoginRequest>(lr, HttpStatus.OK);		
 	}
 	
 	/**

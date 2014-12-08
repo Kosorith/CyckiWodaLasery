@@ -6,6 +6,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import pl.lodz.p.ftims.geocaching.model.GeoCoords;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,17 +15,10 @@ import java.util.List;
 public class LocationServiceImpl implements LocationService, LocationListener {
 
     private LocationManager locationManager;
-    private List<LocationObserver> locationObservers;
+    private List<LocationObserver> locationObservers = new ArrayList<LocationObserver>();
 
-    private LocationServiceImpl() {
-    }
-
-    public static LocationService getService(LocationManager locationManager) {
-        LocationServiceImpl locationService = new LocationServiceImpl();
-
-        locationService.locationManager = locationManager;
-
-        return locationService;
+    public LocationServiceImpl(LocationManager locationManager) {
+        this.locationManager = locationManager;
     }
 
     @Override

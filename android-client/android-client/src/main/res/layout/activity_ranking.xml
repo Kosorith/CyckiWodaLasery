@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/tlo_pierwotne"
+    tools:context="pl.lodz.p.ftims.geocaching.Ranking">
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TableLayout
+            android:id="@+id/profileTableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:textSize="15dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="RANKING"
+                    android:id="@+id/textView1"
+                    android:textColor="#ff00f7ff" />
+
+                <TextView
+                    android:textSize="15dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="NICK"
+                    android:id="@+id/textView11"
+                    android:textColor="#ff00f7ff"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:textSize="15dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="PUNKTY"
+                    android:id="@+id/textView12"
+                    android:textColor="#ff00f7ff"
+                    android:layout_column="2" />
+
+                <TextView
+                    android:textSize="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="UK. WYZW."
+                    android:id="@+id/textView12"
+                    android:textColor="#ff00f7ff"
+                    android:layout_column="2" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:textSize="15dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="175"
+                    android:id="@+id/textView1"
+                    android:textColor="#ff00f7ff" />
+
+                <TextView
+                    android:textSize="15dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Mustafarius79"
+                    android:id="@+id/textView11"
+                    android:textColor="#ff00f7ff"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:textSize="15dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="10674"
+                    android:id="@+id/textView12"
+                    android:textColor="#ff00f7ff"
+                    android:layout_column="2" />
+
+                <TextView
+                    android:textSize="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="78"
+                    android:id="@+id/textView12"
+                    android:textColor="#ff00f7ff"
+                    android:layout_column="2" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/rozNoweWyz"
+        android:title="rozpocznij nowe wyzwanie"/>
+
+    <item
+        android:id="@+id/listaAktWyz"
+        android:title="lista aktualnych wyzwań"/>
+
+    <item
+        android:id="@+id/infoOWsk"
+        android:title="informacje o wskazówce"/>
+
+    <item
+        android:id="@+id/trybWsk"
+        android:title="tryb wskazywania"/>
+
+
+</menu>

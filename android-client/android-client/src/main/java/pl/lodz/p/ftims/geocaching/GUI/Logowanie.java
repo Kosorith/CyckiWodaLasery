@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
-import pl.lodz.p.ftims.geocaching.Profil;
+import pl.lodz.p.ftims.geocaching.R;
 
 
 public class Logowanie extends Activity {

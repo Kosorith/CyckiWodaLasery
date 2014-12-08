@@ -13,10 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
-import pl.lodz.p.ftims.geocaching.Mapy;
-import pl.lodz.p.ftims.geocaching.Profil;
-import pl.lodz.p.ftims.geocaching.Ranking;
+import pl.lodz.p.ftims.geocaching.R;
 
 
 public class Edycja_wskazowki extends Activity {

@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import pl.lodz.p.ftims.geocaching.R;
 
 
 public class Dodaj_wskazowke_2 extends Activity {
@@ -22,7 +22,7 @@ public class Dodaj_wskazowke_2 extends Activity {
     }
 
     public void Cofnij_W2(View v){
-        Button Wstecz = (Button) findViewById(R.id.id.Wstecz);
+        Button Wstecz = (Button) findViewById(R.id.Wstecz);
         Wstecz.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -113,18 +113,18 @@ public class Dodaj_wskazowke_2 extends Activity {
                 break;
 
             case R.id.ekran_Profil:
-                intent = new Intent(Dodaj_wskazowke_2.this, pl.lodz.p.ftims.geocaching.Profil.class);
+                intent = new Intent(Dodaj_wskazowke_2.this, pl.lodz.p.ftims.geocaching.GUI.Profil.class);
                 startActivityForResult(intent,0);
                 break;
 
             case R.id.ekran_Ranking:
-                intent = new Intent(Dodaj_wskazowke_2.this, pl.lodz.p.ftims.geocaching.Ranking.class);
+                intent = new Intent(Dodaj_wskazowke_2.this, pl.lodz.p.ftims.geocaching.GUI.Ranking.class);
                 startActivityForResult(intent,0);
                 break;
 
             case R.id.ekran_Mapa:
                 Intent intent3;
-                intent3 = new Intent(Dodaj_wskazowke_2.this, pl.lodz.p.ftims.geocaching.Mapy.class);
+                intent3 = new Intent(Dodaj_wskazowke_2.this, pl.lodz.p.ftims.geocaching.GUI.Mapy.class);
                 startActivityForResult(intent3,0);
                 break;
 

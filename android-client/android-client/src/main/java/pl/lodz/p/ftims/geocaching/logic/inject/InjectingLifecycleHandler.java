@@ -42,7 +42,6 @@ public class InjectingLifecycleHandler implements Application.ActivityLifecycleC
         }
     }
 
-
     @Override
     public void onActivityStarted(Activity activity) {
     }

@@ -7,20 +7,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.test.suitebuilder.annotation.MediumTest;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import pl.lodz.p.ftims.geocaching.Mapy;
-import pl.lodz.p.ftims.geocaching.Profil;
-import pl.lodz.p.ftims.geocaching.Ranking;
+import android.widget.*;
+import pl.lodz.p.ftims.geocaching.R;
 
 
 public class Dodaj_wskazowke_1 extends Activity {

@@ -1,10 +1,10 @@
 package pl.lodz.p.ftims.geocaching.GUI;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import pl.lodz.p.ftims.geocaching.R;
 
 
 public class informacje_o_wskazowce extends Activity {

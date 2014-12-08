@@ -19,11 +19,11 @@ public class Credentials {
     }
 
     public Credentials(String login) {
-		super();
-		this.login = login;
-	}
+        super();
+        this.login = login;
+    }
 
-	public void setLogin(String login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 

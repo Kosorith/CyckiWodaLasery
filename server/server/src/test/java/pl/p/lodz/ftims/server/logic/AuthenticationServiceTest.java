@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import pl.p.lodz.ftims.server.entities.Administrator;
 import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 
@@ -23,30 +22,34 @@ import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 @ContextConfiguration(locations = "/spring-test.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AuthenticationServiceTest {
-    
+
     @Autowired
     private IAuthenticationService authenticationService;
-    
+
     public AuthenticationServiceTest() {
     }
 
     @Test
     public void testAuthenticateUserOk() throws Exception {
-        User user = authenticationService.authenticateUser(new Credentials("test1", "test1"));
+        Credentials cred = new Credentials("test1");
+        cred.setPassword("test1");
+        User user = authenticationService.authenticateUser(cred);
         assertNotNull(user);
     }
-    
+
     @Test(expected = UserAuthenticationFailedException.class)
     public void testAuthenticateUserException() throws Exception {
-        User user = authenticationService.authenticateUser(new Credentials("niema", "niema"));
+        Credentials cred = new Credentials("niema");
+        cred.setPassword("niema");
+        User user = authenticationService.authenticateUser(cred);
     }
-    
+
     @Test
     public void testAuthenticateAdminOk() throws Exception {
         boolean ok = authenticationService.authenticateAdministrator("admin", "admin");
         assertEquals(true, ok);
     }
-    
+
     @Test
     public void testAuthenticateAdminWrong() throws Exception {
         boolean ok = authenticationService.authenticateAdministrator("niema", "admin");

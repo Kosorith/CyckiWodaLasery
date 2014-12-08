@@ -97,7 +97,8 @@ public class ChallengeServiceTest {
 
     @Test
     public void testDoCompleteChallengeSolutionOk() throws Exception {
-        Credentials cred = new Credentials("test1", "test1");
+        Credentials cred = new Credentials("test1");
+        cred.setPassword("test1");
         Solution sol = new Solution(10, "qwe");
         SolutionSubmission solutionSub = new SolutionSubmission(cred, sol);
         boolean solved = challengeService.doCompleteChallenge(solutionSub);
@@ -106,7 +107,8 @@ public class ChallengeServiceTest {
     
     @Test
     public void testDoCompleteChallengeSolutionWrong() throws Exception {
-        Credentials cred = new Credentials("test1", "test1");
+        Credentials cred = new Credentials("test1");
+        cred.setPassword("test1");
         Solution sol = new Solution(10, "zlehaslo");
         SolutionSubmission solutionSub = new SolutionSubmission(cred, sol);
         boolean solved = challengeService.doCompleteChallenge(solutionSub);
@@ -118,7 +120,8 @@ public class ChallengeServiceTest {
      */
     @Test(expected = UserAuthenticationFailedException.class)
     public void testDoCompleteChallengeAuthenticationFailed() throws Exception {
-        Credentials cred = new Credentials("niema", "niema");
+        Credentials cred = new Credentials("niema");
+        cred.setPassword("niema");
         Solution sol = new Solution(10, "secret");
         SolutionSubmission solutionSub = new SolutionSubmission(cred, sol);
         challengeService.doCompleteChallenge(solutionSub);

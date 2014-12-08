@@ -35,7 +35,8 @@ public class RankingServiceTest {
     
     @Test
     public void testGetUserPosition() throws Exception {
-        Credentials cred = new Credentials("test3", "test3");
+        Credentials cred = new Credentials("test3");
+        cred.setPassword("test3");
         int pos = rankingService.getUserPosition(cred);
         assertEquals(1, pos);
         
@@ -47,7 +48,8 @@ public class RankingServiceTest {
     
     @Test
     public void getUserRanking() throws Exception {
-        Credentials cred = new Credentials("test1", "test1");
+        Credentials cred = new Credentials("test1");
+        cred.setPassword("test1");
         Ranking rank = rankingService.getUserRanking(cred);
         assertNotNull(rank);
         assertNotNull(rank.getUser());

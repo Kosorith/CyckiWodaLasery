@@ -48,26 +48,30 @@ public class UserProfileServiceTest {
     
     @Test
     public void testChangePassword() throws Exception {
-        Credentials cred = new Credentials("test2", "test2");
+        Credentials cred = new Credentials("test2");
+        cred.setPassword("test2");
         userProfileService.changePassword(cred, "nowehaslo");
     }
     
     @Test(expected = UserAuthenticationFailedException.class)
     public void testChangePasswordFailed() throws Exception {
-        Credentials cred = new Credentials("test12456", "test2");
+        Credentials cred = new Credentials("test12456");
+        cred.setPassword("test2");
         userProfileService.changePassword(cred, "nowehaslo");
         
     }
     
     @Test
     public void deleteByCredentialsOk() throws Exception {
-        Credentials cred = new Credentials("test5", "test5");
+        Credentials cred = new Credentials("test5");
+        cred.setPassword("test5");
         userProfileService.deleteUser(cred);
     }
     
     @Test(expected = UserAuthenticationFailedException.class)
     public void deleteByCredentialsFailed() throws Exception {
-        Credentials cred = new Credentials("test234321344", "test214245");
+        Credentials cred = new Credentials("test234321344");
+        cred.setPassword("test214245");
         userProfileService.deleteUser(cred);
     }
     

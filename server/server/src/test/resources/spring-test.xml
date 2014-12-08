@@ -45,7 +45,7 @@
         <property name="url" value="jdbc:postgresql://178.62.8.246:5432/io" />
         <property name="username" value="io" />
         <property name="password" value="iotosuper" />
-<!--        <property name="url" value="jdbc:postgresql://localhost/postgres" />
+<!--        <property name="url" value="jdbc:postgresql://localhost:5432/postgres" />
         <property name="username" value="postgres" />
         <property name="password" value="123qweasd" />-->
     </bean>

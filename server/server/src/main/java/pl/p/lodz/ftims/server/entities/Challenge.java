@@ -33,7 +33,7 @@ public class Challenge implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private int id;
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -71,11 +71,11 @@ public class Challenge implements Serializable {
     public Challenge() {
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

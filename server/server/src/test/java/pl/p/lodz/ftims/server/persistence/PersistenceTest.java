@@ -29,15 +29,18 @@ public class PersistenceTest {
 
     @Autowired
     IProfilesPersistence profPers;
+  
+    @Autowired
+    IAdminPersistence admPers;
     
     @Autowired
-    AdminRepository repo;
+    IRankingPersistence rankPers;
     
     @Autowired
     IChallengesPersistence challPer;
     
+    
     @Test
-    //@Sql(scripts = "/test.sql")
     public void testFindAll() {
         Iterable<User> all = profPers.findAll();
         assertNotNull(all);
@@ -50,11 +53,11 @@ public class PersistenceTest {
     @Test
     public void testFindByLoginAndPassword() {
         User user = profPers.findByLoginAndPassword("test1", "test1");
-//        assertNotNull(user);
-//        assertEquals(user.getLogin(), "test1");
-//        assertEquals(user.getPassword(), "test1");
-//        assertEquals(user.getNick(), "test1");
-//        assertEquals(user.getEmail(), "test1");
+        assertNotNull(user);
+        assertEquals(user.getLogin(), "test1");
+        assertEquals(user.getPassword(), "test1");
+        assertEquals(user.getNick(), "test1");
+        assertEquals(user.getEmail(), "test1");
     }
     
     @Test
@@ -79,5 +82,6 @@ public class PersistenceTest {
     public void testFindChallengesByCoords() {
         List<Challenge> challenges = challPer.findByLocation("10 10");
         assertNotNull(challenges);
+        assertFalse(challenges.isEmpty());
     }
 }

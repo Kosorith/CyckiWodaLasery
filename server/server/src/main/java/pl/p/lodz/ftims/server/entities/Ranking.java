@@ -7,6 +7,7 @@ package pl.p.lodz.ftims.server.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,10 +46,15 @@ public class Ranking implements Serializable, Comparable<Ranking> {
     @Column(name = "completed_challenges_num", nullable = false)
     private int completedChallengesNum;
     
-    @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true)
-    @OneToOne(optional = false)
+    //@JoinColumn(name = "user_id", referencedColumnName = "id", unique = true)
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
+    public Ranking() {
+        points = 0;
+        completedChallengesNum = 0;
+    }
+    
     public int getId() {
         return id;
     }

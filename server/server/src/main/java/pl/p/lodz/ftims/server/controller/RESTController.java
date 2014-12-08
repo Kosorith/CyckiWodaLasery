@@ -16,6 +16,7 @@ import dataModel.CreateUserRequest;
 import dataModel.Credentials;
 import dataModel.LoginRequest;
 import dataModel.ChallengeRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import pl.p.lodz.ftims.server.controllerDataModel.ChangePasswordRequest;
 import pl.p.lodz.ftims.server.entities.Challenge;
 import pl.p.lodz.ftims.server.entities.Ranking;

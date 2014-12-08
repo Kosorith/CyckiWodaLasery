@@ -11,8 +11,11 @@ import dataModel.KHint;
 import dataModel.Solution;
 import dataModel.SolutionSubmission;
 import java.util.List;
+import javax.naming.AuthenticationException;
+import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.p.lodz.ftims.server.entities.Challenge;
 import pl.p.lodz.ftims.server.entities.Hint;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
@@ -20,6 +23,7 @@ import pl.p.lodz.ftims.server.persistence.IChallengesPersistence;
 import pl.p.lodz.ftims.server.persistence.IHintsPersistence;
 
 @Service
+@Transactional(rollbackFor = AuthenticationException.class, readOnly = true)
 public class ChallengeService implements IChallengeService {
 
     @Autowired
@@ -31,10 +35,8 @@ public class ChallengeService implements IChallengeService {
     @Autowired
     private IAuthenticationService authenticationService;
 
-    @Autowired
-    private CollectionUtils collectionUtils;
-
     @Override
+    @Transactional(readOnly = false)
     public void createChallenge(dataModel.Challenge challengeData) {
         Challenge challenge = new Challenge();
         challenge.setDescription(challengeData.getDescription());
@@ -61,7 +63,7 @@ public class ChallengeService implements IChallengeService {
 
     @Override
     public List<Challenge> getChallenges(Coordinates coords) {
-        List<Challenge> challenges = collectionUtils.iterableToList(challengesDAO.findAll());
+        List<Challenge> challenges = IteratorUtils.toList(challengesDAO.findAll().iterator());
         challenges.sort((Challenge o1, Challenge o2) -> {
             double distance1 = new Coordinates(o1.getLocation()).computeDistance(coords);
             double distance2 = new Coordinates(o2.getLocation()).computeDistance(coords);
@@ -76,6 +78,7 @@ public class ChallengeService implements IChallengeService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public boolean doCompleteChallenge(SolutionSubmission submission) throws UserAuthenticationFailedException {
         authenticationService.authenticateUser(submission.getCredentials());
         Solution solution = submission.getSolution();
@@ -83,10 +86,12 @@ public class ChallengeService implements IChallengeService {
         if (challenge == null) {
             return false;
         }
+
         return challenge.getSecretPassword().equals(solution.getSecretPassword());
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void verifyChallenge(int challengeId, int points, boolean accepted) {
         Challenge challenge = challengesDAO.findOne(challengeId);
         challenge.setPoints(points);
@@ -100,12 +105,13 @@ public class ChallengeService implements IChallengeService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void deleteChallenge(int challengeId) {
         challengesDAO.delete(challengeId);
     }
 
     @Override
     public List<Challenge> getAllChallenges() {
-        return collectionUtils.iterableToList(challengesDAO.findAll());
+        return IteratorUtils.toList(challengesDAO.findAll().iterator());
     }
 }

@@ -12,7 +12,7 @@ import pl.p.lodz.ftims.server.entities.Administrator;
  *
  * @author Piotr Grzelak
  */
-public interface AdminRepository extends CrudRepository<Administrator, Integer> {
+public interface IAdminPersistence extends CrudRepository<Administrator, Integer> {
     
     /**
      * 

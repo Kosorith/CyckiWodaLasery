@@ -13,24 +13,27 @@ import dataModel.Credentials;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.AuthenticationException;
+import org.apache.commons.collections.IteratorUtils;
+import org.springframework.transaction.annotation.Transactional;
+import pl.p.lodz.ftims.server.entities.Ranking;
 import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 import pl.p.lodz.ftims.server.persistence.IProfilesPersistence;
+import pl.p.lodz.ftims.server.persistence.IRankingPersistence;
 
 @Service
+@Transactional(rollbackFor = AuthenticationException.class)
 public class UserProfileService implements IUserProfileService {
 
     @Autowired
     private IProfilesPersistence profilesDAO;
+    
+    @Autowired
+    private IRankingPersistence rankingsDAO;
 
     @Autowired
     private IAuthenticationService authenticationService;
-    
-    @Autowired
-    private CollectionUtils collectionUtils;
-    
-    @Autowired
-    private AuthenticationUtils authenticationUtils;
 
     private static final Logger logger = Logger.getLogger(UserProfileService.class.getName());
     
@@ -39,14 +42,15 @@ public class UserProfileService implements IUserProfileService {
         User user = new User();
         user.setLogin(userData.getLogin());
         user.setNick(userData.getNick());
-        try {
-            user.setPassword(authenticationUtils.generateDigest(userData.getPassword()));
-        } catch (NoSuchAlgorithmException ex) {
-            logger.log(Level.SEVERE, null, ex);
-        }
+        user.setPassword(userData.getPassword());
         user.setEmail(userData.getEmail());
 
+        Ranking ranking = new Ranking();
+        ranking.setUser(user);
+        user.setRanking(ranking);
+        
         profilesDAO.save(user);
+        rankingsDAO.save(ranking);
     }
 
     @Override
@@ -57,23 +61,22 @@ public class UserProfileService implements IUserProfileService {
     @Override
     public void changePassword(Credentials userCredentials, String newPasswd)
             throws UserAuthenticationFailedException {
-        try {
-            User user = authenticationService.authenticateUser(userCredentials);
-            user.setPassword(authenticationUtils.generateDigest(newPasswd));
-            profilesDAO.save(user);
-        } catch (NoSuchAlgorithmException ex) {
-            logger.log(Level.SEVERE, null, ex);
-        }
+        User user = authenticationService.authenticateUser(userCredentials);
+        user.setPassword(newPasswd);
+        profilesDAO.save(user);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
-        return collectionUtils.iterableToList(profilesDAO.findAll());
+        return IteratorUtils.toList(profilesDAO.findAll().iterator());
     }
 
     @Override
     public void deleteUser(Credentials credentials) throws UserAuthenticationFailedException {
         User user = authenticationService.authenticateUser(credentials);
+        //Ranking ranking = rankingsDAO.findByUser(user);
+        //rankingsDAO.delete(ranking);
         profilesDAO.delete(user.getId());
     }
 }

@@ -6,48 +6,38 @@
 package pl.p.lodz.ftims.server.logic;
 
 import dataModel.Credentials;
-import java.security.NoSuchAlgorithmException;
+import javax.naming.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.p.lodz.ftims.server.entities.Administrator;
 import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
-import pl.p.lodz.ftims.server.persistence.AdminRepository;
+import pl.p.lodz.ftims.server.persistence.IAdminPersistence;
 import pl.p.lodz.ftims.server.persistence.IProfilesPersistence;
 
 @Service
+@Transactional(rollbackFor = AuthenticationException.class, readOnly = true)
 public class AuthenticationService implements IAuthenticationService {
 
     @Autowired
     private IProfilesPersistence profilesDAO;
 
     @Autowired
-    private AdminRepository adminDAO;
-    
-    @Autowired
-    private AuthenticationUtils authenticationUtils;
+    private IAdminPersistence adminDAO;
 
     @Override
     public User authenticateUser(Credentials credentials) throws UserAuthenticationFailedException {
-        try {
-            String passwordDigest = authenticationUtils.generateDigest(credentials.getPassword());
-            User user = profilesDAO.findByLoginAndPassword(credentials.getLogin(), passwordDigest);
-            if (user == null) {
-                throw new UserAuthenticationFailedException();
-            }
-            return user;
-        } catch (NoSuchAlgorithmException ex) {
+        User user = profilesDAO.findByLoginAndPassword(credentials.getLogin(), credentials.getPassword());
+        if (user == null) {
             throw new UserAuthenticationFailedException();
         }
+        return user;
     }
 
     @Override
     public boolean authenticateAdministrator(String login, String password) {
-        try {
-            Administrator administrator = adminDAO.findByLoginAndPassword(login, authenticationUtils.generateDigest(password));
-            return administrator != null;
-        } catch (NoSuchAlgorithmException ex) {
-            return false;
-        }
+        Administrator administrator = adminDAO.findByLoginAndPassword(login, password);
+        return administrator != null;
     }
 }

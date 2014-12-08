@@ -7,13 +7,16 @@ package pl.p.lodz.ftims.server.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -48,10 +51,12 @@ public class User implements Serializable {
     @Column(name = "nick", nullable = false)
     private String nick;
 
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @NotNull
     @Column(name = "email", nullable = false)
     private String email;
+    
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Ranking ranking;
 
     public int getId() {
         return id;
@@ -93,6 +98,14 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public Ranking getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(Ranking ranking) {
+        this.ranking = ranking;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

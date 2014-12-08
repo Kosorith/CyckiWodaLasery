@@ -1,0 +1,44 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="pl.lodz.p.ftims.geocaching.GUI.Mapa">
+
+    <!-- Profil -->
+        <item
+            android:id="@+id/ekran_Profil"
+            android:title="@string/ekran_Profil"
+            android:orderInCategory="100" />
+
+    <!-- Ranking -->
+    <item
+        android:id="@+id/ekran_Ranking"
+        android:title="@string/ekran_Ranking"
+        android:orderInCategory="101" />
+
+    <!-- Mapa -->
+    <!--
+    <item
+        android:id="@+id/ekran_Mapa"
+        android:title="@string/ekran_Mapa"
+        android:orderInCategory="102" />
+    -->
+
+    <!-- Stwórz wyzwanie -->
+    <item
+        android:id="@+id/ekran_Stworz_wyzwanie"
+        android:title="@string/ekran_Stworz_wyzwanie"
+        android:orderInCategory="103" />
+
+
+
+    <!-- Settings -->
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="104" />
+    <!-- Exit -->
+    <item
+        android:id="@+id/action_exit"
+        android:title="@string/action_exit"
+        android:orderInCategory="105" />
+
+</menu>

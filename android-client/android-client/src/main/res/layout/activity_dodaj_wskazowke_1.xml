@@ -1,0 +1,125 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="pl.lodz.p.ftims.geocaching.GUI.Dodaj_wskazowke_1">
+
+    <Button
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="@string/DNW_Przycisk"
+        android:id="@+id/Dalej"
+        android:layout_x="167dp"
+        android:layout_y="431dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="146dp"
+        android:layout_x="6dp"
+        android:layout_y="110dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="128dp"
+            android:layout_height="36dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/DNW_Opis_Wyzwania"
+            android:id="@+id/Opis_text"
+            android:layout_weight="1.11" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/Opis" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="288dp"
+        android:layout_height="138dp"
+        android:layout_x="6dp"
+        android:layout_y="5dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="319dp"
+            android:layout_height="30dp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/DNW_Nazwa_Dodawanego_Wyzwania"
+                android:id="@+id/Nazwa_text" />
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/Nazwa"
+                android:inputType="text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/DNW_Hasło_Do_Prywatnego_Wyzwania"
+                android:id="@+id/Hasło_text"
+                android:visibility="invisible" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Hasło"
+                android:inputType="text"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DNW_Hasło_Do_Prywatnego_Wyzwania"
+            android:id="@+id/Rodzaj_wyzwania"
+            android:layout_x="75dp"
+            android:layout_y="137dp"
+            android:checked="false"
+            android:onClick="Czy_Pryw"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="51dp"
+        android:layout_height="62dp"
+        android:id="@+id/ZdjecieZAparatu"
+        android:onClick="ZdjecieKamera"
+        android:layout_x="-6dp"
+        android:layout_y="414dp" />
+
+    <ImageButton
+        android:layout_width="51dp"
+        android:layout_height="62dp"
+        android:id="@+id/ZdjecieZPamieci"
+        android:onClick="ZdjeciePamiec"
+        android:layout_x="73dp"
+        android:layout_y="416dp" />
+
+    <ImageView
+        android:layout_width="168dp"
+        android:layout_height="168dp"
+        android:id="@+id/Zdjecie"
+        android:layout_x="4dp"
+        android:layout_y="266dp" />
+
+</AbsoluteLayout>

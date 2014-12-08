@@ -35,7 +35,7 @@ public class ServiceRegistryImpl implements ServiceRegistry {
         LocationManager locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
         registerService(LocationService.class, new LocationServiceImpl(locationManager));
 
-        registerService(LoginService.class, new LoginServiceImpl());
+        registerService(LoginService.class, new LoginServiceImpl(application));
 
         registerService(ProfilesService.class, new ProfilesServiceImpl());
     }

@@ -1,5 +1,7 @@
 package pl.lodz.p.ftims.geocaching.logic.user;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import pl.lodz.p.ftims.geocaching.logic.dao.IChallengeAccess;
 import pl.lodz.p.ftims.geocaching.model.Credentials;
 import pl.lodz.p.ftims.geocaching.model.UserSession;
@@ -9,11 +11,17 @@ import pl.lodz.p.ftims.geocaching.model.UserSession;
  */
 public class LoginServiceImpl implements LoginService {
 
-    private IChallengeAccess challengeAccess; // TODO: Utworzyć jak się pojawi taka możliwość
+    private static final String PREFS_REMEMBERED_CREDENTIALS = "PREFS_REMEMBERED_CREDENTIALS";
+    private static final String PREFS_KEY_LOGIN = "PREFS_KEY_LOGIN";
+    private static final String PREFS_KEY_PASSWORD = "PREFS_KEY_PASSWORD";
+
+    private IChallengeAccess challengeAccess; // TODO: Zapewne przyda się to jak już zaistnieje
+    private Context context;
 
     private UserSession userSession;
 
-    public LoginServiceImpl() {
+    public LoginServiceImpl(Context context) {
+        this.context = context;
     }
 
     @Override
@@ -22,8 +30,32 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public boolean login(Credentials credentials) {
+    public boolean login(Credentials credentials, boolean remember) {
+        if (remember) {
+            storeCredentials(credentials);
+        }
+
         return false;
+    }
+
+    @Override
+    public Credentials getRememberedCredentials() {
+        SharedPreferences credentialPrefs = context.getSharedPreferences(PREFS_REMEMBERED_CREDENTIALS, Context.MODE_PRIVATE);
+
+        String login = credentialPrefs.getString(PREFS_KEY_LOGIN, "");
+        String password = credentialPrefs.getString(PREFS_KEY_PASSWORD, ""); // TODO: To też? Chyba nie, nie? :o
+
+        return new Credentials(login, password);
+    }
+
+    private void storeCredentials(Credentials credentials) {
+        SharedPreferences credentialPrefs = context.getSharedPreferences(PREFS_REMEMBERED_CREDENTIALS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = credentialPrefs.edit();
+
+        prefsEditor.putString(PREFS_KEY_LOGIN, credentials.getLogin());
+        prefsEditor.putString(PREFS_KEY_PASSWORD, credentials.getPassword());
+
+        prefsEditor.commit();
     }
 
     @Override
@@ -38,6 +70,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean preverifyCredentials(Credentials credentials) {
-        return false;
+        return true;
     }
 }

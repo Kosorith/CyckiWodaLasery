@@ -5,22 +5,25 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="Credentials")
+@XmlRootElement(name = "Credentials")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Credentials {
 
-	@XmlElement(name = "login")
+    @XmlElement(name = "login")
     private String login;
-	
-	@XmlElement(name = "password")
+
+    @XmlElement(name = "password")
     private String password;
 
-    public Credentials(String login, String password) {
-        this.login = login;
-        this.password = password;
+    public Credentials() {
     }
 
-    public void setLogin(String login) {
+    public Credentials(String login) {
+		super();
+		this.login = login;
+	}
+
+	public void setLogin(String login) {
         this.login = login;
     }
 

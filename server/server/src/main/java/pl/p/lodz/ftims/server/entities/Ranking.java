@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -25,11 +27,12 @@ import javax.validation.constraints.NotNull;
 @Table(name = "ranking")
 @NamedQueries({
     @NamedQuery(name = "Ranking.findAll", query = "SELECT r FROM Ranking r")})
-public class Ranking implements Serializable {
+public class Ranking implements Serializable, Comparable<Ranking> {
     
     private static final long serialVersionUID = 1L;
     
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "id", nullable = false)
     private int id;
@@ -42,7 +45,7 @@ public class Ranking implements Serializable {
     @Column(name = "completed_challenges_num", nullable = false)
     private int completedChallengesNum;
     
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true)
     @OneToOne(optional = false)
     private User user;
 
@@ -107,5 +110,14 @@ public class Ranking implements Serializable {
             return false;
         }
         return Objects.equals(this.user, other.user);
+    }
+
+    @Override
+    public int compareTo(Ranking r) {
+        if (points == r.getPoints()) {
+            return completedChallengesNum - r.getCompletedChallengesNum();
+        } else {
+            return points - r.getPoints();
+        }
     }
 }

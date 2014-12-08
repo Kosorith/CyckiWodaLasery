@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,6 +32,7 @@ public class Hint implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "id", nullable = false)
     private int id;
@@ -42,8 +45,8 @@ public class Hint implements Serializable {
     @Column(name = "distance", nullable = false)
     private int distance;
 
-    @Column(name = "photo", nullable = false)
-    private String photo;
+    @Column(name = "photo")
+    private byte[] photo;
     
     @JoinColumn(name = "challenge_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -76,11 +79,11 @@ public class Hint implements Serializable {
         this.distance = distance;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
@@ -98,7 +101,6 @@ public class Hint implements Serializable {
         hash = 89 * hash + this.id;
         hash = 89 * hash + Objects.hashCode(this.text);
         hash = 89 * hash + Objects.hashCode(this.distance);
-        hash = 89 * hash + Objects.hashCode(this.photo);
         hash = 89 * hash + Objects.hashCode(this.challenge);
         return hash;
     }
@@ -119,9 +121,6 @@ public class Hint implements Serializable {
             return false;
         }
         if (!Objects.equals(this.distance, other.distance)) {
-            return false;
-        }
-        if (!Objects.equals(this.photo, other.photo)) {
             return false;
         }
         return Objects.equals(this.challenge, other.challenge);

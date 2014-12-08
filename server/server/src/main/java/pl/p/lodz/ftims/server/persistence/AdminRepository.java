@@ -5,7 +5,6 @@
  */
 package pl.p.lodz.ftims.server.persistence;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import pl.p.lodz.ftims.server.entities.Administrator;
 
@@ -15,5 +14,11 @@ import pl.p.lodz.ftims.server.entities.Administrator;
  */
 public interface AdminRepository extends CrudRepository<Administrator, Integer> {
     
+    /**
+     * 
+     * @param login
+     * @param password
+     * @return 
+     */
     Administrator findByLoginAndPassword(String login, String password);
 }

@@ -14,18 +14,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Wojciech Szałapski
  */
-
-@XmlRootElement(name="Coordinates")
+@XmlRootElement(name = "Coordinates")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Coordinates {
-	
-	@XmlElement(name = "EARTH_RADIUS")
+
+    @XmlElement(name = "EARTH_RADIUS")
     public static final int EARTH_RADIUS = 6371000;
 
-	@XmlElement(name = "latitude")
+    @XmlElement(name = "latitude")
     private double latitude;
 
-	@XmlElement(name = "longtitude")
+    @XmlElement(name = "longtitude")
     private double longitude;
 
     public Coordinates(double latitude, double longitude) {
@@ -38,7 +37,7 @@ public class Coordinates {
         latitude = Double.parseDouble(parts[0]);
         longitude = Double.parseDouble(parts[1]);
     }
-    
+
     /**
      * Computes distance in meters between this point and given point. Haversine
      * formula is used to compute the great-circle distance.
@@ -68,7 +67,7 @@ public class Coordinates {
     public String toString() {
         return latitude + " " + longitude;
     }
-    
+
     public double getLatitude() {
         return latitude;
     }

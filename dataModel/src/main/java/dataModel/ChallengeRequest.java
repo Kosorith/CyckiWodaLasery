@@ -5,19 +5,19 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="ChallengeRequest")
+@XmlRootElement(name = "ChallengeRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ChallengeRequest {
-	
-	@XmlElement(name = "challengeId")
+
+    @XmlElement(name = "challengeId")
     private int challengeId;
-	
-	@XmlElement(name = "challengePassword")
+
+    @XmlElement(name = "challengePassword")
     private String challengePassword;
 
     public ChallengeRequest() {
     }
-        
+
     public ChallengeRequest(int challengeId, String challengePassword) {
         this.challengeId = challengeId;
         this.challengePassword = challengePassword;

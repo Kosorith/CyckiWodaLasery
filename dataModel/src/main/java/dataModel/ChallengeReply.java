@@ -17,10 +17,10 @@ public class ChallengeReply {
     }
 
     public String getDescription() {
-        return this.challenge.getDesciption();
+        return this.challenge.getDescription();
     }
 
     public void setDescription(String description) {
-        this.challenge.setDesciption(description);
+        this.challenge.setDescription(description);
     }
 }

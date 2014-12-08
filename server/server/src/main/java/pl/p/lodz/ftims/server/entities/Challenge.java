@@ -12,9 +12,9 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,13 +25,12 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "challenges")
-@NamedQueries({
-    @NamedQuery(name = "Challenge.findByCoords", query = "select c from Challenge c where c.coords = :coordsParam")})
 public class Challenge implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -39,13 +38,13 @@ public class Challenge implements Serializable {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
-    
+
     @Column(name = "password", nullable = false)
     private String password;
 
     @NotNull
     @Column(name = "coords", nullable = false)
-    private String coords;
+    private String location;
 
     @NotNull
     @Column(name = "secret_password", nullable = false)
@@ -60,12 +59,12 @@ public class Challenge implements Serializable {
     private boolean status;
 
     @Column(name = "photo")
-    private String photo;
-    
+    private byte[] photo;
+
     @NotNull
     @Column(name = "points", nullable = false)
     private int points;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "challenge")
     private Collection<Hint> hints = new ArrayList<>();
 
@@ -96,12 +95,12 @@ public class Challenge implements Serializable {
         this.password = password;
     }
 
-    public String getCoords() {
-        return coords;
+    public String getLocation() {
+        return location;
     }
 
-    public void setCoords(String coords) {
-        this.coords = coords;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getSecretPassword() {
@@ -128,11 +127,11 @@ public class Challenge implements Serializable {
         this.status = status;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
@@ -150,6 +149,10 @@ public class Challenge implements Serializable {
 
     public void setHints(Collection<Hint> hints) {
         this.hints = hints;
+    }
+
+    public void addHint(Hint hint) {
+        hints.add(hint);
     }
 
     @Override

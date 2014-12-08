@@ -10,11 +10,11 @@
                            http://www.springframework.org/schema/data/jpa
                            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
     
-    <context:component-scan base-package="pl.p.lodz.ftims" />
+    <context:component-scan base-package="pl.p.lodz.ftims.server.persistence" />
     <context:annotation-config />
     <jpa:repositories base-package="pl.p.lodz.ftims.server.persistence" />
     
-    <bean id="emFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="persistenceUnitName" value="geocacheingPersistenceUnit" />
         <property name="packagesToScan" value="pl.p.lodz.ftims.server.entities" />
@@ -37,7 +37,7 @@
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="myEmf" />
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
     <bean id="persistenceExceptionTranslationPostProcessor" 

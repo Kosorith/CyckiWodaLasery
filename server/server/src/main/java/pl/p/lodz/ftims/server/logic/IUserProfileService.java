@@ -19,7 +19,7 @@ public interface IUserProfileService {
     void addUser(CreateUserRequest userData);
     
     /**
-     * Metoda usuwa użytkownika o wskazanym identyfikatorze. Nie potrzebne dodatkowe uwierzytelnienie
+     * Metoda usuwa użytkownika o wskazanym identyfikatorze. Niepotrzebne dodatkowe uwierzytelnienie
      * @param userId użytkownik o wskazanym identyfikatorze
      */
     void deleteUser(int userId);
@@ -33,7 +33,7 @@ public interface IUserProfileService {
     void deleteUser(Credentials credentials) throws UserAuthenticationFailedException;
     
     /**
-     * Metoda zmienia hasło użytkownika o podanyc danych logowania.
+     * Metoda zmienia hasło użytkownika o podanych danych logowania.
      * @param userCredentials dane użytkownika, którego hasło jest zmieniane
      * @param newPasswd nowe hasło użytkownika
      * @throws pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException 

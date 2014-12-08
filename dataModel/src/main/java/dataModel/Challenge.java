@@ -1,24 +1,21 @@
 package dataModel;
 
-import java.awt.Image;
 import java.util.List;
 
 public class Challenge {
 
     private int id;
-    private String desciption;
+    private String description;
     private byte[] photo;
     private List<KHint> hints;
-    private int point;
+    private int points;
     private String name;
+    private String password;
+    private boolean status;
+    private String secretPassword;
+    private Coordinates location;
 
-    public Challenge(int id, String desciption, byte[] photo, List<KHint> hints, int point, String name) {
-        this.id = id;
-        this.desciption = desciption;
-        this.photo = photo;
-        this.hints = hints;
-        this.point = point;
-        this.name = name;
+    public Challenge() {
     }
 
     public int getId() {
@@ -29,12 +26,12 @@ public class Challenge {
         this.id = id;
     }
 
-    public String getDesciption() {
-        return desciption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesciption(String desciption) {
-        this.desciption = desciption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public byte[] getPhoto() {
@@ -53,12 +50,12 @@ public class Challenge {
         this.hints = hints;
     }
 
-    public int getPoint() {
-        return point;
+    public int getPoints() {
+        return points;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public String getName() {
@@ -67,5 +64,37 @@ public class Challenge {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Coordinates getLocation() {
+        return location;
+    }
+
+    public void setLocation(Coordinates location) {
+        this.location = location;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getSecretPassword() {
+        return secretPassword;
+    }
+
+    public void setSecretPassword(String secretPassword) {
+        this.secretPassword = secretPassword;
     }
 }

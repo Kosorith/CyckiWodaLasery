@@ -1,5 +1,4 @@
-package pl.lodz.p.ftims.geocaching.GUI
-        ;
+package pl.lodz.p.ftims.geocaching.GUI;
 
 import android.app.Activity;
 import android.app.AlertDialog;

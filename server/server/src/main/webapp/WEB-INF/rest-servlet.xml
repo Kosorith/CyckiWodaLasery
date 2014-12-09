@@ -18,7 +18,8 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd">
     
     <context:component-scan base-package="pl.p.lodz.ftims.server" />
-    <mvc:annotation-driven />
+    <context:annotation-config />
+    <mvc:annotation-driven/>
     <tx:annotation-driven transaction-manager="transactionManager" />
     <jpa:repositories base-package="pl.p.lodz.ftims.server.persistence" />
     
@@ -57,4 +58,6 @@
     </bean>
     
     <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/resource1/**" location="WEB-INF/resources/"/>
+    <mvc:resources mapping="/css/**" location="WEB-INF/resources/css/"/>
 </beans>

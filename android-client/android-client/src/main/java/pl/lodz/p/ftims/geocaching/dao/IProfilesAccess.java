@@ -1,6 +1,4 @@
-package pl.lodz.p.ftims.geocaching.logic.dao;
-
-import dataModel.Credentials;
+package pl.lodz.p.ftims.geocaching.dao;
 
 
 /**
@@ -9,9 +7,6 @@ import dataModel.Credentials;
  */
 public interface IProfilesAccess {
     
-	Credentials verifyCredentials();
-	
-	void changeCredentials(Credentials credentials);
 	
 	void pickRanking();
 	

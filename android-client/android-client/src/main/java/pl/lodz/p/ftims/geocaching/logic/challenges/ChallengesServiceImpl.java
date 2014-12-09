@@ -31,10 +31,4 @@ public class ChallengesServiceImpl implements ChallengesService {
         return null;
     }
 
-    @Override
-    public boolean finishChallenge(Solution solution) {
-        // TODO: Wyślij Solution
-        return false;
-    }
-
 }

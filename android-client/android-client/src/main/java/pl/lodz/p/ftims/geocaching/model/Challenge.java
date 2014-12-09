@@ -7,48 +7,20 @@ import java.util.List;
  */
 public class Challenge {
 
-    private int id;
-    private String name;
-    private String description;
-    private GeoCoords location;
+    private ChallengeStub stub;
     private List<Hint> hints;
 //    private Image photo;  // TODO: Trzeba wybrać jakąś odpowiednią klasę
     private int points;
-    private boolean publicAccess;
 
     public Challenge() {
     }
 
-    public int getId() {
-        return id;
+    public ChallengeStub getStub() {
+        return stub;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public GeoCoords getLocation() {
-        return location;
-    }
-
-    public void setLocation(GeoCoords location) {
-        this.location = location;
+    public void setStub(ChallengeStub stub) {
+        this.stub = stub;
     }
 
     public List<Hint> getHints() {
@@ -65,13 +37,5 @@ public class Challenge {
 
     public void setPoints(int points) {
         this.points = points;
-    }
-
-    public boolean isPublicAccess() {
-        return publicAccess;
-    }
-
-    public void setPublicAccess(boolean publicAccess) {
-        this.publicAccess = publicAccess;
     }
 }

@@ -1,6 +1,5 @@
 package pl.lodz.p.ftims.geocaching.logic.inject;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.location.LocationManager;
@@ -30,7 +29,7 @@ public class ServiceRegistryImpl implements ServiceRegistry {
 
         registerService(ChallengesService.class, new ChallengesServiceImpl());
 
-        registerService(HintsService.class, new HintsServiceImpl());
+        registerService(ChallengeSolvingService.class, new ChallengeSolvingServiceImpl());
 
         LocationManager locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
         registerService(LocationService.class, new LocationServiceImpl(locationManager));

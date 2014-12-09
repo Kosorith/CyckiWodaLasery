@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import pl.lodz.p.ftims.geocaching.logic.dao.IChallengeAccess;
 import pl.lodz.p.ftims.geocaching.model.Credentials;
-import pl.lodz.p.ftims.geocaching.model.UserSession;
 
 /**
  * Created by michal on 12/8/14.
@@ -18,15 +17,15 @@ public class LoginServiceImpl implements LoginService {
     private IChallengeAccess challengeAccess; // TODO: Zapewne przyda się to jak już zaistnieje
     private Context context;
 
-    private UserSession userSession;
+    private Credentials credentials;
 
     public LoginServiceImpl(Context context) {
         this.context = context;
     }
 
     @Override
-    public UserSession getCurrentSession() {
-        return userSession;
+    public Credentials getCurrentCredentials() {
+        return credentials;
     }
 
     @Override
@@ -34,6 +33,8 @@ public class LoginServiceImpl implements LoginService {
         if (remember) {
             storeCredentials(credentials);
         }
+
+        // TODO: Wyślij / zweryfikuj
 
         return false;
     }

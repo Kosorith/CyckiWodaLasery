@@ -12,6 +12,4 @@ public interface ChallengesService {
 
     List<Challenge> getChallengeList();
 
-    boolean finishChallenge(Solution solution);
-
 }

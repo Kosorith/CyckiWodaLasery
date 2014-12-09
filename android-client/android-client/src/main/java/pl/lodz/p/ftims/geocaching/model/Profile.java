@@ -7,35 +7,30 @@ import java.util.Calendar;
  */
 public class Profile {
 
-    private String firstName;
-    private String lastName;
-    private Calendar birthDate;
-//    private String bogWieCo;
+    private String nick;
+    private String email;
 
     public Profile() {
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Profile(String nick, String email) {
+        this.nick = nick;
+        this.email = email;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getNick() {
+        return nick;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getEmail() {
+        return email;
     }
 
-    public Calendar getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Calendar birthDate) {
-        this.birthDate = birthDate;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

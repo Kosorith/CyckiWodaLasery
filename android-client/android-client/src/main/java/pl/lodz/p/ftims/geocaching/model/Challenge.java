@@ -8,11 +8,13 @@ import java.util.List;
 public class Challenge {
 
     private int id;
-    private String description;
-//    private Image photo;  // TODO: Trzeba wybrać jakąś opdpowiednią klasę
     private String name;
+    private String description;
+    private GeoCoords location;
     private List<Hint> hints;
-//    private points;  // TODO: co to ma być?
+//    private Image photo;  // TODO: Trzeba wybrać jakąś odpowiednią klasę
+    private int points;
+    private boolean publicAccess;
 
     public Challenge() {
     }
@@ -25,14 +27,6 @@ public class Challenge {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getName() {
         return name;
     }
@@ -41,11 +35,43 @@ public class Challenge {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public GeoCoords getLocation() {
+        return location;
+    }
+
+    public void setLocation(GeoCoords location) {
+        this.location = location;
+    }
+
     public List<Hint> getHints() {
         return hints;
     }
 
     public void setHints(List<Hint> hints) {
         this.hints = hints;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public boolean isPublicAccess() {
+        return publicAccess;
+    }
+
+    public void setPublicAccess(boolean publicAccess) {
+        this.publicAccess = publicAccess;
     }
 }

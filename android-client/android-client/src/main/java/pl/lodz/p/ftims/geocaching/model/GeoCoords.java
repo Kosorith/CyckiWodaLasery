@@ -10,8 +10,7 @@ import java.util.Date;
 public class GeoCoords {
 
     private double latitude;  // TODO: Jak to zamodelować? Czy GPS API nie dostarcza własnych klas?
-    private double longitude; // Jest klasa Location: http://developer.android.com/reference/android/location/Location.html
-    private Date timestamp;   // udostępnia więcej informacji niż nam trzeba, w tym koordynaty jako double, więc chyba tak
+    private double longitude;
 
     public GeoCoords() {
     }

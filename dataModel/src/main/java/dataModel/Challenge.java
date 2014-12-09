@@ -10,10 +10,11 @@ public class Challenge {
     private List<KHint> hints;
     private int points;
     private String name;
-    private String password;
-    private boolean status;
-    private String secretPassword;
     private Coordinates location;
+    private String password; // Tego raczej nie powinniście przesyłać, nie?
+                             // Bo hasła idą już w ChallengeRequest i SolutionSubmission
+    private String secretPassword; // Tego też nie
+    private boolean status; // Myślę, że klient nie potrzebuje tej informacji od serwera - po prostu odrzucajcie Solution do już zrobionych Challenge 
 
     public Challenge() {
     }

@@ -12,12 +12,6 @@ public interface ChallengesService {
 
     List<Challenge> getChallengeList();
 
-    boolean takeChallenge(Challenge challenge);
-
-    void abandonChallenge(Challenge challenge);
-
     boolean finishChallenge(Solution solution);
-
-    List<Challenge> getAcceptedChallenges();
 
 }

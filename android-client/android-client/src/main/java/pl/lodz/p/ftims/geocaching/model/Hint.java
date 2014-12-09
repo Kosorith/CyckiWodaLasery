@@ -5,19 +5,22 @@ package pl.lodz.p.ftims.geocaching.model;
  */
 public class Hint {
 
-    private int position;
+    /**
+     * odległości od lokalizacji skrytki staje się dostępna ta wskazówka
+     */
+    private int distance;
     private String description;
 //    private Image photo;  // TODO: Trzeba wybrać jakąś opdpowiednią klasę
 
     public Hint() {
     }
 
-    public int getPosition() {
-        return position;
+    public int getDistance() {
+        return distance;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 
     public String getDescription() {

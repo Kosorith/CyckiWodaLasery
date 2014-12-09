@@ -1,16 +1,23 @@
 package pl.lodz.p.ftims.geocaching.dao;
 
 
+import pl.lodz.p.ftims.geocaching.model.Credentials;
+import pl.lodz.p.ftims.geocaching.model.Profile;
+
+
+
 /**
  *
  * @author Tobiasz_Kowalski
  */
 public interface IProfilesAccess {
     
+	boolean verifyCredentials(Credentials credentials);
 	
-	void pickRanking();
+	void changePassword(Credentials credentials, String newPassword);
 	
-	void pickUserProfile();
 	
-	void sendNewUserCredentials();
+	//Ranking pickRanking();
+	
+	void createNewUser(Profile profile, Credentials credentials);
 }

@@ -59,4 +59,24 @@ public class GeoCoords {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    /**
+     * Oblicza odległość od tego punktu do innego i zwraca rezultat w metrach.
+     * @param other Punkt, do którego zostanie wyliczona odległość.
+     * @return Odległość w metrach.
+     */
+    public float distanceTo(GeoCoords other) {
+        float[] results = new float[1];
+        Location.distanceBetween(latitude, longitude, other.latitude, other.longitude, results);
+        return results[0];  // TODO: Czy to na pewno metry?
+    }
+
+    /**
+     * Oblicza odległość od tego punktu do danej lokacji i zwraca rezultat w metrach.
+     * @param other Punkt, do którego zostanie wyliczona odległość.
+     * @return Odległość w metrach.
+     */
+    public float distanceTo(Location location) {
+        return distanceTo(GeoCoords.fromLocation(location));
+    }
 }

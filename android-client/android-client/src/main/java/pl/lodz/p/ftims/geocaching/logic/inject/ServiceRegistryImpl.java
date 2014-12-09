@@ -25,18 +25,20 @@ public class ServiceRegistryImpl implements ServiceRegistry {
     }
 
     public void initialize(Application application) {
+        LocationManager locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
+        LocationService locationService = new LocationServiceImpl(locationManager);
+        registerService(LocationService.class, locationService);
+
+        LoginService loginService = new LoginServiceImpl(application);
+        registerService(LoginService.class, loginService);
+
         registerService(ChallengeCreationService.class, new ChallengeCreationServiceImpl());
 
-        registerService(ChallengesService.class, new ChallengesServiceImpl());
+        registerService(ChallengesService.class, new ChallengesServiceImpl(locationService));
 
-        registerService(ChallengeSolvingService.class, new ChallengeSolvingServiceImpl());
+        registerService(ChallengeSolvingService.class, new ChallengeSolvingServiceImpl(locationService, loginService));
 
-        LocationManager locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
-        registerService(LocationService.class, new LocationServiceImpl(locationManager));
-
-        registerService(LoginService.class, new LoginServiceImpl(application));
-
-        registerService(ProfilesService.class, new ProfilesServiceImpl());
+        registerService(ProfilesService.class, new ProfilesServiceImpl(loginService));
     }
 
     @Override

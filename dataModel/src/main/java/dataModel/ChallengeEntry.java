@@ -4,7 +4,7 @@ public class ChallengeEntry {
     
     private int id;
     private String name;
-    private boolean publicAccess;
+    private boolean publicAccess;//Zakłądam, ze publicAccess=false oznacza, iż challenge do podjęcia wymaga hasła
     private Coordinates location;
     private String description;
 

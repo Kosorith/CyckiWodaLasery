@@ -6,7 +6,7 @@ package pl.lodz.p.ftims.geocaching.model;
 public class Hint {
 
     /**
-     * odległości od lokalizacji skrytki staje się dostępna ta wskazówka
+     * odległości od lokalizacji skrytki w jakiej staje się dostępna ta wskazówka
      */
     private int distance;
     private String description;

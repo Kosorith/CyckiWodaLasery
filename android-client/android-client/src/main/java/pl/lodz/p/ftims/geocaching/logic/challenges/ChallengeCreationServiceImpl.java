@@ -57,7 +57,7 @@ public class ChallengeCreationServiceImpl implements ChallengeCreationService {
     @Override
     public boolean preverifyChallenge() {
         return editedChallenge != null
-            && notEmpty(editedChallenge.getName())
+            && notEmpty(editedChallenge.getStub().getName())
             && !editedChallenge.getHints().isEmpty();
     }
 

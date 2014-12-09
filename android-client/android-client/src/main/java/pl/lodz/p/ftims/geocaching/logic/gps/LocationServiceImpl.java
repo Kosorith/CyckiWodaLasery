@@ -4,6 +4,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import pl.lodz.p.ftims.geocaching.logic.patterns.ListSubject;
 import pl.lodz.p.ftims.geocaching.model.GeoCoords;
 
 import java.util.ArrayList;
@@ -12,10 +13,10 @@ import java.util.List;
 /**
  * Created by michal on 12/2/14.
  */
-public class LocationServiceImpl implements LocationService, LocationListener {
+public class LocationServiceImpl extends ListSubject<LocationObserver>
+                                 implements LocationService, LocationListener {
 
     private LocationManager locationManager;
-    private List<LocationObserver> locationObservers = new ArrayList<LocationObserver>();
 
     public LocationServiceImpl(LocationManager locationManager) {
         this.locationManager = locationManager;
@@ -27,20 +28,11 @@ public class LocationServiceImpl implements LocationService, LocationListener {
         return GeoCoords.fromLocation(location);
     }
 
-    @Override
-    public void subscribe(LocationObserver locationObserver) {
-        locationObservers.add(locationObserver);
-    }
-
-    @Override
-    public void unsubscribe(LocationObserver locationObserver) {
-        locationObservers.remove(locationObserver);
-    }
 
     @Override
     public void onLocationChanged(Location location) {
         GeoCoords geoCoords = GeoCoords.fromLocation(location);
-        for (LocationObserver locationObserver : locationObservers) {
+        for (LocationObserver locationObserver : observers) {
             locationObserver.onLocationChanged(geoCoords);
         }
     }

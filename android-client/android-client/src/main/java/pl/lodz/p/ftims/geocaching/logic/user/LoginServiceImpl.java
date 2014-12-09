@@ -56,7 +56,7 @@ public class LoginServiceImpl implements LoginService {
         prefsEditor.putString(PREFS_KEY_LOGIN, credentials.getLogin());
         prefsEditor.putString(PREFS_KEY_PASSWORD, credentials.getPassword());
 
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 
     @Override
@@ -71,6 +71,11 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean preverifyCredentials(Credentials credentials) {
-        return true;
+        return notEmpty(credentials.getLogin())
+            && notEmpty(credentials.getPassword());
+    }
+
+    private boolean notEmpty(String string) {
+        return string != null && !string.isEmpty();
     }
 }

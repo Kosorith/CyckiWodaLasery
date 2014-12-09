@@ -12,12 +12,16 @@ import pl.lodz.p.ftims.geocaching.model.Profile;
  */
 public interface IProfilesAccess {
     
-	boolean verifyCredentials(Credentials credentials);
-	
-	void changePassword(Credentials credentials, String newPassword);
-	
+	boolean changePassword(Credentials credentials, String newPassword);
 	
 	//Ranking pickRanking();
 	
-	void createNewUser(Profile profile, Credentials credentials);
+	boolean createNewUser(Profile profile, Credentials credentials);
+
+	boolean login(Credentials credentials);
+
+	Profile getUserProfile(Credentials currentCredentials);
+
+	boolean saveUserProfile(Credentials currentCredentials, Profile profile);
+
 }

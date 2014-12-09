@@ -8,5 +8,5 @@ import android.app.Application;
  */
 public interface ServiceRegistry {
     public <A> A getService(Class<A> cls);
-    public <A, B> void registerService(Class<A> key, B service);
+    public <A> void registerService(Class<A> key, A service);
 }

@@ -1,6 +1,7 @@
 package pl.lodz.p.ftims.geocaching.logic.user;
 
 import pl.lodz.p.ftims.geocaching.dao.IProfilesAccess;
+import pl.lodz.p.ftims.geocaching.model.Credentials;
 import pl.lodz.p.ftims.geocaching.model.Profile;
 
 /**
@@ -30,7 +31,7 @@ public class ProfilesServiceImpl implements ProfilesService {
 
     @Override
     public void loadProfile() {
-        // TODO: Uhh.. z accessa
+        currentProfile = profilesAccess.getUserProfile(loginService.getCurrentCredentials());
     }
 
     @Override
@@ -39,9 +40,7 @@ public class ProfilesServiceImpl implements ProfilesService {
             return false;
         }
 
-        // TODO: z accessa
-
-        return false;
+        return profilesAccess.saveUserProfile(loginService.getCurrentCredentials(), currentProfile);
     }
 
     @Override

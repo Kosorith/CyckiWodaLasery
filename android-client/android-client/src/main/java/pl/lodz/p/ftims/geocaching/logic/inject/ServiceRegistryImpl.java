@@ -53,7 +53,7 @@ public class ServiceRegistryImpl implements ServiceRegistry {
     }
 
     @Override
-    public <A, B> void registerService(Class<A> key, B service) {
+    public <A> void registerService(Class<A> key, A service) {
         services.put(key, service);
     }
 

@@ -73,7 +73,7 @@ public class GeoCoords {
 
     /**
      * Oblicza odległość od tego punktu do danej lokacji i zwraca rezultat w metrach.
-     * @param other Punkt, do którego zostanie wyliczona odległość.
+     * @param location Lokacja, do którego zostanie wyliczona odległość.
      * @return Odległość w metrach.
      */
     public float distanceTo(Location location) {

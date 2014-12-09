@@ -40,9 +40,7 @@ public class ChallengeCreationServiceImpl implements ChallengeCreationService {
             return false;
         }
 
-        // TODO: SEND
-
-        return false;
+        return challengeAccess.sendNewChallenge(editedChallenge);
     }
 
     @Override

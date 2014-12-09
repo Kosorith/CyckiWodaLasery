@@ -101,4 +101,9 @@ public class ChallengeAccessDao implements IChallengeAccess{
 		return response;
 	}
 
+	@Override
+	public boolean sendNewChallenge(Challenge challenge) {
+		return false;
+	}
+
 }

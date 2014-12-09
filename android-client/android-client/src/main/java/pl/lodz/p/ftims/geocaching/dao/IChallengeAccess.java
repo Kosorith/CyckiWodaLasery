@@ -16,10 +16,10 @@ public interface IChallengeAccess {
 	
 	Challenge pickChallengeHints(ChallengeStub challengestub, String password);
 	
-	//void leaveChallenge(Challenge challenge); brak metody w dataModel kt�ra by to obs�ugiwa�a
-	
 	boolean checkChallengeAnswer(Solution solution, Credentials credentials);
-	
+
+	boolean sendNewChallenge(Challenge challenge);
+
 }
 
 

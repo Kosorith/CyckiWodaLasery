@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import pl.lodz.p.ftims.geocaching.dao.IProfilesAccess;
 import pl.lodz.p.ftims.geocaching.model.Credentials;
+import pl.lodz.p.ftims.geocaching.model.Profile;
 
 /**
  * Created by michal on 12/8/14.
@@ -35,9 +36,7 @@ public class LoginServiceImpl implements LoginService {
             storeCredentials(credentials);
         }
 
-        // TODO: Login
-
-        return false;
+        return profilesAccess.login(credentials);
     }
 
     @Override
@@ -61,13 +60,13 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public boolean register(Credentials credentials) {
-        return false;
+    public boolean register(Credentials credentials, Profile profile) {
+        return profilesAccess.createNewUser(profile, credentials);
     }
 
     @Override
-    public void changePassword(Credentials credentials, String newPassword) {
-
+    public boolean changePassword(Credentials credentials, String newPassword) {
+        return profilesAccess.changePassword(credentials, newPassword);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package pl.lodz.p.ftims.geocaching.logic.user;
 
 import pl.lodz.p.ftims.geocaching.model.Credentials;
+import pl.lodz.p.ftims.geocaching.model.Profile;
 
 /**
  * Created by michal on 11/19/14.
@@ -13,9 +14,9 @@ public interface LoginService {
 
     Credentials getRememberedCredentials();
 
-    boolean register(Credentials credentials);
+    boolean register(Credentials credentials, Profile profile);
 
-    void changePassword(Credentials credentials, String newPassword);
+    boolean changePassword(Credentials credentials, String newPassword);
 
     boolean preverifyCredentials(Credentials credentials);
 

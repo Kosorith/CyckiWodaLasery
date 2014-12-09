@@ -2,105 +2,128 @@ package pl.p.lodz.ftims.server.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import dataModel.Coordinates;
-import dataModel.Credentials;
-import pl.p.lodz.ftims.server.controllerDataModel.ChallengeRequest;
 import pl.p.lodz.ftims.server.entities.Challenge;
+import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 import pl.p.lodz.ftims.server.logic.IAuthenticationService;
 import pl.p.lodz.ftims.server.logic.IChallengeService;
 import pl.p.lodz.ftims.server.logic.IRankingService;
 import pl.p.lodz.ftims.server.logic.IUserProfileService;
+import dataModel.Credentials;
 
 /**
  * Kontroler umożliwiający komunikację serwera z panelem administracyjnym.
+ * 
  * @author Przemysław Holak
  */
 
 @Controller
 @RequestMapping("/panel")
 public class PanelController {
-	
+
+	@Autowired
 	private IChallengeService challengeService;
-	private IAuthenticationService authenticationService;
-	private IRankingService rankingService;
-	private IUserProfileService userProfileService;
-	private Credentials credentials;
 	
+	@Autowired
+	private IAuthenticationService authenticationService;
+	
+	@Autowired
+	private IRankingService rankingService;
+	
+	@Autowired
+	private IUserProfileService userProfileService;
+	
+	private Credentials credentials;
+
 	/*
 	 * Metoda usuwająca użytkownika
 	 */
-	public ModelAndView removeUser(){
+	@RequestMapping("/users/delete")
+	public ModelAndView removeUser(HttpServletRequest request) {
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
+		Credentials userCredentials =  new Credentials(login);
+		userCredentials.setPassword(password);
 		try {
-			userProfileService.deleteUser(credentials);
+			userProfileService.deleteUser(userCredentials);
 		} catch (UserAuthenticationFailedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		ModelAndView model = new ModelAndView("redirect:/panel/users");
+		return model;
 	}
+
 	/**
 	 * Metoda uwierzytelniająca administratora
 	 */
-	@RequestMapping("/login")
-	public String login(Model model){
-		//authenticationService.authenticateAdministrator(login, password);
-		System.out.println("chuj");
-		ModelAndView model1 = new ModelAndView("hello");
-		return "hello";
+	public ModelAndView login() {
+		// authenticationService.authenticateAdministrator(login, password);
+		ModelAndView model = new ModelAndView("hello");
+		return model;
 	}
-	
+
 	/**
 	 * Metoda pobierająca listę wyzwań
 	 */
-	public ModelAndView getChallenges(){
-		Coordinates coords = null;
-		List<Challenge> challenges=challengeService.getChallenges(coords);
-		return null;
+	@RequestMapping("/challenges")
+	public ModelAndView getChallenges() {
+
+		List<Challenge> challenges = challengeService.getAllChallenges();
+		ModelAndView model = new ModelAndView("challanges");
+		model.addObject("challanges", challenges);
+		return model;
 	}
-	
+
 	/**
-	 * Metoda pobierająca wyzwanie
+	 * Metoda pobierająca wyzwanie 
+	 * FIXME Prawdopodobnie do kosza, bo w sumie nie widze senus użycia, bardziej interesują nasz wszytkie
+	 * wyzwania, niż jedno konkretne
 	 */
-	public ModelAndView getChallenge(/*@RequestParam("challengeId") int challengeId*/){
-		dataModel.ChallengeRequest challengeId = null;
-		Challenge challenge=challengeService.getChallenge(challengeId);
+	public ModelAndView getChallenge() {
+		// dataModel.ChallengeRequest challengeId = null;
+		// Challenge challenge=challengeService.getChallenge(challengeId);
 		return null;
 	}
-	
+
 	/**
 	 * Metoda weryfikująca wyzwanie
 	 */
-	public ModelAndView verifyChallenge(@RequestParam("challengeId") int challengeId){
-		return null;
-		//challengeService.verifyChallenge(challengeId, points, accepted);
+	@RequestMapping("/challenges/veryfi")
+	public ModelAndView verifyChallenge(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String points = request.getParameter("points");
+		String status = request.getParameter("status");
+		challengeService.verifyChallenge(Integer.parseInt(id), Integer.parseInt(points), Boolean.getBoolean(status));
+		ModelAndView model = new ModelAndView("redirect:/panel/challenges");
+		return model;
 	}
-	
+
 	/**
 	 * Metoda usuwająca wyzwanie
-	 * @param challengeId 
+	 * 
+	 * @param challengeId
 	 */
-	public ModelAndView removeChallenge(@RequestParam("challengeId") int challengeId){
-		challengeService.deleteChallenge(challengeId);
-		return null;
+	@RequestMapping("/challenges/delete")
+	public ModelAndView removeChallenge(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		challengeService.deleteChallenge(Integer.parseInt(id));
+		ModelAndView model = new ModelAndView("redirect:/panel/challenges");
+		return model;
 	}
-	
-	
+
 	/**
 	 * Metoda pobierająca użytkownika
+	 * FIXME Prawdopodobnie do kosza, bo w sumie nie widze senus użycia, bardziej interesują nasz wszytkie
+	 * wyzwania, niż jedno konkretne
 	 */
-	public ModelAndView getUser(){
+	public ModelAndView getUser() {
 		try {
 			authenticationService.authenticateUser(credentials);
 		} catch (UserAuthenticationFailedException e) {
@@ -109,42 +132,55 @@ public class PanelController {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Metoda pobierająca listę użytkowników
 	 */
-	public ModelAndView getUsers(){
-		userProfileService.getAllUsers();
-		return null;
+	@RequestMapping("/users")
+	public ModelAndView getUsers() {
+		List<User> allUsers = userProfileService.getAllUsers();
+		ModelAndView model = new ModelAndView("users");
+		model.addObject("users", allUsers);
+		return model;
 	}
-	
-	
-	
-	
-	
-	
+
 	public Credentials getCredentials() {
 		return credentials;
 	}
+
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;
 	}
+
 	public IUserProfileService getUserProfileService() {
 		return userProfileService;
 	}
+
 	public void setUserProfileService(IUserProfileService userProfileService) {
 		this.userProfileService = userProfileService;
 	}
+
 	public IAuthenticationService getAuthenticationService() {
 		return authenticationService;
 	}
+
 	public void setAuthenticationService(IAuthenticationService authenticationService) {
 		this.authenticationService = authenticationService;
 	}
+
 	public IChallengeService getChallengeService() {
 		return challengeService;
 	}
+
 	public void setChallengeService(IChallengeService challengeService) {
 		this.challengeService = challengeService;
 	}
+
+	public IRankingService getRankingService() {
+	    return rankingService;
+    }
+
+	public void setRankingService(IRankingService rankingService) {
+	    this.rankingService = rankingService;
+    }
 }

@@ -1,5 +1,7 @@
 package pl.lodz.p.ftims.geocaching.model;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by michal on 11/19/14.
  */
@@ -10,7 +12,7 @@ public class Hint {
      */
     private int distance;
     private String description;
-//    private Image photo;  // TODO: Trzeba wybrać jakąś opdpowiednią klasę
+    private Bitmap photo;
 
     public Hint() {
     }
@@ -29,6 +31,14 @@ public class Hint {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Bitmap getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Bitmap photo) {
+        this.photo = photo;
     }
 
 }

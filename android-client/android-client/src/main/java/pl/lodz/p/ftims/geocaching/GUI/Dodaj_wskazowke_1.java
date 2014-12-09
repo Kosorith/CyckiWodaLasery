@@ -2,15 +2,22 @@ package pl.lodz.p.ftims.geocaching.GUI;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+
+import java.io.File;
+import java.io.IOException;
+
 import pl.lodz.p.ftims.geocaching.R;
 
 
@@ -18,6 +25,7 @@ public class Dodaj_wskazowke_1 extends Activity {
 
     ImageView Widok;
     Bitmap bmp;
+    private Uri imageUri;
 
 
     @Override
@@ -40,8 +48,11 @@ public class Dodaj_wskazowke_1 extends Activity {
         ImageButton Przycisk = (ImageButton) findViewById(R.id.ZdjecieZAparatu);
         Przycisk.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(i, 0);
+                Intent i = new Intent("android.media.action.IMAGE_CAPTURE");
+                File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "zdjecie.jpg");
+                imageUri = Uri.fromFile(photo);
+                i.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(i,0);
             }
         });
     }
@@ -66,9 +77,18 @@ public class Dodaj_wskazowke_1 extends Activity {
         super.onActivityResult(requestCode,resultCode,data);
         if(resultCode == RESULT_OK){
             if(requestCode == 0){
-                Bundle extras = data.getExtras();
-                bmp = (Bitmap) extras.get("Zdjecie");
-                Widok.setImageBitmap(bmp);
+                Uri selected = imageUri;
+                getContentResolver().notifyChange(selected, null );
+
+                ContentResolver cr = getContentResolver();
+
+                try {
+                    bmp = MediaStore.Images.Media.getBitmap(cr, selected);
+                    Widok.setImageBitmap(bmp);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             else if(requestCode == 1){
                 Widok.setImageURI(data.getData());

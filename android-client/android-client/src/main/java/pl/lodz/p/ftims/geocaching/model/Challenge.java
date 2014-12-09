@@ -1,5 +1,7 @@
 package pl.lodz.p.ftims.geocaching.model;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,7 +14,7 @@ public class Challenge {
 
     private ChallengeStub stub;
     private List<Hint> hints;
-//    private Image photo;  // TODO: Trzeba wybrać jakąś odpowiednią klasę
+    private Bitmap photo;
     private int points;
 
     public Challenge() {
@@ -32,6 +34,14 @@ public class Challenge {
 
     public void setHints(List<Hint> hints) {
         this.hints = hints;
+    }
+
+    public Bitmap getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Bitmap photo) {
+        this.photo = photo;
     }
 
     public int getPoints() {

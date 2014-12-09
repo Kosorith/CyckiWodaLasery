@@ -19,6 +19,6 @@ public interface ChallengeSolvingService extends Subject<HintsObserver> {
 
     Challenge getActiveChallenge();
 
-    boolean solveChallenge(Solution solution);
+    boolean solveChallenge(String password);
 
 }

@@ -12,11 +12,11 @@ public interface IChallengeAccess {
     
 	List<ChallengeStub> pickChallengeList(GeoCoords coords);
 	
-	List<Hint> pickChallengeHints(ChallengeStub challengestub);
+	Challenge pickChallengeHints(ChallengeStub challengestub);
 	
-	List<Hint> pickChallengeHints(ChallengeStub challengestub, String password);
+	Challenge pickChallengeHints(ChallengeStub challengestub, String password);
 	
-	//void leaveChallenge(Challenge challenge); brak metody w dataModel która by to obs³ugiwa³a
+	//void leaveChallenge(Challenge challenge); brak metody w dataModel ktï¿½ra by to obsï¿½ugiwaï¿½a
 	
 	boolean checkChallengeAnswer(Solution solution, Credentials credentials);
 	

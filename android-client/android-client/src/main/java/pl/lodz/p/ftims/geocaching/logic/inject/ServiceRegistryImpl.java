@@ -3,6 +3,8 @@ package pl.lodz.p.ftims.geocaching.logic.inject;
 import android.app.Application;
 import android.content.Context;
 import android.location.LocationManager;
+import pl.lodz.p.ftims.geocaching.dao.IChallengeAccess;
+import pl.lodz.p.ftims.geocaching.dao.IProfilesAccess;
 import pl.lodz.p.ftims.geocaching.logic.challenges.*;
 import pl.lodz.p.ftims.geocaching.logic.gps.LocationService;
 import pl.lodz.p.ftims.geocaching.logic.gps.LocationServiceImpl;
@@ -25,20 +27,24 @@ public class ServiceRegistryImpl implements ServiceRegistry {
     }
 
     public void initialize(Application application) {
+        IChallengeAccess challengeAccess = null;
+        IProfilesAccess profilesAccess = null;
+
         LocationManager locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
         LocationService locationService = new LocationServiceImpl(locationManager);
         registerService(LocationService.class, locationService);
 
-        LoginService loginService = new LoginServiceImpl(application);
+        LoginService loginService = new LoginServiceImpl(application, profilesAccess);
         registerService(LoginService.class, loginService);
 
-        registerService(ChallengeCreationService.class, new ChallengeCreationServiceImpl());
+        registerService(ChallengeCreationService.class, new ChallengeCreationServiceImpl(challengeAccess));
 
-        registerService(ChallengesService.class, new ChallengesServiceImpl(locationService));
+        registerService(ChallengesService.class, new ChallengesServiceImpl(locationService, challengeAccess));
 
-        registerService(ChallengeSolvingService.class, new ChallengeSolvingServiceImpl(locationService, loginService));
+        registerService(ChallengeSolvingService.class,
+            new ChallengeSolvingServiceImpl(locationService, loginService, challengeAccess));
 
-        registerService(ProfilesService.class, new ProfilesServiceImpl(loginService));
+        registerService(ProfilesService.class, new ProfilesServiceImpl(loginService, profilesAccess));
     }
 
     @Override

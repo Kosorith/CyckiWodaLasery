@@ -1,41 +1,21 @@
 package pl.lodz.p.ftims.geocaching.dao;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.StringWriter;
+import pl.lodz.p.ftims.geocaching.model.*;
+
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
-
-import pl.lodz.p.ftims.geocaching.model.Challenge;
-import pl.lodz.p.ftims.geocaching.model.ChallengeStub;
-import pl.lodz.p.ftims.geocaching.model.Credentials;
-import pl.lodz.p.ftims.geocaching.model.GeoCoords;
-import pl.lodz.p.ftims.geocaching.model.Hint;
-import pl.lodz.p.ftims.geocaching.model.Solution;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 
 public class ChallengeAccessDao implements IChallengeAccess{
 
 	@Override
 	public List<ChallengeStub> pickChallengeList(GeoCoords coords) {
 		StringWriter stringWriter = new StringWriter();
+		/* Importy do tego nie działają - trzeba dodać te jary w Gradle'u,
+		   Jest czwarta w nocy, a jutro prezentacja, więc tylko zakomentowałem ten kod,
+		   bo nie dam rady teraz tego dodać
+
 		try {			
 			JAXBContext context = JAXBContext.newInstance(GeoCoords.class);
 			Marshaller m = context.createMarshaller();
@@ -47,7 +27,7 @@ public class ChallengeAccessDao implements IChallengeAccess{
 		
 		Socket socket = this.sendXmlToWebService(stringWriter.toString());
 		String challengeStub = this.receiveXmlFromWebservice(socket);
-		
+		*/
 		/*try {
             JAXBContext context = JAXBContext.newInstance(List<ChallengeStub>.class);
             Unmarshaller un = context.createUnmarshaller();
@@ -60,13 +40,13 @@ public class ChallengeAccessDao implements IChallengeAccess{
 	}
 
 	@Override
-	public List<Hint> pickChallengeHints(ChallengeStub challengestub) {
+	public Challenge pickChallengeHints(ChallengeStub challengestub) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public List<Hint> pickChallengeHints(ChallengeStub challengestub,
+	public Challenge pickChallengeHints(ChallengeStub challengestub,
 			String password) {
 		// TODO Auto-generated method stub
 		return null;
@@ -81,13 +61,13 @@ public class ChallengeAccessDao implements IChallengeAccess{
 	private Socket sendXmlToWebService(String xml){
 		Socket socket = new Socket();
 		try {
-			//Ustawienie po��czenia
+			//Ustawienie po��czenia
 			String hostname = "localhost";
 			int port = 8080;
 			InetAddress addr = InetAddress.getByName(hostname);
 			socket = new Socket(addr, port);
 			
-			//wysy�anie XML
+			//wysy�anie XML
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
 			bw.write("POST /server/rest/ranking HTTP/1.0rn");
 			bw.write("Content-Length: " + xml.length() + "rn");

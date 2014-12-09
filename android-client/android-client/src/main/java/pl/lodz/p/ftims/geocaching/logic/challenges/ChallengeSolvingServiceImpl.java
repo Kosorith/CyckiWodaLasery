@@ -1,6 +1,7 @@
 package pl.lodz.p.ftims.geocaching.logic.challenges;
 
 import android.location.Location;
+import pl.lodz.p.ftims.geocaching.dao.IChallengeAccess;
 import pl.lodz.p.ftims.geocaching.logic.gps.LocationObserver;
 import pl.lodz.p.ftims.geocaching.logic.gps.LocationService;
 import pl.lodz.p.ftims.geocaching.logic.patterns.ListSubject;
@@ -18,23 +19,25 @@ public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
 
     private LocationService locationService;
     private LoginService loginService;
+    private IChallengeAccess challengeAccess;
     private Challenge activeChallenge;
     private float closestDistance;
 
-    public ChallengeSolvingServiceImpl(LocationService locationService, LoginService loginService) {
+    public ChallengeSolvingServiceImpl(LocationService locationService, LoginService loginService, IChallengeAccess challengeAccess) {
         this.locationService = locationService;
         this.loginService = loginService;
+        this.challengeAccess = challengeAccess;
     }
 
     @Override
     public void startChallenge(ChallengeStub challenge) {
-        // TODO: Przekaż do Access
+        activeChallenge = challengeAccess.pickChallengeHints(challenge);
         resetHints();
     }
 
     @Override
     public void startChallenge(ChallengeStub challenge, String password) {
-        // TODO: Przekaż do Access
+        activeChallenge = challengeAccess.pickChallengeHints(challenge, password);
         resetHints();
     }
 
@@ -44,9 +47,9 @@ public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
     }
 
     @Override
-    public boolean solveChallenge(Solution solution) {
-        // TODO: przekaż do access
-        return false;
+    public boolean solveChallenge(String password) {
+        Solution solution = new Solution(password, activeChallenge);
+        return challengeAccess.checkChallengeAnswer(solution, loginService.getCurrentCredentials());
     }
 
     @Override

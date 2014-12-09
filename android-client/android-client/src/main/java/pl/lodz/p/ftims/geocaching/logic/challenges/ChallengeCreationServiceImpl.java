@@ -1,5 +1,6 @@
 package pl.lodz.p.ftims.geocaching.logic.challenges;
 
+import pl.lodz.p.ftims.geocaching.dao.IChallengeAccess;
 import pl.lodz.p.ftims.geocaching.model.Challenge;
 import pl.lodz.p.ftims.geocaching.model.Hint;
 
@@ -11,7 +12,12 @@ import java.util.List;
  */
 public class ChallengeCreationServiceImpl implements ChallengeCreationService {
 
+    private IChallengeAccess challengeAccess;
     private Challenge editedChallenge;
+
+    public ChallengeCreationServiceImpl(IChallengeAccess challengeAccess) {
+        this.challengeAccess = challengeAccess;
+    }
 
     @Override
     public Challenge getEditedChallenge() {

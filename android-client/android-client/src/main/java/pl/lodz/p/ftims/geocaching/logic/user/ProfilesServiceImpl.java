@@ -1,5 +1,6 @@
 package pl.lodz.p.ftims.geocaching.logic.user;
 
+import pl.lodz.p.ftims.geocaching.dao.IProfilesAccess;
 import pl.lodz.p.ftims.geocaching.model.Profile;
 
 /**
@@ -8,11 +9,13 @@ import pl.lodz.p.ftims.geocaching.model.Profile;
 public class ProfilesServiceImpl implements ProfilesService {
 
     private LoginService loginService;
+    private IProfilesAccess profilesAccess;
 
     private Profile currentProfile;
 
-    public ProfilesServiceImpl(LoginService loginService) {
+    public ProfilesServiceImpl(LoginService loginService, IProfilesAccess profilesAccess) {
         this.loginService = loginService;
+        this.profilesAccess = profilesAccess;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class ProfilesServiceImpl implements ProfilesService {
 
     @Override
     public void loadProfile() {
-        // TODO: z accessa
+        // TODO: Uhh.. z accessa
     }
 
     @Override

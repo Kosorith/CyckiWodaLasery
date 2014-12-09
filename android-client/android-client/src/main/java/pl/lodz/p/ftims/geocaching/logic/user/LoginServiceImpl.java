@@ -2,7 +2,7 @@ package pl.lodz.p.ftims.geocaching.logic.user;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import pl.lodz.p.ftims.geocaching.logic.dao.IChallengeAccess;
+import pl.lodz.p.ftims.geocaching.dao.IProfilesAccess;
 import pl.lodz.p.ftims.geocaching.model.Credentials;
 
 /**
@@ -14,13 +14,14 @@ public class LoginServiceImpl implements LoginService {
     private static final String PREFS_KEY_LOGIN = "PREFS_KEY_LOGIN";
     private static final String PREFS_KEY_PASSWORD = "PREFS_KEY_PASSWORD";
 
-    private IChallengeAccess challengeAccess; // TODO: Zapewne przyda się to jak już zaistnieje
     private Context context;
+    private IProfilesAccess profilesAccess;
 
     private Credentials credentials;
 
-    public LoginServiceImpl(Context context) {
+    public LoginServiceImpl(Context context, IProfilesAccess profilesAccess) {
         this.context = context;
+        this.profilesAccess = profilesAccess;
     }
 
     @Override
@@ -34,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
             storeCredentials(credentials);
         }
 
-        // TODO: Wyślij / zweryfikuj
+        // TODO: Login
 
         return false;
     }

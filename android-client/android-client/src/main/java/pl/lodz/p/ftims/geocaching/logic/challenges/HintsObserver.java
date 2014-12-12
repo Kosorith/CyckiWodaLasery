@@ -9,4 +9,10 @@ public interface HintsObserver {
 
     void onNewHint(Hint hint);
 
+    /**
+     * Temperatura to wartość od 0 do 100. 
+     * Wartość rośnie ze zbliżaniem się do celu. 
+     */
+    void onHeatChange(int temperature);
+
 }

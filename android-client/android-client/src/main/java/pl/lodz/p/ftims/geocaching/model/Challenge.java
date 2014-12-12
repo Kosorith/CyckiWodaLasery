@@ -83,4 +83,13 @@ public class Challenge {
 
         return filtered;
     }
+
+    public Hint maxDistanceHint() {
+        return Collections.max(hints, new Comparator<Hint>() {
+            @Override
+            public int compare(Hint lhs, Hint rhs) {
+                return lhs.getDistance() - rhs.getDistance();
+            }
+        });
+    }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import pl.p.lodz.ftims.server.entities.Challenge;
 import pl.p.lodz.ftims.server.entities.Ranking;
+import pl.p.lodz.ftims.server.entities.User;
 
 public interface IConvertManager {
 	dataModel.ChallengeEntry convertToChallengeEntry(Challenge entityChallenge);
@@ -19,5 +20,7 @@ public interface IConvertManager {
 	dataModel.Ranking convertRanking(Ranking entityRanking);
 	
  	dataModel.RankingReply convertRankingList(List<Ranking> entityRankingList); 
+ 	
+ 	dataModel.Profile convertToProfile(User user); 
 
 }

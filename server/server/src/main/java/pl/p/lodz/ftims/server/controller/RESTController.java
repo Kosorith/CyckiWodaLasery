@@ -29,7 +29,9 @@ import dataModel.ChangePasswordRequest;
 import dataModel.CreateUserRequest;
 import dataModel.Credentials;
 import dataModel.LoginRequest;
+import dataModel.Profile;
 import dataModel.RankingReply;
+import dataModel.SolutionSubmission;
 
 /**
  * Kontroler umożliwiający komunikację serwera z klientem.
@@ -50,34 +52,7 @@ public class RESTController {
 	private IUserProfileService userProfileService;
 	@Autowired
 	private IConvertManager convertManager;
-	
-	
-	@RequestMapping(value="/test33", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<Challenge> temp(){
-		ChallengeRequest challengeRequest=new ChallengeRequest();
-		challengeRequest.setChallengeId(10);
-		challengeRequest.setChallengePassword("test1");
-		pl.p.lodz.ftims.server.entities.Challenge challenge = challengeService.getChallenge(challengeRequest);
-		Challenge cc=new Challenge();
-		cc.setDescription("dasdasdasd");
-		cc.setId(challenge.getId());
-		cc.setName(challenge.getName());
-		cc.setPassword(challenge.getPassword());
-		cc.setDescription(challenge.getDescription());
-		return new ResponseEntity<Challenge>(cc, HttpStatus.OK);
-		/*Challenge challenge = new Challenge();
-		challenge.setDescription("dasdasddasd");*/
-		//challengeRequest.setChallengeId(5);
-		//return new ResponseEntity<ChallengeRequest>(challengeRequest, HttpStatus.OK);		
-	}
 
-	@RequestMapping(value = "/test2", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<LoginRequest> temp2(@RequestBody LoginRequest lr){
-		System.out.println(lr.getCredentials());
-		lr.getCredentials().setLogin("dsadasdasd");
-		return new ResponseEntity<LoginRequest>(lr, HttpStatus.OK);		
-	}
-	
 	/**
 	 * Metoda odpowiadająca za pobranie wyzwania.
 	 * @param challengeRequest
@@ -120,16 +95,16 @@ public class RESTController {
 	 * @return User
 	 */
 	@RequestMapping(value ="/login", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<User> loginRest(@RequestBody LoginRequest loginRequest){
-		String login=loginRequest.getCredentials().getLogin();
-		String password=loginRequest.getCredentials().getPassword();
-		User user;
+	public ResponseEntity<Profile> loginRest(@RequestBody LoginRequest loginRequest){
+		Profile profile=new Profile();
 		try {
-			user = authenticationService.authenticateUser(loginRequest.getCredentials());
+			User user = authenticationService.authenticateUser(loginRequest.getCredentials());
+			profile=convertManager.convertToProfile(user);
+			System.err.println();
 		} catch (UserAuthenticationFailedException e) {
-			return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Profile>(HttpStatus.UNAUTHORIZED);
 		}
-		return new ResponseEntity<User>(user,HttpStatus.OK);
+		return new ResponseEntity<Profile>(profile ,HttpStatus.OK);
 	}
 	
 	/**
@@ -143,7 +118,7 @@ public class RESTController {
 		try {
 			userProfileService.changePassword(credentials, newPasswd);
 		} catch (UserAuthenticationFailedException e) {
-			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		}
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}	
@@ -157,23 +132,23 @@ public class RESTController {
 		userProfileService.addUser(createUserRequest);		
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-	
-	/**
-	 * Metoda pobierająca profil użytkownika.
-	 * @param ProfileRequest
-	 * @return Profile
-	 */
-/*	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<Profile> getProfileRest(@RequestBody ProfileRequest profileRequest){
-		Profile profile=authenticationService.authenticateUser(profileRequest.getCredentials())		
-		return new ResponseEntity<Profile>(HttpStatus.OK);
-	}*/
 
-	//todo		
-	
 	/**
 	 * Metoda weryfikująca rozwiązanie
+	 * @param SolutionSubsmission
+	 * @return boolean
 	 */	
+	@RequestMapping(value="/solution", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> getProfileRest(@RequestBody SolutionSubmission solutionSubmission){
+		boolean bool=false;
+		try {
+			bool=challengeService.doCompleteChallenge(solutionSubmission);
+			System.err.println();
+		} catch (UserAuthenticationFailedException e) {
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		}
+		return bool==true ? new ResponseEntity<String>(HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
+	}
 }
 	
 	

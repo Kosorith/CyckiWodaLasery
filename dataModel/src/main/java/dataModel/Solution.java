@@ -1,8 +1,18 @@
 package dataModel;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Solution")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Solution {
 
-    private int challengeId;
+    public Solution() {
+		super();
+	}
+
+	private int challengeId;
     private String secretPassword;
 
     public Solution(int challengeId, String secretPassword) {

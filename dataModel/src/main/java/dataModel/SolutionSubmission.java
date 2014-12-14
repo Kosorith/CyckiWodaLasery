@@ -1,5 +1,11 @@
 package dataModel;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "SolutionSubmission")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class SolutionSubmission {
 
     private Credentials credentials;
@@ -10,7 +16,11 @@ public class SolutionSubmission {
         this.solution = solution;
     }
 
-    public Credentials getCredentials() {
+    public SolutionSubmission() {
+		super();
+	}
+
+	public Credentials getCredentials() {
         return credentials;
     }
 

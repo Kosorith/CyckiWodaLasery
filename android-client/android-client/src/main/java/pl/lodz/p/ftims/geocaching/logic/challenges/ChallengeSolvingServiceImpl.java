@@ -22,6 +22,7 @@ public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
     private IChallengeAccess challengeAccess;
     private Challenge activeChallenge;
     private float closestDistance;
+    private float maxDistance;
 
     public ChallengeSolvingServiceImpl(LocationService locationService, LoginService loginService, IChallengeAccess challengeAccess) {
         this.locationService = locationService;
@@ -56,12 +57,17 @@ public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
     public void onLocationChanged(GeoCoords geoCoords) {
         float newDistance = calculateDistance(geoCoords);
         updateHints(newDistance);
+        updateHeat(newDistance);
+        closestDistance = newDistance;
     }
 
     private void resetHints() {
         closestDistance = Float.MAX_VALUE;
+        maxDistance = activeChallenge.maxDistanceHint().getDistance();
         float newDistance = calculateDistance(locationService.getCurrentLocation());
         updateHints(newDistance);
+        updateHeat(newDistance);
+        closestDistance = newDistance;
     }
 
     private void updateHints(float newDistance) {
@@ -74,6 +80,14 @@ public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
             for (HintsObserver observer : observers) {
                 observer.onNewHint(hint);
             }
+        }
+    }
+
+    private void updateHeat(float newDistance) {
+        int temperature = Math.max(0, (int) ((maxDistance - newDistance) / maxDistance * 100));
+
+        for (HintsObserver observer : observers) {
+            observer.onHeatChange(temperature);
         }
     }
 

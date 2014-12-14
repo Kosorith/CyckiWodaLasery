@@ -2,6 +2,9 @@ package pl.p.lodz.ftims.server.controller;
 
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,15 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import dataModel.ChallengeListReply;
-import dataModel.ChallengeListRequest;
-import dataModel.ChangePasswordRequest;
-import dataModel.CreateUserRequest;
-import dataModel.Credentials;
-import dataModel.LoginRequest;
-import dataModel.ChallengeRequest;
-
-import pl.p.lodz.ftims.server.entities.Challenge;
 import pl.p.lodz.ftims.server.entities.Ranking;
 import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
@@ -26,6 +20,16 @@ import pl.p.lodz.ftims.server.logic.IAuthenticationService;
 import pl.p.lodz.ftims.server.logic.IChallengeService;
 import pl.p.lodz.ftims.server.logic.IRankingService;
 import pl.p.lodz.ftims.server.logic.IUserProfileService;
+import dataModel.Challenge;
+import dataModel.ChallengeListReply;
+import dataModel.ChallengeListRequest;
+import dataModel.ChallengeReply;
+import dataModel.ChallengeRequest;
+import dataModel.ChangePasswordRequest;
+import dataModel.CreateUserRequest;
+import dataModel.Credentials;
+import dataModel.LoginRequest;
+import dataModel.RankingReply;
 
 /**
  * Kontroler umożliwiający komunikację serwera z klientem.
@@ -36,31 +40,37 @@ import pl.p.lodz.ftims.server.logic.IUserProfileService;
 @RequestMapping("/rest")
 public class RESTController {
 	
+	@Autowired
 	private IChallengeService challengeService;
+	@Autowired
 	private IAuthenticationService authenticationService;
+	@Autowired
 	private IRankingService rankingService;
+	@Autowired
 	private IUserProfileService userProfileService;
+	@Autowired
+	private IConvertManager convertManager;
 	
-	/*	<ChallengeRequest>
-	<challengeId>6</challengeId>
-	<challengePassword>aaa</challengePassword>
-</ChallengeRequest>
-*/
 	
-	@RequestMapping(value="/test", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<ChallengeRequest> temp(@RequestBody ChallengeRequest challengeRequest){
-		challengeRequest.setChallengeId(5);
-		return new ResponseEntity<ChallengeRequest>(challengeRequest, HttpStatus.OK);		
+	@RequestMapping(value="/test33", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<Challenge> temp(){
+		ChallengeRequest challengeRequest=new ChallengeRequest();
+		challengeRequest.setChallengeId(10);
+		challengeRequest.setChallengePassword("test1");
+		pl.p.lodz.ftims.server.entities.Challenge challenge = challengeService.getChallenge(challengeRequest);
+		Challenge cc=new Challenge();
+		cc.setDescription("dasdasdasd");
+		cc.setId(challenge.getId());
+		cc.setName(challenge.getName());
+		cc.setPassword(challenge.getPassword());
+		cc.setDescription(challenge.getDescription());
+		return new ResponseEntity<Challenge>(cc, HttpStatus.OK);
+		/*Challenge challenge = new Challenge();
+		challenge.setDescription("dasdasddasd");*/
+		//challengeRequest.setChallengeId(5);
+		//return new ResponseEntity<ChallengeRequest>(challengeRequest, HttpStatus.OK);		
 	}
-	
-/*	<LoginRequest>
-	<credentials>
-<login>a</login>
-<password>b</password>
 
-       </credentials>
-</LoginRequest>*/
-	
 	@RequestMapping(value = "/test2", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<LoginRequest> temp2(@RequestBody LoginRequest lr){
 		System.out.println(lr.getCredentials());
@@ -74,21 +84,22 @@ public class RESTController {
 	 * @return ChallengeReply
 	 */
 	@RequestMapping(value = "/challenge", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<Challenge> getChallengeRest(@RequestBody ChallengeRequest challengeRequest){		
-		Challenge challenge=challengeService.getChallenge(challengeRequest);
-		return new ResponseEntity<Challenge>(challenge, HttpStatus.OK);
+	public ResponseEntity<ChallengeReply> getChallengeRest(@RequestBody ChallengeRequest challengeRequest){		
+		pl.p.lodz.ftims.server.entities.Challenge entityChallenge = challengeService.getChallenge(challengeRequest);		
+		Challenge challenge=convertManager.convertToChallenge(entityChallenge);
+		ChallengeReply challengeReply=new ChallengeReply(challenge);
+		return new ResponseEntity<ChallengeReply>(challengeReply, HttpStatus.OK);
 	}
 	
 	/**
 	 * Metoda odpowiadająca za pobranie listy wyzwań.
 	 * @param challengeListRequest
-	 * @return ChallenListReply
+	 * @return ChallengeListReply
 	 */
 	@RequestMapping(value = "/challenges",method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<ChallengeListReply> getChallengeListRest(@RequestBody ChallengeListRequest challengeListRequest){
-		ChallengeListReply challengeListReply = null;
-		List <Challenge> challenges=challengeService.getChallenges(challengeListRequest.getLocation());
-		//challengeListReply.setChallenges(//todo);
+        List<pl.p.lodz.ftims.server.entities.Challenge> challenges = challengeService.getChallenges(challengeListRequest.getLocation());
+		ChallengeListReply challengeListReply = convertManager.convertChallengeList(challenges);
 		return new ResponseEntity<ChallengeListReply>(challengeListReply, HttpStatus.OK);
 	}
 	
@@ -97,9 +108,10 @@ public class RESTController {
 	 * @return List<Ranking>
 	 */
 	@RequestMapping(value = "/ranking", method=RequestMethod.GET)
-	public ResponseEntity<List<Ranking>> getRankingRest(){
+	public ResponseEntity<RankingReply> getRankingRest() throws JAXBException{
 		List<Ranking> ranking=rankingService.getRanking();
-		return new ResponseEntity<List<Ranking>>(ranking, HttpStatus.OK);
+		RankingReply r=convertManager.convertRankingList(ranking);
+		return new ResponseEntity<RankingReply>(r, HttpStatus.OK);
 	}	
 	
 	/**

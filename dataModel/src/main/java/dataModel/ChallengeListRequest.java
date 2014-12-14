@@ -9,7 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ChallengeListRequest {
 
-    @XmlElement(name = "location")
+    public ChallengeListRequest() {
+		super();
+	}
+
+	@XmlElement(name = "location")
     private Coordinates location;
 
     public ChallengeListRequest(Coordinates location) {

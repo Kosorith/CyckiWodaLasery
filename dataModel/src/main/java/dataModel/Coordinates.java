@@ -21,13 +21,25 @@ public class Coordinates {
     @XmlElement(name = "EARTH_RADIUS")
     public static final int EARTH_RADIUS = 6371000;
 
-    @XmlElement(name = "latitude")
+    public Coordinates() {
+		super();
+	}
+
+	@XmlElement(name = "latitude")
     private double latitude;
 
     @XmlElement(name = "longtitude")
     private double longitude;
 
-    public Coordinates(double latitude, double longitude) {
+    public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public Coordinates(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }

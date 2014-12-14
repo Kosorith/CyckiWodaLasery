@@ -22,6 +22,7 @@
     <bean id="userProfileService" class="pl.p.lodz.ftims.server.logic.UserProfileService" />
     <bean id="rankingService" class="pl.p.lodz.ftims.server.logic.RankingService" />
     <bean id="authenticationUtils" class="pl.p.lodz.ftims.server.logic.AuthenticationUtils" />
+    <bean id="convertManager" class="pl.p.lodz.ftims.server.controller.ConvertManager" />
     
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />

@@ -1,10 +1,20 @@
 package dataModel;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "ChallengeReply")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ChallengeReply {
 
     private Challenge challenge;
 
-    public ChallengeReply(Challenge challenge) {
+    public ChallengeReply() {
+		super();
+	}
+
+	public ChallengeReply(Challenge challenge) {
         this.challenge = challenge;
     }
 

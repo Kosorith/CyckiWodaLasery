@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
         <link href="../css/bootstrap.css" rel="stylesheet">
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admins panel</title>
     </head>
     <body>
@@ -13,23 +13,23 @@
         </form>
         <div style="margin-top:10%;width:70%;margin-left:auto;margin-right:auto;">
             <div class="panel panel-default">
-                <div class="panel-heading">List of challanges</div>
+                <div class="panel-heading">Challenges</div>
                 <div class="panel-body">
-                    <p> costam </p>
+                    <p> Lista wszytkich wyzwań w systemie</p>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>id</th>
-                            <th>actions</th>
-                            <th>name</th>
-                            <th>password</th>
-                            <th>coords</th>
-                            <th>secretPassword</th>
-                            <th>description</th>
-                            <th>status</th>
-                            <th>points</th>
-                            <th>Hints</th>
+                            <th>ID</th>
+                            <th>Actions</th>
+                            <th>Name</th>
+                            <th>Password</th>
+                            <th>Coords</th>
+                            <th>Secreet Code</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Points</th>
+                            <th><center>Hints</center></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,9 +59,9 @@
                                 <td>${elem.points}</td>
                                 <td>
                                     <ul>
-<%--                                         <c:forEach items="${elem.hints}" var="hint">
-                                            <li>${hint.name}</li>
-                                        </c:forEach> --%>
+                                         <c:forEach items="${elem.hints}" var="hint">
+                                            <li>${hint.id} : ${hint.text} : ${hint.distance} </li>
+                                        </c:forEach>
                                     </ul>
                                 </td>
                             </tr>

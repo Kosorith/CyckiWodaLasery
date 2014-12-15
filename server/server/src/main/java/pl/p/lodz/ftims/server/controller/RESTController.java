@@ -139,7 +139,7 @@ public class RESTController {
 	 * @return boolean
 	 */	
 	@RequestMapping(value="/solution", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<String> getProfileRest(@RequestBody SolutionSubmission solutionSubmission){
+	public ResponseEntity<String> sendResolvedChallenge(@RequestBody SolutionSubmission solutionSubmission){
 		boolean bool=false;
 		try {
 			bool=challengeService.doCompleteChallenge(solutionSubmission);

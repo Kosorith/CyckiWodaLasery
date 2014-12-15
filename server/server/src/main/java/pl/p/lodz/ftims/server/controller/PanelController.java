@@ -1,8 +1,11 @@
 package pl.p.lodz.ftims.server.controller;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.logging.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.p.lodz.ftims.server.entities.Challenge;
+import pl.p.lodz.ftims.server.entities.Ranking;
 import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 import pl.p.lodz.ftims.server.logic.IAuthenticationService;
 import pl.p.lodz.ftims.server.logic.IChallengeService;
 import pl.p.lodz.ftims.server.logic.IRankingService;
 import pl.p.lodz.ftims.server.logic.IUserProfileService;
+import pl.p.lodz.ftims.server.logic.UserProfileService;
 import dataModel.Credentials;
 
 /**
@@ -42,6 +47,7 @@ public class PanelController {
 	
 	private Credentials credentials;
 
+	private static final Logger logger = Logger.getLogger(PanelController.class.getName());
 	/*
 	 * Metoda usuwająca użytkownika
 	 */
@@ -55,6 +61,7 @@ public class PanelController {
 			userProfileService.deleteUser(userCredentials);
 		} catch (UserAuthenticationFailedException e) {
 			e.printStackTrace();
+			logger.log(Level.SEVERE, "An error occured in removeUser(): "+e.getMessage());
 		}
 		ModelAndView model = new ModelAndView("redirect:/panel/users");
 		return model;
@@ -81,6 +88,18 @@ public class PanelController {
 		return model;
 	}
 
+	/**
+	 * Metoda pobierająca ranking
+	 */
+	@RequestMapping("/ranking")
+	public ModelAndView getRanking() {
+
+		List<Ranking> ranking = rankingService.getRanking();
+		ModelAndView model = new ModelAndView("ranking");
+		model.addObject("ranking", ranking);
+		return model;
+	}
+	
 	/**
 	 * Metoda pobierająca wyzwanie 
 	 * FIXME Prawdopodobnie do kosza, bo w sumie nie widze senus użycia, bardziej interesują nasz wszytkie

@@ -14,6 +14,9 @@
         <form action="panel/users">
             <input type="submit" value="Users" class="btn btn-default" /> 
         </form>
+        <form action="panel/ranking">
+            <input type="submit" value="Ranking" class="btn btn-default" /> 
+        </form>
         
     </body>
 </html>

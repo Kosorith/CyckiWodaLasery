@@ -14,7 +14,6 @@ import dataModel.SolutionSubmission;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.naming.AuthenticationException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -93,6 +92,10 @@ public class ChallengeServiceTest {
         
         assertNotNull(challenge);
         assertEquals(10, challenge.getId());
+        
+        request = new ChallengeRequest(10, "wrong_password");
+        challenge = challengeService.getChallenge(request);
+        assertNull(challenge);
     }
 
     @Test

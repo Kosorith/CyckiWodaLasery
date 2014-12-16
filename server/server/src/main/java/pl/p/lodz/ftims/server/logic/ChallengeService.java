@@ -74,7 +74,12 @@ public class ChallengeService implements IChallengeService {
 
     @Override
     public Challenge getChallenge(ChallengeRequest request) {
-        return challengesDAO.findOne(request.getChallengeId());
+        Challenge challenge = challengesDAO.findOne(request.getChallengeId());
+        if (challenge == null || challenge.getPassword() == null || challenge.getPassword().equals(request.getChallengePassword())) {
+            return challenge;
+        } else {
+            return null;
+        }
     }
 
     @Override

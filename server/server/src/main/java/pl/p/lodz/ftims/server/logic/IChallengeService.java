@@ -41,7 +41,8 @@ public interface IChallengeService {
      * Metoda zwraca zadanie odpowiadające danym wyspecyfikowanym w żadaniu.
      *
      * @param challengeRequest żądanie zadania
-     * @return zadanie
+     * @return zadanie lub null, jeżeli hasło nie zgadza się dla prywatnego
+     * zadania
      */
     Challenge getChallenge(ChallengeRequest challengeRequest);
 

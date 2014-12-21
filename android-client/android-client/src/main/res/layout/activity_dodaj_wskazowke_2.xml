@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="pl.lodz.p.ftims.geocaching.Dodaj_wskazowke_2">
+    tools:context="pl.lodz.p.ftims.geocaching.Dodaj_wskazowke_2"
+    android:background="@drawable/tlo_aplikacja">
 
     <TextView
         android:layout_width="151dp"
@@ -12,8 +13,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/DNW2_wskazówki"
         android:id="@+id/Wskazowki_text"
-        android:layout_x="119dp"
-        android:layout_y="11dp" />
+        android:layout_x="36dp"
+        android:layout_y="13dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -46,8 +47,8 @@
         android:layout_width="337dp"
         android:layout_height="252dp"
         android:id="@+id/scrollView3"
-        android:layout_x="8dp"
-        android:layout_y="159dp" >
+        android:layout_x="-43dp"
+        android:layout_y="154dp" >
 
         <TableLayout
             android:layout_width="fill_parent"

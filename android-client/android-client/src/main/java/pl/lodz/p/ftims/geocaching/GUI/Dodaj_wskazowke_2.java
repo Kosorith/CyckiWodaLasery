@@ -44,25 +44,34 @@ public class Dodaj_wskazowke_2 extends Activity {
     }
 
     public void CzyChceszZatwierdzić(View v){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Zapisać?");
+//        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+//        alert.setTitle("Zapisać?");
+//
+//        alert.setMessage("Czy na pewno chcesz zatwierdzić?");
+//
+//        alert.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        });
+//        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        });
+//
+//        alert.show();
 
-        alert.setMessage("Czy na pewno chcesz zatwierdzić?");
+        Button Zatw = (Button) findViewById(R.id.Zatwierdź_wyzwanie);
+        Zatw.setOnClickListener(new View.OnClickListener() {
 
-        alert.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Profil.class);
+                startActivityForResult(intent,0);
             }
         });
-        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-
-        alert.show();
 
     }
 

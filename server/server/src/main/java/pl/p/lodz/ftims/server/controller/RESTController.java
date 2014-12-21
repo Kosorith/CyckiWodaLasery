@@ -100,7 +100,6 @@ public class RESTController {
 		try {
 			User user = authenticationService.authenticateUser(loginRequest.getCredentials());
 			profile=convertManager.convertToProfile(user);
-			System.err.println();
 		} catch (UserAuthenticationFailedException e) {
 			return new ResponseEntity<Profile>(HttpStatus.UNAUTHORIZED);
 		}
@@ -143,7 +142,6 @@ public class RESTController {
 		boolean bool=false;
 		try {
 			bool=challengeService.doCompleteChallenge(solutionSubmission);
-			System.err.println();
 		} catch (UserAuthenticationFailedException e) {
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		}

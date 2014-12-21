@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RankingReply {
 	
-    @XmlElementWrapper(name="rankingList")
-    @XmlElement(name="ranking")
+    @XmlElementWrapper(name="RankingList")
+    @XmlElement(name="Ranking")
 	List<Ranking> ranking;
 
 	public RankingReply(List<Ranking> ranking) {

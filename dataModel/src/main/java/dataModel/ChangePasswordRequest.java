@@ -15,7 +15,7 @@ import dataModel.Credentials;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ChangePasswordRequest {
 	
-    @XmlElement(name = "credentials")
+    @XmlElement(name = "Credentials")
 	private Credentials credentials;
     
     @XmlElement(name = "newPasswd")

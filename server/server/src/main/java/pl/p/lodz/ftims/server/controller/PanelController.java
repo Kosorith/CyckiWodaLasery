@@ -48,7 +48,7 @@ public class PanelController {
 	private Credentials credentials;
 
 	private static final Logger logger = Logger.getLogger(PanelController.class.getName());
-	/*
+	/**
 	 * Metoda usuwająca użytkownika
 	 */
 	@RequestMapping("/users/delete")

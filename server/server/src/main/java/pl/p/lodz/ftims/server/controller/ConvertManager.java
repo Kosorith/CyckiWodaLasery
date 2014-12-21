@@ -1,17 +1,18 @@
 package pl.p.lodz.ftims.server.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
-import javax.faces.view.Location;
 
 import org.springframework.stereotype.Component;
 
+import pl.p.lodz.ftims.server.entities.Hint;
 import pl.p.lodz.ftims.server.entities.User;
 import dataModel.Challenge;
 import dataModel.ChallengeEntry;
 import dataModel.ChallengeListReply;
 import dataModel.Coordinates;
+import dataModel.KHint;
 import dataModel.Profile;
 import dataModel.Ranking;
 import dataModel.RankingReply;
@@ -30,7 +31,7 @@ public class ConvertManager implements IConvertManager {
 		challengeEntry.setId(entityChallenge.getId());
 		challengeEntry.setName(entityChallenge.getName());
 		challengeEntry.setDescription(entityChallenge.getDescription());
-		challengeEntry.setPublicAccess(true);
+		challengeEntry.setPublicAccess(true);//TODO 
 		return challengeEntry;
 	}
 
@@ -47,11 +48,16 @@ public class ConvertManager implements IConvertManager {
 		challenge.setPhoto(entityChallenge.getPhoto());
 		challenge.setPoints(entityChallenge.getPoints());
 		challenge.setSecretPassword(entityChallenge.getSecretPassword());
-		challenge.setHints(null); //TODO
+		Collection<Hint> entityHints = entityChallenge.getHints();
+		
+		List<KHint> hints=new ArrayList<KHint>(); 
+		for (Hint entityHint : entityHints) {
+			hints.add(convertToKHint(entityHint));
+		}
+		challenge.setHints(hints); 
+		
 		Coordinates coordinates=new Coordinates();
 		String location=entityChallenge.getLocation();
-		System.out.println(location.substring(0,2));
-		System.out.println(location.substring(3,5));
 		coordinates.setLongitude(Double.parseDouble(location.substring(0,1)));
 		coordinates.setLatitude(Double.parseDouble(location.substring(3,4)));
 		challenge.setLocation(coordinates); 
@@ -66,8 +72,8 @@ public class ConvertManager implements IConvertManager {
 		for (pl.p.lodz.ftims.server.entities.Challenge entityChallenge : entityChallenges) {
 			challenges.add(convertToChallengeEntry(entityChallenge));
 		}
-		ChallengeListReply clr=new ChallengeListReply(challenges);
-		return clr;
+		ChallengeListReply challengeListReply=new ChallengeListReply(challenges);
+		return challengeListReply;
 	}
 
 	@Override
@@ -90,20 +96,27 @@ public class ConvertManager implements IConvertManager {
 		ranking.setId(entityRanking.getId());
 		ranking.setPoints(entityRanking.getPoints());
 		ranking.setCompletedChallengesNum(entityRanking.getCompletedChallengesNum());
-		//ranking.setProfile(entityRanking.getUser()); //TODO
+		ranking.setProfile(convertToProfile(entityRanking.getUser()));
 		return ranking;
 	}
 
 	@Override
-	public Profile convertToProfile(User user) {
+	public Profile convertToProfile(User entityUser) {
 		Profile profile=new Profile();
-		profile.setEmail(user.getEmail());
-		profile.setId(user.getId());
-		profile.setLogin(user.getLogin());
-		profile.setNick(user.getNick());
-		profile.setPassword(user.getPassword());
-		//profile.setRanking(user.getRanking()); //TODO
+		profile.setEmail(entityUser.getEmail());
+		profile.setId(entityUser.getId());
+		profile.setLogin(entityUser.getLogin());
+		profile.setNick(entityUser.getNick());
+		profile.setPassword(entityUser.getPassword());
+		profile.setRanking(convertRanking(entityUser.getRanking()));
 		return profile;
 	}
 
+	@Override
+	public KHint convertToKHint(Hint entityHint) {
+		String text = entityHint.getText();
+		byte[] photo = entityHint.getPhoto();
+		int distance = entityHint.getDistance();
+		return new KHint(text, photo, distance);
+	}
 }

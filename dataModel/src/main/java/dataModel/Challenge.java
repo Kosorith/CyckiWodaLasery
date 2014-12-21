@@ -33,7 +33,7 @@ public class Challenge {
 				+ secretPassword + ", status=" + status + "]";
 	}*/
 
-	@XmlElement(name = "coordinates")
+	@XmlElement(name = "Coordinates")
     private Coordinates location;
     
     @XmlElement(name="password")

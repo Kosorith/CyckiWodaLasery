@@ -13,7 +13,7 @@ public class ChallengeListRequest {
 		super();
 	}
 
-	@XmlElement(name = "location")
+	@XmlElement(name = "Location")
     private Coordinates location;
 
     public ChallengeListRequest(Coordinates location) {

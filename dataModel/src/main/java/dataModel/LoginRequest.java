@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LoginRequest {
 
-    @XmlElement(name = "credentials")
+    @XmlElement(name = "Credentials")
     private Credentials credentials;
 
     public LoginRequest(Credentials credentials) {

@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ChallengeListReply {
 
-    @XmlElementWrapper(name="challenges")
-    @XmlElement(name="challenge")
+    @XmlElementWrapper(name="Challenges")
+    @XmlElement(name="Challenge")
     private List<ChallengeEntry> challenges;
 
     public ChallengeListReply() {

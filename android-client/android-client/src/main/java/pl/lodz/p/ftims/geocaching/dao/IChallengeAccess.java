@@ -12,9 +12,9 @@ public interface IChallengeAccess {
     
 	List<ChallengeStub> pickChallengeList(GeoCoords coords);
 	
-	Challenge pickChallengeHints(ChallengeStub challengestub);
+	//Challenge pickChallengeHints(ChallengeStub challengestub); //brak odpowiednich klas w datamodelu
 	
-	Challenge pickChallengeHints(ChallengeStub challengestub, String password);
+	//Challenge pickChallengeHints(ChallengeStub challengestub, String password);
 	
 	boolean checkChallengeAnswer(Solution solution, Credentials credentials);
 

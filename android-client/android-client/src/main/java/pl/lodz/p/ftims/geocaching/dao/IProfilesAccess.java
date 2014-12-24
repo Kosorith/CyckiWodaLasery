@@ -1,10 +1,7 @@
 package pl.lodz.p.ftims.geocaching.dao;
 
-
 import pl.lodz.p.ftims.geocaching.model.Credentials;
 import pl.lodz.p.ftims.geocaching.model.Profile;
-
-
 
 /**
  *
@@ -22,6 +19,6 @@ public interface IProfilesAccess {
 
 	Profile getUserProfile(Credentials currentCredentials);
 
-	boolean saveUserProfile(Credentials currentCredentials, Profile profile);
+	//boolean saveUserProfile(Credentials currentCredentials, Profile profile); nie ma klasy do obslugi w datamodelu
 
 }

@@ -2,108 +2,305 @@ package pl.lodz.p.ftims.geocaching.dao;
 
 import pl.lodz.p.ftims.geocaching.model.*;
 
-import java.io.*;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.util.List;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
-public class ChallengeAccessDao implements IChallengeAccess{
+import org.apache.commons.io.IOUtils;
+import org.apache.http.Consts;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClients;
 
-	@Override
-	public List<ChallengeStub> pickChallengeList(GeoCoords coords) {
-		StringWriter stringWriter = new StringWriter();
-		/* Importy do tego nie działają - trzeba dodać te jary w Gradle'u,
-		   Jest czwarta w nocy, a jutro prezentacja, więc tylko zakomentowałem ten kod,
-		   bo nie dam rady teraz tego dodać
+public class ChallengeAccessDao implements IChallengeAccess {
 
-		try {			
-			JAXBContext context = JAXBContext.newInstance(GeoCoords.class);
-			Marshaller m = context.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m.marshal(coords, stringWriter);
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
-		
-		Socket socket = this.sendXmlToWebService(stringWriter.toString());
-		String challengeStub = this.receiveXmlFromWebservice(socket);
-		*/
-		/*try {
-            JAXBContext context = JAXBContext.newInstance(List<ChallengeStub>.class);
-            Unmarshaller un = context.createUnmarshaller();
-            List<ChallengeStub> list = (List<ChallengeStub>) un.unmarshal(challengeStub);
-            return list;
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }*/
-        return null;
-	}
+    @Override
+    public ArrayList<ChallengeStub> pickChallengeList(GeoCoords coords) {
+        ChallengeListRequest request = new ChallengeListRequest(coords);
+        XStream xstreamIn = new XStream(new DomDriver());
+        xstreamIn.alias("ChallengeListRequest", ChallengeListRequest.class);
+        xstreamIn.aliasField("Location", ChallengeListRequest.class, "location");
+        String inputXML = xstreamIn.toXML(request);
+        StringEntity entity = new StringEntity(inputXML, ContentType.create("text/xml", Consts.UTF_8)); //ni wiem czemu nie widzi tego konstruktora
+        entity.setChunked(true);
+        HttpPost httppost = new HttpPost("http://localhost:8080/");
+        httppost.setEntity(entity);
+        HttpClient client = HttpClients.createDefault();
+        InputStream in;
+        try {
+            HttpResponse response = client.execute(httppost);
+            in = response.getEntity().getContent();
+            String body = IOUtils.toString(in);
+            XStream xstreamOut = new XStream(new DomDriver());
+            xstreamOut.alias("ChallengeListReply", ChallengeListReply.class);
+            xstreamOut.aliasField("Challenges", ChallengeListReply.class, "challenges");
+            xstreamOut.alias("Challenge", ChallengeEntry.class);
+            ChallengeListReply challenges = (ChallengeListReply) xstreamOut.fromXML(inputXML);
+            ArrayList<ChallengeEntry> list = challenges.getList();
+            ArrayList<ChallengeStub> challengeStubList = new ArrayList<ChallengeStub>();
+            for (ChallengeEntry entry : list) {
+                ChallengeStub stub = new ChallengeStub();
+                stub.setId(entry.getId());
+                stub.setDescription(entry.getDescription());
+                stub.setName(entry.getName());
+                stub.setPublicAccess(entry.isPublicAccess());
+                stub.setLocation(new GeoCoords(entry.getLocation().getLatitude(), entry.getLocation().getLongitude()));
+                challengeStubList.add(stub);
+            }
+            return challengeStubList;
+        } catch (ClientProtocolException e) {
+            System.out.println(e);
+            return null;
+        } catch (IOException e) {
+            return null;
+        }
+    }
 
-	@Override
-	public Challenge pickChallengeHints(ChallengeStub challengestub) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public Challenge pickChallengeHints(ChallengeStub challengestub,
-			String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public boolean checkChallengeAnswer(Solution solution, Credentials credentials) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	private Socket sendXmlToWebService(String xml){
-		Socket socket = new Socket();
-		try {
-			//Ustawienie po��czenia
-			String hostname = "localhost";
-			int port = 8080;
-			InetAddress addr = InetAddress.getByName(hostname);
-			socket = new Socket(addr, port);
-			
-			//wysy�anie XML
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
-			bw.write("POST /server/rest/ranking HTTP/1.0rn");
-			bw.write("Content-Length: " + xml.length() + "rn");
-			bw.write("Content-Type: text/xml; charset='utf-8'rn");
-			bw.write("rn");
-			bw.write(xml);
-			bw.flush();
-			bw.close();
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace(System.err);
-		}	
-		return socket;
-	}
-	
-	private String receiveXmlFromWebservice(Socket socket){
-		String response = "";
-		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String line;
-			while ((line = br.readLine()) != null) {
-				response += line;
-				System.out.println(line);
-			}
-			br.close();
-			socket.close();	
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace(System.err);
-		}		
-		return response;
-	}
+    @Override
+   /* public Challenge pickChallengeHints(ChallengeStub challengestub) {
 
-	@Override
-	public boolean sendNewChallenge(Challenge challenge) {
-		return false;
-	}
+    }
+
+    @Override
+    public Challenge pickChallengeHints(ChallengeStub challengestub, String password) {
+
+    }*/ // nie ma odpowiednich klas w data modelu żeby to obsłużyć
+
+    @Override
+    public boolean checkChallengeAnswer(Solution solution, Credentials credentials) {
+        SolutionSubmission submission = new SolutionSubmission(credentials, solution);
+        XStream xstreamIn = new XStream(new DomDriver());
+        xstreamIn.alias("SolutionSubmission", SolutionSubmission.class);
+        xstreamIn.aliasField("Credentials", SolutionSubmission.class, "credentials");
+        xstreamIn.aliasField("Solution", SolutionSubmission.class, "solution");
+        String inputXML = xstreamIn.toXML(submission);
+
+        StringEntity entity = new StringEntity(inputXML, ContentType.create("text/xml", Consts.UTF_8));
+        entity.setChunked(true);
+        HttpPost httppost = new HttpPost("http:/localhost:8080/server/rest/ranking");
+        httppost.setEntity(entity);
+        HttpClient client = HttpClients.createDefault();
+        InputStream in;
+
+        try {
+            HttpResponse response = client.execute(httppost);
+            in = response.getEntity().getContent();
+            String outputXML = IOUtils.toString(in);
+            return outputXML.contains("true"); //lamersko ale nie wiem jak będzie boolean zwracany
+        } catch (ClientProtocolException e) {
+            System.out.println(e);
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean sendNewChallenge(Challenge challenge) {
+        NewChallegeRequest request = new NewChallegeRequest(challenge);
+        XStream xstreamIn = new XStream(new DomDriver());
+        xstreamIn.alias("NewChallengeRequest", NewChallegeRequest.class);
+        xstreamIn.aliasField("Challenge", NewChallegeRequest.class, "challenge");
+        String inputXML = xstreamIn.toXML(request);
+
+        StringEntity entity = new StringEntity(inputXML, ContentType.create("text/xml", Consts.UTF_8));
+        entity.setChunked(true);
+        HttpPost httppost = new HttpPost("http:/localhost:8080/server/rest/ranking");
+        httppost.setEntity(entity);
+        HttpClient client = HttpClients.createDefault();
+        InputStream in;
+
+        try {
+            HttpResponse response = client.execute(httppost);
+            in = response.getEntity().getContent();
+            String outputXML = IOUtils.toString(in);
+            return outputXML.contains("true"); //lamersko ale nie wiem jak będzie boolean zwracany
+        } catch (ClientProtocolException e) {
+            System.out.println(e);
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    private class ChallengeListRequest {
+        private Coordinates location;
+
+        public ChallengeListRequest(GeoCoords location) {
+            this.location = new Coordinates(location);
+        }
+    }
+
+    private class ChallengeListReply {
+        private ArrayList<ChallengeEntry> challenges;
+
+        public ChallengeListReply() {
+            challenges = new ArrayList<ChallengeEntry>();
+        }
+
+        public ArrayList<ChallengeEntry> getList() {
+            return challenges;
+        }
+    }
+
+    private class ChallengeEntry {
+        private int id;
+        private String name;
+        private boolean publicAccess;
+        private Coordinates location;
+        private String description;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public boolean isPublicAccess() {
+            return publicAccess;
+        }
+
+        public void setPublicAccess(boolean publicAccess) {
+            this.publicAccess = publicAccess;
+        }
+
+        public Coordinates getLocation() {
+            return location;
+        }
+
+        public void setLocation(Coordinates location) {
+            this.location = location;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+    }
+
+    private class Coordinates {
+        public static final int EARTH_RADIUS = 6371000;
+        private double latitude;
+        private double longitude;
+
+        public Coordinates(GeoCoords g) {
+            this.latitude = g.getLatitude();
+            this.longitude = g.getLongitude();
+        }
+
+        public double getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(double latitude) {
+            this.latitude = latitude;
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(double longitude) {
+            this.longitude = longitude;
+        }
+    }
+
+    private class SolutionSubmission {
+        private Credentials credentials;
+        private Solution solution;
+
+        public SolutionSubmission(Credentials credentials, Solution solution) {
+            this.credentials = credentials;
+            this.solution = solution;
+        }
+
+        public SolutionSubmission() {
+            super();
+        }
+
+        public Credentials getCredentials() {
+            return credentials;
+        }
+
+        public void setCredentials(Credentials credentials) {
+            this.credentials = credentials;
+        }
+
+        public Solution getSolution() {
+            return solution;
+        }
+
+        public void setSolution(Solution solution) {
+            this.solution = solution;
+        }
+    }
+
+    private class KHint{
+        private String text;
+        private byte[] photo;
+        private int distance;
+
+        public KHint(Hint hint){
+            this.text=hint.getDescription();
+            this.distance=hint.getDistance();
+            int iBytes = hint.getPhoto().getWidth() * hint.getPhoto().getHeight() * 4;
+            ByteBuffer buffer = ByteBuffer.allocate(iBytes);
+            hint.getPhoto().copyPixelsToBuffer(buffer);
+            this.photo = buffer.array();
+        }
+    }
+
+    private class DataModelChallenge{
+        private int id;
+        private String description;
+        private byte[] photo;
+        private ArrayList<KHint> hints;
+        private int points;
+        private String name;
+
+        public DataModelChallenge(Challenge challenge){
+            this.description=challenge.getStub().getDescription();
+            ArrayList<KHint> khints = new ArrayList<KHint>();
+            for (Hint hint : challenge.getHints()){
+                khints.add(new KHint(hint));
+            }
+            this.hints=khints;
+            this.id=challenge.getStub().getId();
+            int iBytes = challenge.getPhoto().getWidth() * challenge.getPhoto().getHeight() * 4;
+            ByteBuffer buffer = ByteBuffer.allocate(iBytes);
+            challenge.getPhoto().copyPixelsToBuffer(buffer);
+            this.photo = buffer.array();
+            this.points = challenge.getPoints();
+            this.name = challenge.getStub().getName();
+        }
+    }
+
+    private class NewChallegeRequest{
+        private DataModelChallenge challenge;
+
+        public NewChallegeRequest(Challenge challenge){
+            this.challenge = new DataModelChallenge(challenge);
+        }
+    }
 
 }

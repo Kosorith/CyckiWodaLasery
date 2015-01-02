@@ -15,7 +15,7 @@ repositories {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    buildToolsVersion '21.1.2'
 
     defaultConfig {
         applicationId "pl.lodz.p.ftims.geocaching"
@@ -30,11 +30,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:21.0.2'
     compile 'com.google.android.gms:play-services:4.2.42'
+    compile 'commons-io:commons-io:2.4'
+    compile 'com.thoughtworks.xstream:xstream:1.4.7'
+    compile 'org.apache.httpcomponents:httpcore:4.4'
+    compile 'org.apache.httpcomponents:httpclient:4.3.6'
     compile 'ftims.p.lodz.pl:dataModel:0.0.1-SNAPSHOT'
 }

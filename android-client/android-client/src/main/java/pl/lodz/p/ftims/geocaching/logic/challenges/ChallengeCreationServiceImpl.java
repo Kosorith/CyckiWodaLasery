@@ -36,11 +36,8 @@ public class ChallengeCreationServiceImpl implements ChallengeCreationService {
 
     @Override
     public boolean saveChallenge() {
-        if (!preverifyChallenge()) {
-            return false;
-        }
+        return preverifyChallenge() && challengeAccess.sendNewChallenge(editedChallenge);
 
-        return challengeAccess.sendNewChallenge(editedChallenge);
     }
 
     @Override

@@ -34,14 +34,14 @@ public class ProfilesServiceImpl implements ProfilesService {
         currentProfile = profilesAccess.getUserProfile(loginService.getCurrentCredentials());
     }
 
-    @Override
-    public boolean saveProfile() {
-        if (!preverifyProfile(currentProfile)) {
-            return false;
-        }
-
-        return profilesAccess.saveUserProfile(loginService.getCurrentCredentials(), currentProfile);
-    }
+//    @Override
+//    public boolean saveProfile() {
+//        if (!preverifyProfile(currentProfile)) {
+//            return false;
+//        }
+//
+//      return profilesAccess.saveUserProfile(loginService.getCurrentCredentials(), currentProfile);
+//    }
 
     @Override
     public boolean preverifyProfile(Profile profile) {

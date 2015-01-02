@@ -40,6 +40,7 @@ public class ChallengeAccessDao implements IChallengeAccess {
             entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return null;
         }
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
@@ -99,6 +100,7 @@ public class ChallengeAccessDao implements IChallengeAccess {
             entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return false;
         }
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
@@ -132,6 +134,7 @@ public class ChallengeAccessDao implements IChallengeAccess {
             entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return false;
         }
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);

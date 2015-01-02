@@ -13,7 +13,8 @@ public interface ProfilesService {
 
     void loadProfile();
 
-    boolean saveProfile();
+    //  DaoClient ponoć nie ma jak tego zrobić
+//    boolean saveProfile();
 
     boolean preverifyProfile(Profile profile);
 

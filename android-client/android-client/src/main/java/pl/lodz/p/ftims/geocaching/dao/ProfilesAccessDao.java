@@ -9,12 +9,10 @@ import java.io.*;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 
@@ -142,7 +140,8 @@ public class ProfilesAccessDao implements IProfilesAccess{
             in=response.getEntity().getContent();
             String outputXML = IOUtils.toString(in);
             XStream xstream = new XStream(new DomDriver());
-            xstream.alias("Profile", LoginResponse.class);
+            xstream.alias("LoginResponse", LoginResponse.class);
+            xstream.aliasField("LoginResponse", LoginResponse.class, "profil");
             LoginResponse loginResponse = (LoginResponse)xstream.fromXML(outputXML);
             return loginResponse.getProfile();
         } catch (ClientProtocolException e) {
@@ -152,9 +151,36 @@ public class ProfilesAccessDao implements IProfilesAccess{
         }
     }
 
-   /* boolean saveUserProfile(Credentials currentCredentials, Profile profile){
+    boolean saveUserProfile(Credentials currentCredentials, Profile profile){
+        SaveProfileRequest request = new SaveProfileRequest(currentCredentials, profile);
+        XStream xstreamIn = new XStream(new DomDriver());
+        xstreamIn.alias("SaveProfileRequest", SaveProfileRequest.class);
+        xstreamIn.aliasField("Profile", SaveProfileRequest.class, "profile");
+        String inputXML;
+        inputXML = xstreamIn.toXML(request);
+        StringEntity entity  = null;
+        try{
+            entity = new StringEntity(inputXML);
 
-    }*/ //brak odpowiednich klas w datamodelu
+        } catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
+        entity.setChunked(true);
+        HttpPost httppost = new HttpPost(webServiceAddress);
+        httppost.setEntity(entity);
+        HttpClient client = HttpClients.createDefault();
+        InputStream in;
+        try {
+            HttpResponse response = client.execute(httppost);
+            in=response.getEntity().getContent();
+            String outputXML = IOUtils.toString(in);
+            return outputXML.contains("true");
+        } catch (ClientProtocolException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
 
     private class LoginRequest{
         private Credentials credentials;
@@ -164,15 +190,10 @@ public class ProfilesAccessDao implements IProfilesAccess{
     }
 
     private class LoginResponse{
-        private int id;
-        private String login;
-        private String password;
-        private String nick;
-        private String email;
-        //private Ranking ranking;
+        private DataModelProfile profil;
 
         public Profile getProfile(){
-            Profile profile = new Profile(nick, email);
+            Profile profile = new Profile(profil.nick, profil.email);
             return profile;
         }
     }
@@ -201,4 +222,27 @@ public class ProfilesAccessDao implements IProfilesAccess{
         }
     }
 
+    private class SaveProfileRequest{
+        private DataModelProfile profile;
+
+        SaveProfileRequest(Credentials credentials, Profile profil){
+            profile = new DataModelProfile(credentials.getLogin(), credentials.getPassword(), profil.getEmail(), profil.getNick());
+        }
+    }
+
+    private class DataModelProfile{
+        private String id = null;
+        private String login;
+        private String password;
+        private String nick;
+        private String email;
+        private String ranking = null;
+
+        DataModelProfile(String login, String password, String email, String nick){
+            this.login = login;
+            this.password = password;
+            this.nick = nick;
+            this.email = email;
+        }
+    }
 }

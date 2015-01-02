@@ -1,6 +1,7 @@
 package pl.lodz.p.ftims.geocaching.dao;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 
 import pl.lodz.p.ftims.geocaching.model.*;
 
@@ -49,12 +50,12 @@ public class ChallengeAccessDao implements IChallengeAccess {
         try {
             HttpResponse response = client.execute(httppost);
             in = response.getEntity().getContent();
-            String body = IOUtils.toString(in);
+            String outputXML = IOUtils.toString(in);
             XStream xstreamOut = new XStream(new DomDriver());
             xstreamOut.alias("ChallengeListReply", ChallengeListReply.class);
             xstreamOut.aliasField("Challenges", ChallengeListReply.class, "challenges");
             xstreamOut.alias("Challenge", ChallengeEntry.class);
-            ChallengeListReply challenges = (ChallengeListReply) xstreamOut.fromXML(inputXML);
+            ChallengeListReply challenges = (ChallengeListReply) xstreamOut.fromXML(outputXML);
             ArrayList<ChallengeEntry> list = challenges.getList();
             ArrayList<ChallengeStub> challengeStubList = new ArrayList<ChallengeStub>();
             for (ChallengeEntry entry : list) {
@@ -77,12 +78,75 @@ public class ChallengeAccessDao implements IChallengeAccess {
 
     @Override
     public Challenge pickChallengeHints(ChallengeStub challengestub) {
-        return null;
+        HintRequest reply = new HintRequest(challengestub);
+        XStream xstreamIn = new XStream(new DomDriver());
+        xstreamIn.alias("HintRequest", HintRequest.class);
+        xstreamIn.aliasField("ChallengeEntry", HintRequest.class, "entry");
+        String inputXML = xstreamIn.toXML(reply);
+
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(inputXML);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        entity.setChunked(true);
+        HttpPost httppost = new HttpPost(webServiceAddress);
+        httppost.setEntity(entity);
+        HttpClient client = HttpClients.createDefault();
+        InputStream in;
+
+        try {
+            HttpResponse response = client.execute(httppost);
+            in = response.getEntity().getContent();
+            String outputXML = IOUtils.toString(in);
+            XStream xstreamOut = new XStream(new DomDriver());
+            xstreamOut.alias("ChallengeReply", ChallengeReply.class);
+            xstreamOut.aliasField("Challenge", ChallengeReply.class, "challenge");
+            ChallengeReply challengeReply = (ChallengeReply) xstreamOut.fromXML(outputXML);
+            return challengeReply.getChallenge();
+        }catch (ClientProtocolException e) {
+            return null;
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     @Override
     public Challenge pickChallengeHints(ChallengeStub challengestub, String password) {
-        return null;
+        PrivateHintRequest reply = new PrivateHintRequest(challengestub, password);
+        XStream xstreamIn = new XStream(new DomDriver());
+        xstreamIn.alias("HintRequest", PrivateHintRequest.class);
+        xstreamIn.aliasField("ChallengeEntry", PrivateHintRequest.class, "entry");
+        xstreamIn.aliasField("Password", PrivateHintRequest.class, "password");
+        String inputXML = xstreamIn.toXML(reply);
+
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(inputXML);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        entity.setChunked(true);
+        HttpPost httppost = new HttpPost(webServiceAddress);
+        httppost.setEntity(entity);
+        HttpClient client = HttpClients.createDefault();
+        InputStream in;
+
+        try {
+            HttpResponse response = client.execute(httppost);
+            in = response.getEntity().getContent();
+            String outputXML = IOUtils.toString(in);
+            XStream xstreamOut = new XStream(new DomDriver());
+            xstreamOut.alias("ChallengeReply", ChallengeReply.class);
+            xstreamOut.aliasField("Challenge", ChallengeReply.class, "challenge");
+            ChallengeReply challengeReply = (ChallengeReply) xstreamOut.fromXML(outputXML);
+            return challengeReply.getChallenge();
+        }catch (ClientProtocolException e) {
+            return null;
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     @Override
@@ -121,10 +185,10 @@ public class ChallengeAccessDao implements IChallengeAccess {
 
     @Override
     public boolean sendNewChallenge(Challenge challenge) {
-        NewChallegeRequest request = new NewChallegeRequest(challenge);
+        NewChallengeRequest request = new NewChallengeRequest(challenge);
         XStream xstreamIn = new XStream(new DomDriver());
-        xstreamIn.alias("NewChallengeRequest", NewChallegeRequest.class);
-        xstreamIn.aliasField("Challenge", NewChallegeRequest.class, "challenge");
+        xstreamIn.alias("NewChallengeRequest", NewChallengeRequest.class);
+        xstreamIn.aliasField("Challenge", NewChallengeRequest.class, "challenge");
         String inputXML = xstreamIn.toXML(request);
 
         StringEntity entity = null;
@@ -290,6 +354,14 @@ public class ChallengeAccessDao implements IChallengeAccess {
             hint.getPhoto().copyPixelsToBuffer(buffer);
             this.photo = buffer.array();
         }
+
+        public Hint getHint(){
+            Hint hint = new Hint();
+            hint.setDistance(distance);
+            hint.setPhoto(BitmapFactory.decodeByteArray(photo, 0, photo.length));
+            hint.setDescription(text);
+            return hint;
+        }
     }
 
     private class DataModelChallenge{
@@ -299,6 +371,10 @@ public class ChallengeAccessDao implements IChallengeAccess {
         private ArrayList<KHint> hints;
         private int points;
         private String name;
+        private Coordinates location;
+        private String password;
+        private String secretPassword;
+        private boolean status;
 
         public DataModelChallenge(Challenge challenge){
             this.description=challenge.getStub().getDescription();
@@ -314,15 +390,110 @@ public class ChallengeAccessDao implements IChallengeAccess {
             this.photo = buffer.array();
             this.points = challenge.getPoints();
             this.name = challenge.getStub().getName();
+            this.location = new Coordinates(challenge.getStub().getLocation());
+            this.password = null;
+            this.secretPassword = null;
+            this.status = challenge.getStub().isPublicAccess();
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public byte[] getPhoto() {
+            return photo;
+        }
+
+        public ArrayList<KHint> getHints() {
+            return hints;
+        }
+
+        public String getSecretPassword() {
+            return secretPassword;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public Coordinates getLocation() {
+            return location;
+        }
+
+        public int getPoints() {
+            return points;
+        }
+
+        public boolean isStatus() {
+            return status;
         }
     }
 
-    private class NewChallegeRequest{
+    private class NewChallengeRequest{
         private DataModelChallenge challenge;
 
-        public NewChallegeRequest(Challenge challenge){
+        public NewChallengeRequest(Challenge challenge){
             this.challenge = new DataModelChallenge(challenge);
         }
     }
 
+    private class HintRequest{
+        private ChallengeEntry entry;
+
+        public HintRequest(ChallengeStub stub){
+            entry = new ChallengeEntry();
+            entry.setDescription(stub.getDescription());
+            entry.setPublicAccess(stub.isPublicAccess());
+            entry.setName(stub.getName());
+            entry.setId(stub.getId());
+            entry.setLocation(new Coordinates(stub.getLocation()));
+        }
+    }
+
+    private class PrivateHintRequest{
+        private ChallengeEntry entry;
+        private String password;
+
+        public PrivateHintRequest(ChallengeStub stub, String password){
+            entry = new ChallengeEntry();
+            entry.setDescription(stub.getDescription());
+            entry.setPublicAccess(stub.isPublicAccess());
+            entry.setName(stub.getName());
+            entry.setId(stub.getId());
+            entry.setLocation(new Coordinates(stub.getLocation()));
+            this.password = password;
+        }
+    }
+
+    private class ChallengeReply{
+        private DataModelChallenge challenge;
+
+        public Challenge getChallenge(){
+            ChallengeStub stub = new ChallengeStub();
+            stub.setLocation(new GeoCoords(challenge.getLocation().getLatitude(), challenge.getLocation().getLongitude()));
+            stub.setPublicAccess(challenge.isStatus());
+            stub.setName(challenge.getName());
+            stub.setDescription(challenge.getDescription());
+            stub.setId(challenge.getId());
+            Challenge ch = new Challenge();
+            ch.setStub(stub);
+            ArrayList<Hint> list = new ArrayList<Hint>();
+            ArrayList<KHint> klist = challenge.getHints();
+            for (KHint h : klist){
+                list.add(h.getHint());
+            }
+            ch.setHints(list);
+            ch.setPhoto(BitmapFactory.decodeByteArray(challenge.getPhoto(), 0, challenge.getPhoto().length));
+            ch.setPoints(challenge.getPoints());
+            return ch;
+        }
+    }
 }

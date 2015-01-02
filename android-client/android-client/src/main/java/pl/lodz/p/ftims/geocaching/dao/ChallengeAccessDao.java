@@ -1,25 +1,32 @@
 package pl.lodz.p.ftims.geocaching.dao;
 
+import android.content.Context;
+
 import pl.lodz.p.ftims.geocaching.model.*;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 
 public class ChallengeAccessDao implements IChallengeAccess {
+    private String webServiceAddress;
+
+    public ChallengeAccessDao(Context context){
+        PropertyReader reader = new PropertyReader(context);
+        webServiceAddress = reader.getProperties("httpClientProperties.properties").getProperty("ChallengeAccess");
+    }
 
     @Override
     public ArrayList<ChallengeStub> pickChallengeList(GeoCoords coords) {
@@ -28,9 +35,14 @@ public class ChallengeAccessDao implements IChallengeAccess {
         xstreamIn.alias("ChallengeListRequest", ChallengeListRequest.class);
         xstreamIn.aliasField("Location", ChallengeListRequest.class, "location");
         String inputXML = xstreamIn.toXML(request);
-        StringEntity entity = new StringEntity(inputXML, ContentType.create("text/xml", Consts.UTF_8)); //ni wiem czemu nie widzi tego konstruktora
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(inputXML);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         entity.setChunked(true);
-        HttpPost httppost = new HttpPost("http://localhost:8080/");
+        HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
         HttpClient client = HttpClients.createDefault();
         InputStream in;
@@ -64,14 +76,14 @@ public class ChallengeAccessDao implements IChallengeAccess {
     }
 
     @Override
-   /* public Challenge pickChallengeHints(ChallengeStub challengestub) {
-
+    public Challenge pickChallengeHints(ChallengeStub challengestub) {
+        return null;
     }
 
     @Override
     public Challenge pickChallengeHints(ChallengeStub challengestub, String password) {
-
-    }*/ // nie ma odpowiednich klas w data modelu żeby to obsłużyć
+        return null;
+    }
 
     @Override
     public boolean checkChallengeAnswer(Solution solution, Credentials credentials) {
@@ -82,9 +94,14 @@ public class ChallengeAccessDao implements IChallengeAccess {
         xstreamIn.aliasField("Solution", SolutionSubmission.class, "solution");
         String inputXML = xstreamIn.toXML(submission);
 
-        StringEntity entity = new StringEntity(inputXML, ContentType.create("text/xml", Consts.UTF_8));
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(inputXML);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         entity.setChunked(true);
-        HttpPost httppost = new HttpPost("http:/localhost:8080/server/rest/ranking");
+        HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
         HttpClient client = HttpClients.createDefault();
         InputStream in;
@@ -110,9 +127,14 @@ public class ChallengeAccessDao implements IChallengeAccess {
         xstreamIn.aliasField("Challenge", NewChallegeRequest.class, "challenge");
         String inputXML = xstreamIn.toXML(request);
 
-        StringEntity entity = new StringEntity(inputXML, ContentType.create("text/xml", Consts.UTF_8));
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(inputXML);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         entity.setChunked(true);
-        HttpPost httppost = new HttpPost("http:/localhost:8080/server/rest/ranking");
+        HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
         HttpClient client = HttpClients.createDefault();
         InputStream in;

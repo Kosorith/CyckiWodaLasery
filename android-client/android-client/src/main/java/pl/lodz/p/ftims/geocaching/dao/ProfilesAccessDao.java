@@ -1,5 +1,7 @@
 package pl.lodz.p.ftims.geocaching.dao;
 
+import android.content.Context;
+
 import pl.lodz.p.ftims.geocaching.model.*;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -17,6 +19,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 
 public class ProfilesAccessDao implements IProfilesAccess{
+    private String webServiceAddress;
+
+    public ProfilesAccessDao(Context context){
+        PropertyReader reader = new PropertyReader(context);
+        webServiceAddress = reader.getProperties("httpClientProperties.properties").getProperty("ProfileAccess");
+    }
 
     public boolean changePassword(Credentials credentials, String newPassword){
         ChangePasswordRequest request = new ChangePasswordRequest(credentials, newPassword);
@@ -27,12 +35,12 @@ public class ProfilesAccessDao implements IProfilesAccess{
         inputXML = xstreamIn.toXML(request);
         StringEntity entity = null;
         try {
-            entity = new StringEntity(inputXML, ContentType.create("text/xml", Consts.UTF_8)); //nie mam pojęcia czemu nie znajduje tego ontruktora
+            entity = new StringEntity(inputXML); //nie mam pojęcia czemu nie znajduje tego ontruktora
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         entity.setChunked(true);
-        HttpPost httppost = new HttpPost("http://localhost:8080/server/rest/login");
+        HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
         HttpClient client = HttpClients.createDefault();
 
@@ -57,12 +65,12 @@ public class ProfilesAccessDao implements IProfilesAccess{
         inputXML = xstreamIn.toXML(request);
         StringEntity entity = null;
         try {
-            entity = new StringEntity(inputXML, ContentType.create("text/xml", Consts.UTF_8));
+            entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         entity.setChunked(true);
-        HttpPost httppost = new HttpPost("http://localhost:8080/server/rest/login");
+        HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
         HttpClient client = HttpClients.createDefault();
 
@@ -88,12 +96,12 @@ public class ProfilesAccessDao implements IProfilesAccess{
         inputXML = xstreamIn.toXML(request);
         StringEntity entity = null;
         try {
-            entity = new StringEntity(inputXML, ContentType.create("text/xml", Consts.UTF_8));
+            entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         entity.setChunked(true);
-        HttpPost httppost = new HttpPost("http://localhost:8080/server/rest/login");
+        HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
         HttpClient client = HttpClients.createDefault();
 
@@ -119,13 +127,13 @@ public class ProfilesAccessDao implements IProfilesAccess{
         inputXML = xstreamIn.toXML(request);
         StringEntity entity  = null;
         try{
-            entity = new StringEntity(inputXML, ContentType.create("text/xml", Consts.UTF_8));
+            entity = new StringEntity(inputXML);
 
         } catch (UnsupportedEncodingException e){
             e.printStackTrace();
         }
         entity.setChunked(true);
-        HttpPost httppost = new HttpPost("http://localhost:8080/server/rest/login");
+        HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
         HttpClient client = HttpClients.createDefault();
         InputStream in;

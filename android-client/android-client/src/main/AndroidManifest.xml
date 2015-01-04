@@ -58,6 +58,7 @@
             android:name=".GUI.Profil"
             android:label="@string/title_activity_profil" >
         </activity>
+
         <!-- Dodane do menu popup -->
         <activity
             android:name="com.projekt.Profil"

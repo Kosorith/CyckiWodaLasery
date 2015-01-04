@@ -1,38 +1,50 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="400dp"
+    android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="pl.lodz.p.ftims.geocaching.GUI.Dodaj_wskazowke_1"
-    android:background="@drawable/tlo_aplikacja">
+    android:background="@drawable/tlo_aplikacja"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <Button
         android:layout_width="110dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="@string/DNW_Przycisk"
         android:id="@+id/Dalej"
-        android:layout_x="167dp"
-        android:layout_y="431dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/Zdjecie"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_x="238dp"
+        android:layout_y="426dp" />
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="333dp"
-        android:layout_height="113dp"
-        android:layout_x="-32dp"
-        android:layout_y="150dp"
-        android:weightSum="1">
+        android:layout_width="350dp"
+        android:layout_height="133dp"
+        android:weightSum="1"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="36dp"
+        android:layout_above="@+id/Zdjecie"
+        android:layout_x="10dp"
+        android:layout_y="160dp">
 
         <TextView
-            android:layout_width="128dp"
-            android:layout_height="36dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/DNW_Opis_Wyzwania"
             android:id="@+id/Opis_text"
-            android:layout_weight="0.28" />
+            android:layout_weight="0"
+            android:layout_gravity="left" />
 
         <EditText
-            android:layout_width="136dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
@@ -41,86 +53,113 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="288dp"
-        android:layout_height="138dp"
-        android:layout_x="-51dp"
-        android:layout_y="0dp">
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:id="@+id/linearLayout2"
+        android:layout_alignParentTop="false"
+        android:layout_alignEnd="@+id/Dalej"
+        android:layout_alignParentEnd="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_x="10dp"
+        android:layout_y="12dp">
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="319dp"
-            android:layout_height="30dp"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
             android:weightSum="1">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/DNW_Nazwa_Dodawanego_Wyzwania"
-                android:id="@+id/Nazwa_text" />
+                android:id="@+id/Nazwa_text"
+                android:gravity="center_vertical|center"
+                android:layout_gravity="left" />
 
             <EditText
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:id="@+id/Nazwa"
-                android:inputType="text" />
+                android:inputType="text"
+                android:hint="@string/DNW_Nazwa"
+                android:gravity="bottom|center_horizontal" />
 
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:weightSum="1">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/DNW_Hasło_Do_Prywatnego_Wyzwania"
                 android:id="@+id/Hasło_text"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:gravity="center_vertical|center"
+                android:layout_gravity="left" />
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:id="@+id/Hasło"
                 android:inputType="text"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:gravity="bottom|center_horizontal" />
         </LinearLayout>
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/DNW_Hasło_Do_Prywatnego_Wyzwania"
-            android:id="@+id/Rodzaj_wyzwania"
-            android:layout_x="75dp"
-            android:layout_y="137dp"
-            android:checked="false"
-            android:onClick="Czy_Pryw"
-            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
     <ImageButton
-        android:layout_width="51dp"
-        android:layout_height="62dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id="@+id/ZdjecieZAparatu"
         android:onClick="ZdjecieKamera"
-        android:layout_x="-6dp"
-        android:layout_y="414dp" />
+        android:layout_x="10dp"
+        android:layout_y="426dp"
+        android:layout_below="@+id/Zdjecie"
+        android:layout_toRightOf="@+id/ZdjecieZPamieci"
+        android:layout_toEndOf="@+id/ZdjecieZPamieci" />
 
     <ImageButton
-        android:layout_width="51dp"
-        android:layout_height="62dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id="@+id/ZdjecieZPamieci"
         android:onClick="ZdjeciePamiec"
-        android:layout_x="73dp"
-        android:layout_y="416dp" />
+        android:layout_x="76dp"
+        android:layout_y="426dp"
+        android:layout_below="@+id/Zdjecie"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
         android:id="@+id/Zdjecie"
-        android:layout_x="4dp"
-        android:layout_y="266dp" />
+        android:layout_y="292dp"
+        android:layout_above="@+id/Dalej"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_x="115dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/DNW_Hasło_Do_Prywatnego_Wyzwania"
+        android:id="@+id/Rodzaj_wyzwania"
+        android:layout_x="155dp"
+        android:layout_y="120dp"
+        android:checked="false"
+        android:onClick="Czy_Pryw"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </AbsoluteLayout>

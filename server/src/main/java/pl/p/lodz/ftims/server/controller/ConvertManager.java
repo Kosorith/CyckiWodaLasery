@@ -45,12 +45,12 @@ public class ConvertManager implements IConvertManager {
 		challenge.setName(entityChallenge.getName());
 		challenge.setPassword(entityChallenge.getPassword());
 		challenge.setStatus(entityChallenge.getStatus());
-		challenge.setPhoto(entityChallenge.getPhoto());
+		//challenge.setPhoto(entityChallenge.getPhoto());
 		challenge.setPoints(entityChallenge.getPoints());
 		challenge.setSecretPassword(entityChallenge.getSecretPassword());
 		Collection<Hint> entityHints = entityChallenge.getHints();
 		
-		List<KHint> hints=new ArrayList<KHint>(); 
+		List<KHint> hints=new ArrayList<>(); 
 		for (Hint entityHint : entityHints) {
 			hints.add(convertToKHint(entityHint));
 		}
@@ -68,7 +68,7 @@ public class ConvertManager implements IConvertManager {
 	public ChallengeListReply convertChallengeList(
 			List<pl.p.lodz.ftims.server.entities.Challenge> entityChallenges) {
 		
-		List<ChallengeEntry> challenges = new ArrayList<ChallengeEntry>();
+		List<ChallengeEntry> challenges = new ArrayList<>();
 		for (pl.p.lodz.ftims.server.entities.Challenge entityChallenge : entityChallenges) {
 			challenges.add(convertToChallengeEntry(entityChallenge));
 		}
@@ -81,7 +81,7 @@ public class ConvertManager implements IConvertManager {
 			List<pl.p.lodz.ftims.server.entities.Ranking> entityRankingList) {
 		RankingReply rankingReply=new RankingReply();
 		
-		List<Ranking> rankingList =new ArrayList<Ranking>();
+		List<Ranking> rankingList =new ArrayList<>();
 		for (pl.p.lodz.ftims.server.entities.Ranking ranking : entityRankingList) {
 			rankingList.add(convertRanking(ranking));
 		}
@@ -115,8 +115,8 @@ public class ConvertManager implements IConvertManager {
 	@Override
 	public KHint convertToKHint(Hint entityHint) {
 		String text = entityHint.getText();
-		byte[] photo = entityHint.getPhoto();
+		//byte[] photo = entityHint.getPhoto();
 		int distance = entityHint.getDistance();
-		return new KHint(text, photo, distance);
+		return new KHint(text, null, distance);
 	}
 }

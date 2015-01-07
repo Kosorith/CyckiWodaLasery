@@ -10,7 +10,16 @@ import dataModel.Coordinates;
 import dataModel.KHint;
 import dataModel.Solution;
 import dataModel.SolutionSubmission;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.AuthenticationException;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +35,10 @@ import pl.p.lodz.ftims.server.persistence.IHintsPersistence;
 @Transactional(rollbackFor = AuthenticationException.class, readOnly = true)
 public class ChallengeService implements IChallengeService {
 
+    private static final String CHALLENGE_PHOTO_FILENAME_PREFIX = "challenge";
+    
+    private static final String HINT_PHOTO_FILENAME_PREFIX = "hint";
+    
     @Autowired
     private IChallengesPersistence challengesDAO;
     
@@ -37,27 +50,38 @@ public class ChallengeService implements IChallengeService {
 
     @Override
     @Transactional(readOnly = false)
-    public void createChallenge(dataModel.Challenge challengeData) {
+    public void createChallenge(dataModel.Challenge challengeData) throws IOException {
         Challenge challenge = new Challenge();
         challenge.setDescription(challengeData.getDescription());
         challenge.setLocation(challengeData.getLocation().toString());
         challenge.setName(challengeData.getName());
         challenge.setPassword(challengeData.getPassword());
-        challenge.setPhoto(challengeData.getPhoto());
+        //challenge.setPhoto(challengeData.getPhoto());
         challenge.setPoints(challengeData.getPoints());
         challenge.setSecretPassword(challengeData.getSecretPassword());
         challenge.setStatus(challengeData.getStatus());
         challenge = challengesDAO.save(challenge);
 
+        String challengePhotoName = CHALLENGE_PHOTO_FILENAME_PREFIX + challenge.getId();
+        challenge.setPhoto(challengePhotoName);
+        if (challengeData.getPhoto() != null) {
+            savePhotoOnDisk(challengeData.getPhoto(), challengePhotoName);
+        }
+        
         for (KHint khint : challengeData.getHints()) {
             Hint hint = new Hint();
             hint.setDistance(khint.getDistance());
-            hint.setPhoto(khint.getPhoto());
+            //hint.setPhoto(khint.getPhoto());
             hint.setText(khint.getText());
             hint.setChallenge(challenge);
             challenge.addHint(hint);
             
-            hintsDAO.save(hint);
+            hint = hintsDAO.save(hint);
+            String hintPhotoName = HINT_PHOTO_FILENAME_PREFIX + hint.getId();
+            hint.setPhoto(hintPhotoName);
+            if (khint.getPhoto() != null) {
+                savePhotoOnDisk(khint.getPhoto(), hintPhotoName);
+            }
         }
     }
 
@@ -118,5 +142,13 @@ public class ChallengeService implements IChallengeService {
     @Override
     public List<Challenge> getAllChallenges() {
         return IteratorUtils.toList(challengesDAO.findAll().iterator());
+    }
+    
+    private void savePhotoOnDisk(byte[] photo, String fileName) throws IOException {
+
+        File photoDir = new File(PHOTOS_DIR + fileName + ".jpg");
+        try (FileOutputStream stream = new FileOutputStream(photoDir)) {
+            stream.write(photo);
+        } 
     }
 }

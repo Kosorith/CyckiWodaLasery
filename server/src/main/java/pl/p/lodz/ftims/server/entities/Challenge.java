@@ -59,7 +59,7 @@ public class Challenge implements Serializable {
     private boolean status;
 
     @Column(name = "photo")
-    private byte[] photo;
+    private String photo;
 
     @NotNull
     @Column(name = "points", nullable = false)
@@ -127,11 +127,11 @@ public class Challenge implements Serializable {
         this.status = status;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

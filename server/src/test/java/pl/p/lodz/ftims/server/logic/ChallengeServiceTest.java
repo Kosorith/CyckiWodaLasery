@@ -11,17 +11,28 @@ import dataModel.Credentials;
 import dataModel.KHint;
 import dataModel.Solution;
 import dataModel.SolutionSubmission;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Stream;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.p.lodz.ftims.server.entities.Challenge;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
+import static pl.p.lodz.ftims.server.logic.IChallengeService.PHOTOS_DIR;
 
 /**
  *
@@ -30,18 +41,38 @@ import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 @ContextConfiguration(locations = "/spring-test.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ChallengeServiceTest {
-    
+
     @Autowired
     IChallengeService challengeService;
-    
+
     public ChallengeServiceTest() {
+    }
+
+    @BeforeClass
+    public static void createImgDir() throws IOException {
+        if (Files.notExists(Paths.get(PHOTOS_DIR), LinkOption.NOFOLLOW_LINKS)) {
+            Files.createDirectory(Paths.get(PHOTOS_DIR));
+        }
+    }
+
+    @AfterClass
+    public static void deleteImgDir() throws IOException {
+        Stream<Path> stream = Files.list(Paths.get(PHOTOS_DIR));
+        stream.forEach((Path p) -> {
+            try {
+                Files.delete(p);
+            } catch (IOException ex) {
+                Logger.getLogger(ChallengeServiceTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        Files.deleteIfExists(Paths.get(PHOTOS_DIR));
     }
 
     /**
      * Test of createChallenge method, of class ChallengeService.
      */
     @Test
-    public void testCreateChallenge() {
+    public void testCreateChallenge() throws Exception {
         System.out.println("createChallenge");
         dataModel.Challenge challengeData = new dataModel.Challenge();
         challengeData.setName("testowe");
@@ -51,18 +82,18 @@ public class ChallengeServiceTest {
         challengeData.setPoints(20);
         challengeData.setSecretPassword("secPasswd");
         challengeData.setStatus(false);
-        
+
         byte[] photo = new byte[1500000];
         Random r = new Random();
         r.nextBytes(photo);
         challengeData.setPhoto(photo);
-        
+
         List<KHint> khints = new ArrayList<>(5);
         for (int i = 0; i < 5; ++i) {
             khints.add(new KHint("hint" + i, null, 10 + i));
         }
         challengeData.setHints(khints);
-        
+
         challengeService.createChallenge(challengeData);
     }
 
@@ -83,16 +114,16 @@ public class ChallengeServiceTest {
     public void testGetChallenge() {
         System.out.println("getChallenge");
         ChallengeRequest request = new ChallengeRequest(210, "passwd");
-        
+
         Challenge challenge = challengeService.getChallenge(request);
         assertNull(challenge);
-        
+
         request = new ChallengeRequest(10, "pass1");
         challenge = challengeService.getChallenge(request);
-        
+
         assertNotNull(challenge);
         assertEquals(10, challenge.getId());
-        
+
         request = new ChallengeRequest(10, "wrong_password");
         challenge = challengeService.getChallenge(request);
         assertNull(challenge);
@@ -107,7 +138,7 @@ public class ChallengeServiceTest {
         boolean solved = challengeService.doCompleteChallenge(solutionSub);
         assertEquals(true, solved);
     }
-    
+
     @Test
     public void testDoCompleteChallengeSolutionWrong() throws Exception {
         Credentials cred = new Credentials("test1");
@@ -117,7 +148,7 @@ public class ChallengeServiceTest {
         boolean solved = challengeService.doCompleteChallenge(solutionSub);
         assertEquals(false, solved);
     }
-    
+
     /**
      * Test of doCompleteChallenge method, of class ChallengeService.
      */
@@ -152,7 +183,7 @@ public class ChallengeServiceTest {
         boolean expResult = false;
         boolean result = challengeService.challengeExists(challengeId);
         assertEquals(expResult, result);
-        
+
         challengeId = 10;
         expResult = true;
         result = challengeService.challengeExists(challengeId);

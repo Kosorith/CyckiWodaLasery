@@ -3,6 +3,7 @@ package pl.p.lodz.ftims.server.logic;
 import dataModel.ChallengeRequest;
 import dataModel.Coordinates;
 import dataModel.SolutionSubmission;
+import java.io.IOException;
 import java.util.List;
 import pl.p.lodz.ftims.server.entities.Challenge;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
@@ -15,11 +16,18 @@ import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 public interface IChallengeService {
 
     /**
+     * Stała przechowująca informację o tym gdzie zapisywane są zdjęcia do zadań i wskazówek.
+     */
+    static final String PHOTOS_DIR = "img/";
+    
+    /**
      * Metoda dodaje nowe wyzwanie na podstawie podanych danych użytkownika.
      *
-     * @param challengeData - DTO do zrobienia
+     * @param challengeData - DTO przechowujące dane tworzonego zadania
+     * @throws java.io.IOException rzucany w sytuacji gdy nie uda się zapis 
+     * zdjęcia do zadania bądź jego wskazówek
      */
-    void createChallenge(dataModel.Challenge challengeData);
+    void createChallenge(dataModel.Challenge challengeData) throws IOException;
 
     /**
      * Metoda zwraca listę wyzwań, posortowaną począwszy od najbliższych podanej

@@ -11,6 +11,7 @@ apply plugin: 'com.android.application'
 repositories {
     jcenter()
     mavenLocal()
+    mavenCentral()
 }
 
 android {

@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".Logowanie"
-    android:background="@drawable/tlo_aplikacja">
+    android:background="@drawable/tlo_aplikacja"
+    android:gravity="fill">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,22 +13,25 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/Nazwa_Aplikacji"
         android:id="@+id/textView"
-        android:layout_marginTop="83dp"
+        android:layout_marginTop="71dp"
+        android:textColor="#ff3447ff"
+        android:layout_alignWithParentIfMissing="false"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
-        android:textColor="#ff3447ff" />
+        android:layout_gravity="center" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="@string/podaj_login"
         android:ems="10"
         android:id="@+id/Pole_Login"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView"
-        android:textColorHighlight="#ff4c93ff" />
+        android:textColorHighlight="#ff4c93ff"
+        android:gravity="fill_vertical|center_horizontal"
+        android:hint="@string/podaj_login" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -35,26 +39,33 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/Pole_Haslo"
-        android:text="@string/podaj_haslo"
         android:layout_below="@+id/Pole_Login"
         android:layout_alignLeft="@+id/Pole_Login"
         android:layout_alignStart="@+id/Pole_Login"
-        android:textColorHighlight="#ff4c93ff" />
+        android:textColorHighlight="#ff4c93ff"
+        android:gravity="fill_vertical|center_horizontal"
+        android:elegantTextHeight="false"
+        android:hint="@string/podaj_login"
+        android:text="************" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/Login"
         android:id="@+id/Login_Text"
         android:layout_toStartOf="@+id/Pole_Login"
-        android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/Haslo_Text"
         android:layout_alignStart="@+id/Haslo_Text"
-        android:textColor="#ff3447ff" />
+        android:textColor="#ff000000"
+        android:layout_alignTop="@+id/Pole_Login"
+        android:layout_alignBottom="@+id/Pole_Login"
+        android:layout_alignParentBottom="false"
+        android:gravity="left|center_vertical"
+        android:textSize="22dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/Haslo"
@@ -63,18 +74,22 @@
         android:layout_toLeftOf="@+id/Pole_Login"
         android:layout_toStartOf="@+id/Pole_Login"
         android:layout_alignTop="@+id/Pole_Haslo"
-        android:textColor="#ff3447ff" />
+        android:textColor="#ff000000"
+        android:gravity="left|center_vertical"
+        android:layout_marginRight="10 px"
+        android:elegantTextHeight="false"
+        android:textSize="22dp" />
 
     <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:text="@string/Zapamietac_Dane"
         android:id="@+id/Zapamietac"
         android:layout_below="@+id/Pole_Haslo"
         android:layout_alignLeft="@+id/Pole_Haslo"
         android:layout_alignStart="@+id/Pole_Haslo"
         android:checked="false"
-        android:textColor="#ff3447ff" />
+        android:textColor="#ff000000" />
 
     <Button
         android:layout_width="wrap_content"
@@ -87,4 +102,14 @@
         android:layout_marginTop="48dp"
         android:layout_toRightOf="@+id/Haslo_Text"
         android:layout_toEndOf="@+id/Haslo_Text" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/logo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

@@ -14,11 +14,6 @@ import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
  * @author Piotr Grzelak
  */
 public interface IChallengeService {
-
-    /**
-     * Stała przechowująca informację o tym gdzie zapisywane są zdjęcia do zadań i wskazówek.
-     */
-    static final String PHOTOS_DIR = "img/";
     
     /**
      * Metoda dodaje nowe wyzwanie na podstawie podanych danych użytkownika.

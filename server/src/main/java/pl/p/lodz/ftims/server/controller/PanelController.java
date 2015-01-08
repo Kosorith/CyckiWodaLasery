@@ -20,7 +20,6 @@ import pl.p.lodz.ftims.server.logic.IAuthenticationService;
 import pl.p.lodz.ftims.server.logic.IChallengeService;
 import pl.p.lodz.ftims.server.logic.IRankingService;
 import pl.p.lodz.ftims.server.logic.IUserProfileService;
-import pl.p.lodz.ftims.server.logic.UserProfileService;
 import dataModel.Credentials;
 
 /**

@@ -32,7 +32,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.p.lodz.ftims.server.entities.Challenge;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
-import static pl.p.lodz.ftims.server.logic.IChallengeService.PHOTOS_DIR;
+import static pl.p.lodz.ftims.server.logic.IPhotosManager.PHOTOS_DIR;
 
 /**
  *

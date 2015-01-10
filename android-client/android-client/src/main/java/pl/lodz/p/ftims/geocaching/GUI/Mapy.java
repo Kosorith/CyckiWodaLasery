@@ -10,15 +10,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.Toast;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import pl.lodz.p.ftims.geocaching.R;
+import pl.lodz.p.ftims.geocaching.logic.challenges.ChallengeSolvingService;
+import pl.lodz.p.ftims.geocaching.logic.challenges.HintsObserver;
+import pl.lodz.p.ftims.geocaching.logic.gps.LocationObserver;
+import pl.lodz.p.ftims.geocaching.logic.gps.LocationService;
+import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
+import pl.lodz.p.ftims.geocaching.model.GeoCoords;
+import pl.lodz.p.ftims.geocaching.model.Hint;
 
-public class Mapy extends FragmentActivity {
-    Button button;
+public class Mapy extends FragmentActivity implements HintsObserver, LocationObserver {
+
+    @InjectPlz
+    private ChallengeSolvingService challengeSolvingService;
+    @InjectPlz
+    private LocationService locationService;
+
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private Button actionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,36 +40,40 @@ public class Mapy extends FragmentActivity {
         setContentView(R.layout.activity_mapy);
         setUpMapIfNeeded();
 
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-
+        actionButton = (Button) findViewById(R.id.button);
+        actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(Mapy.this, button);
+                PopupMenu popupMenu = new PopupMenu(Mapy.this, actionButton);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_mapa_popup, popupMenu.getMenu());
-
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
-                    public boolean onMenuItemClick(MenuItem item){
-
-                        switch(item.getItemId()) {
-                            case R.id.infoOWsk:
-                                Intent intent7;
-                                intent7 = new Intent(Mapy.this, informacje_o_wskazowce.class);
-                                startActivityForResult(intent7,0);
-                                break;
-                        }
-                        /*
-                        Toast.makeText(Mapy.this, "Button Clicked :" + item.getTitle(),
-                            Toast.LENGTH_SHORT).show();
-                        */
-                            return true;
-                    }
-                });
-
+                popupMenu.setOnMenuItemClickListener(new ActionPopupClickListener());
                 popupMenu.show();
-
             }
         });
+    }
+
+    @Override
+    public void onNewHint(Hint hint) {
+//  TODO: dodać nowego hinta do jakiejś listy wyświetlającej hinty, może nawet lepszym rozwiązaniem byłoby
+//        zostawienie tej metody pustej i zaimplementowanie interfejsu HintObserver bezpośrednio w tamtym activity
+    }
+
+    private static final String[] tempDescs =  {"Arktycznie", "Syberyjsko", "Lodowato",
+        "Zimno", "Chłodno", "Letnio", "Ciepło", "Cieplej", "Gorąco", "Piekielnie", "Szatańsko"};
+    @Override
+    public void onHeatChange(int temperature) {
+        Toast.makeText(getApplicationContext(), tempDescs[temperature / 10], Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLocationChanged(GeoCoords geoCoords) {
+        double latitude = geoCoords.getLatitude();
+        double longitude = geoCoords.getLongitude();
+
+        LatLng latLng = new LatLng(latitude, longitude);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -194,6 +212,26 @@ public class Mapy extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        challengeSolvingService.subscribe(this);
+        // TODO: Trzeba gdzieś wywołać challengeSolvingService.startChallenge() by to cokolwiek robiło
+        locationService.subscribe(this);
+    }
+
+    private class ActionPopupClickListener implements PopupMenu.OnMenuItemClickListener {
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.infoOWsk:
+                    Intent intent7;
+                    intent7 = new Intent(Mapy.this, informacje_o_wskazowce.class);
+                    startActivityForResult(intent7, 0);
+                    break;
+            }
+            /*
+            Toast.makeText(Mapy.this, "Button Clicked :" + item.getTitle(),
+                Toast.LENGTH_SHORT).show();
+            */
+            return true;
+        }
     }
 }

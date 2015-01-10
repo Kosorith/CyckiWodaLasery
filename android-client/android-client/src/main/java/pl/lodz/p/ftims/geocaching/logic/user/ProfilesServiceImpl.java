@@ -43,8 +43,8 @@ public class ProfilesServiceImpl implements ProfilesService {
 //      return profilesAccess.saveUserProfile(loginService.getCurrentCredentials(), currentProfile);
 //    }
 
-    @Override
-    public boolean preverifyProfile(Profile profile) {
-        return true;
-    }
+//    @Override
+//    public boolean preverifyProfile(Profile profile) {
+//        return true;
+//    }
 }

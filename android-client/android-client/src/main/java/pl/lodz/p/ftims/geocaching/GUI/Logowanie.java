@@ -31,6 +31,12 @@ public class Logowanie extends Activity {
         loginEdit = (EditText) findViewById(R.id.Pole_Login);
         passwordEdit = (EditText) findViewById(R.id.Pole_Haslo);
         rememberBox = (CheckBox) findViewById(R.id.Zapamietac);
+
+        Credentials stored = loginService.getRememberedCredentials();
+        if (stored != null) {
+            loginEdit.setText(stored.getLogin());
+            passwordEdit.setText(stored.getPassword());
+        }
     }
 
 

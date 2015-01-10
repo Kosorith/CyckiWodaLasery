@@ -19,7 +19,7 @@
     <Button
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/mapy_activity_akcje"
         android:id="@+id/button"
         android:layout_x="0dp"
         android:layout_y="437dp" />

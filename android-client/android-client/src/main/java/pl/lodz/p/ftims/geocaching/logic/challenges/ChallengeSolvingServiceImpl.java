@@ -20,6 +20,8 @@ public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
     private LocationService locationService;
     private LoginService loginService;
     private IChallengeAccess challengeAccess;
+
+    private SolvingMode solvingMode = SolvingMode.HINT_MODE;
     private Challenge activeChallenge;
     private float closestDistance;
     private float maxDistance;
@@ -61,6 +63,16 @@ public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
         closestDistance = newDistance;
     }
 
+    @Override
+    public SolvingMode getMode() {
+        return solvingMode;
+    }
+
+    @Override
+    public void setMode(SolvingMode solvingMode) {
+        this.solvingMode = solvingMode;
+    }
+
     private void resetHints() {
         closestDistance = Float.MAX_VALUE;
         maxDistance = activeChallenge.maxDistanceHint().getDistance();
@@ -71,11 +83,15 @@ public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
     }
 
     private void updateHints(float newDistance) {
+        if (solvingMode != SolvingMode.HINT_MODE) {
+            return;
+        }
         if (newDistance >= closestDistance) {
             return;
         }
 
         List<Hint> newHints = activeChallenge.hintsBetween((int) newDistance, (int) closestDistance);
+
         for (Hint hint : newHints) {
             for (HintsObserver observer : observers) {
                 observer.onNewHint(hint);
@@ -84,6 +100,10 @@ public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
     }
 
     private void updateHeat(float newDistance) {
+        if (solvingMode != SolvingMode.HEAT_MODE) {
+            return;
+        }
+
         int temperature = Math.max(0, (int) ((maxDistance - newDistance) / maxDistance * 100));
 
         for (HintsObserver observer : observers) {

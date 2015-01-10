@@ -21,4 +21,8 @@ public interface ChallengeSolvingService extends Subject<HintsObserver> {
 
     boolean solveChallenge(String password);
 
+    SolvingMode getMode();
+
+    void setMode(SolvingMode solvingMode);
+
 }

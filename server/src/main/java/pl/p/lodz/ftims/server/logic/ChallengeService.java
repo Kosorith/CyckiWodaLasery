@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.p.lodz.ftims.server.entities.Challenge;
 import pl.p.lodz.ftims.server.entities.Hint;
+import pl.p.lodz.ftims.server.entities.User;
 import pl.p.lodz.ftims.server.exceptions.UserAuthenticationFailedException;
 import pl.p.lodz.ftims.server.persistence.IChallengesPersistence;
 import pl.p.lodz.ftims.server.persistence.IHintsPersistence;
@@ -41,6 +42,9 @@ public class ChallengeService implements IChallengeService {
 
     @Autowired
     private IAuthenticationService authenticationService;
+    
+    @Autowired
+    private IRankingService rankingService;
     
     @Autowired
     private IPhotosManager photosManager;
@@ -106,14 +110,19 @@ public class ChallengeService implements IChallengeService {
     @Override
     @Transactional(readOnly = false)
     public boolean doCompleteChallenge(SolutionSubmission submission) throws UserAuthenticationFailedException {
-        authenticationService.authenticateUser(submission.getCredentials());
+        User user = authenticationService.authenticateUser(submission.getCredentials());
         Solution solution = submission.getSolution();
         Challenge challenge = challengesDAO.findOne(solution.getChallengeId());
         if (challenge == null) {
             return false;
         }
 
-        return challenge.getSecretPassword().equals(solution.getSecretPassword());
+        if (challenge.getSecretPassword().equals(solution.getSecretPassword())) {
+            rankingService.addPointsToUser(user.getId(), challenge.getPoints());
+            return true;
+        }
+        
+        return false;
     }
 
     @Override

@@ -45,7 +45,7 @@
         </activity>
 
         <!-- Dodane do menu popup -->
-<!--    <activity  TODO: Domyślić się o co tu chodzi
+<!--    <activity                           TODO: O co tu chodzi? Nie ma takiej klasy
             android:name="com.projekt.Profil"
             android:label="@string/app_name" >
             <intent-filter>

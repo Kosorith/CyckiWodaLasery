@@ -1,5 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="pl.lodz.p.ftims.geocaching.GUI.Dodaj_wskazowke_1">
 
     <!-- Profil -->
@@ -7,21 +8,21 @@
         android:id="@+id/ekran_Profil"
         android:title="@string/ekran_Profil"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
 
     <!-- Ranking -->
     <item
         android:id="@+id/ekran_Ranking"
         android:title="@string/ekran_Ranking"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
 
     <!-- Mapa -->
     <item
         android:id="@+id/ekran_Mapa"
         android:title="@string/ekran_Mapa"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
 
     <!-- Stwórz wyzwanie -->
     <!--
@@ -29,7 +30,7 @@
      android:id="@+id/ekran_Stworz_wyzwanie"
      android:title="@string/ekran_Stworz_wyzwanie"
      android:orderInCategory="100"
-     android:showAsAction="never" />
+     app:showAsAction="never" />
     -->
 
 
@@ -38,12 +39,12 @@
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
     <!-- Exit -->
     <item
         android:id="@+id/action_exit"
         android:title="@string/action_exit"
         android:orderInCategory="102"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
 
 </menu>

@@ -54,7 +54,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/Login"
         android:id="@+id/Login_Text"
-        android:layout_toStartOf="@+id/Pole_Login"
+        android:layout_toLeftOf="@+id/Pole_Login"
         android:layout_alignLeft="@+id/Haslo_Text"
         android:layout_alignStart="@+id/Haslo_Text"
         android:textColor="#ff000000"

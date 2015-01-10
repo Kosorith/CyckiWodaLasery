@@ -58,8 +58,8 @@
         android:gravity="center_vertical"
         android:id="@+id/linearLayout2"
         android:layout_alignParentTop="false"
-        android:layout_alignEnd="@+id/Dalej"
-        android:layout_alignParentEnd="false"
+        android:layout_alignRight="@+id/Dalej"
+        android:layout_alignParentRight="false"
         android:layout_alignWithParentIfMissing="false"
         android:layout_x="10dp"
         android:layout_y="12dp">

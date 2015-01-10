@@ -3,8 +3,10 @@ package pl.lodz.p.ftims.geocaching.logic.inject;
 import android.app.Application;
 import android.content.Context;
 import android.location.LocationManager;
+import pl.lodz.p.ftims.geocaching.dao.ChallengeAccessDao;
 import pl.lodz.p.ftims.geocaching.dao.IChallengeAccess;
 import pl.lodz.p.ftims.geocaching.dao.IProfilesAccess;
+import pl.lodz.p.ftims.geocaching.dao.ProfilesAccessDao;
 import pl.lodz.p.ftims.geocaching.logic.challenges.*;
 import pl.lodz.p.ftims.geocaching.logic.gps.LocationService;
 import pl.lodz.p.ftims.geocaching.logic.gps.LocationServiceImpl;
@@ -27,8 +29,8 @@ public class ServiceRegistryImpl implements ServiceRegistry {
     }
 
     public void initialize(Application application) {
-        IChallengeAccess challengeAccess = null;
-        IProfilesAccess profilesAccess = null;
+        IChallengeAccess challengeAccess = new ChallengeAccessDao(application.getApplicationContext());
+        IProfilesAccess profilesAccess = new ProfilesAccessDao(application.getApplicationContext());
 
         LocationManager locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
         LocationService locationService = new LocationServiceImpl(locationManager);

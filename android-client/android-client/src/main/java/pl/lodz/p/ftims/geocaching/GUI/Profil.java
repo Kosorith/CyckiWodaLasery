@@ -10,8 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import pl.lodz.p.ftims.geocaching.R;
+import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
+import pl.lodz.p.ftims.geocaching.logic.user.ProfilesService;
 
 public class Profil extends Activity {
+
+    @InjectPlz
+    private ProfilesService profilesService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

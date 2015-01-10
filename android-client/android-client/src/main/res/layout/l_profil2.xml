@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/nickText"
+                android:text=""
                 android:id="@+id/nickText"
                 android:layout_column="2"
                 android:textColor="#fff0fcff" />
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/zdobPktText"
+                android:text=""
                 android:id="@+id/zdobPktText"
                 android:layout_column="2"
                 android:textColor="#fff0fcff" />
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/pozRankText"
+                android:text=""
                 android:id="@+id/pozRankText"
                 android:layout_column="2"
                 android:textColor="#fff0fcff" />

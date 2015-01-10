@@ -6,26 +6,46 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.*;
 import pl.lodz.p.ftims.geocaching.R;
+import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
+import pl.lodz.p.ftims.geocaching.logic.user.LoginService;
+import pl.lodz.p.ftims.geocaching.model.Credentials;
 
 
 public class Logowanie extends Activity {
+
+    @InjectPlz
+    private LoginService loginService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logowanie);
 
+        final EditText loginEdit = (EditText) findViewById(R.id.Pole_Login);
+        final EditText passwordEdit = (EditText) findViewById(R.id.Pole_Haslo);
+        final CheckBox rememberBox = (CheckBox) findViewById(R.id.Zapamietac);
+
         Button OK = (Button) findViewById(R.id.OK);
         OK.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),Profil.class);
-                startActivityForResult(intent,0);
+                String login = loginEdit.getText().toString();
+                String password = passwordEdit.getText().toString();
+                Credentials credentials = new Credentials(login, password);
+                boolean remember = rememberBox.isChecked();
+                boolean ok = loginService.login(credentials, remember);
+                if (ok) {
+                    Intent intent = new Intent(v.getContext(), Profil.class);
+                    startActivityForResult(intent, 0);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Nie udało się zalogować!", Toast.LENGTH_SHORT).show();
+
+                    // TODO: ZOSTAWIŁEM TO PONIŻEJ BY DAŁO SIĘ PRZEJŚĆ DALEJ MIMO BRAKU SERWERA
+                    Intent intent = new Intent(v.getContext(), Profil.class);
+                    startActivityForResult(intent, 0);
+                }
             }
         });
 

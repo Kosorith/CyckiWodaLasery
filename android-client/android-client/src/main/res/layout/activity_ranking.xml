@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="RANKING"
-                    android:id="@+id/textView1"
+                    android:id="@+id/textView11"
                     android:textColor="#ff00f7ff" />
 
                 <TextView
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="NICK"
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView12"
                     android:textColor="#ff00f7ff"
                     android:layout_column="1" />
 
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="PUNKTY"
-                    android:id="@+id/textView12"
+                    android:id="@+id/textView13"
                     android:textColor="#ff00f7ff"
                     android:layout_column="2" />
 
@@ -65,14 +65,14 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="UK. WYZW."
-                    android:id="@+id/textView12"
+                    android:id="@+id/textView14"
                     android:textColor="#ff00f7ff"
                     android:layout_column="2" />
 
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow1"
+                android:id="@+id/tableRow2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp">
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="175"
-                    android:id="@+id/textView1"
+                    android:id="@+id/textView21"
                     android:textColor="#ff00f7ff" />
 
                 <TextView
@@ -94,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Mustafarius79"
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView22"
                     android:textColor="#ff00f7ff"
                     android:layout_column="1" />
 
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="10674"
-                    android:id="@+id/textView12"
+                    android:id="@+id/textView23"
                     android:textColor="#ff00f7ff"
                     android:layout_column="2" />
 
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="78"
-                    android:id="@+id/textView12"
+                    android:id="@+id/textView24"
                     android:textColor="#ff00f7ff"
                     android:layout_column="2" />
 

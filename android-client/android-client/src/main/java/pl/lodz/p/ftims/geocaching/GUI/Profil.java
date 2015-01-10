@@ -26,17 +26,17 @@ public class Profil extends Activity {
         setContentView(R.layout.l_profil2);
 
         // profilesService.loadProfile();
-        Profile profile = new Profile("Jerzy", "123@edu.p.lodz.pl"); //profilesService.getCurrentProfile();
-        // ! TODO: odkomentować jak zadziała przesyłanie przez neta
+        Profile profile = new Profile("Jerzy", "123@edu.p.lodz.pl", 666, 666); //profilesService.getCurrentProfile();
+        // ! TODO: odkomentować obie linijkijak zadziała przesyłanie przez neta
         if (profile != null) {
             TextView nickText = (TextView) findViewById(R.id.nickText);
             TextView emailText = (TextView) findViewById(R.id.emailText);
             TextView pointsText = (TextView) findViewById(R.id.zdobPktText);
-            TextView rankText = (TextView) findViewById(R.id.pozRankText);
-            nickText.append(profile.getNick());
-            emailText.append(profile.getEmail());
-            pointsText.append("0");
-            rankText.append("0");  // nie obsługujemy rankingu póki co
+            TextView completedText = (TextView) findViewById(R.id.ukonczylText);
+            nickText.setText(profile.getNick());
+            emailText.setText(profile.getEmail());
+            pointsText.setText(String.valueOf(profile.getPoints()));
+            completedText.setText(String.valueOf(profile.getCompletedChallenges()));
         }
 
         // pierwsze menu

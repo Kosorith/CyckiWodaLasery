@@ -71,55 +71,7 @@
 
             </TableRow>
 
-            <TableRow
-                android:id="@+id/tableRow2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp">
 
-                <TextView
-                    android:textSize="15dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="175"
-                    android:id="@+id/textView21"
-                    android:textColor="#ff00f7ff" />
-
-                <TextView
-                    android:textSize="15dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Mustafarius79"
-                    android:id="@+id/textView22"
-                    android:textColor="#ff00f7ff"
-                    android:layout_column="1" />
-
-                <TextView
-                    android:textSize="15dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="10674"
-                    android:id="@+id/textView23"
-                    android:textColor="#ff00f7ff"
-                    android:layout_column="2" />
-
-                <TextView
-                    android:textSize="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="78"
-                    android:id="@+id/textView24"
-                    android:textColor="#ff00f7ff"
-                    android:layout_column="2" />
-
-            </TableRow>
 
         </TableLayout>
 

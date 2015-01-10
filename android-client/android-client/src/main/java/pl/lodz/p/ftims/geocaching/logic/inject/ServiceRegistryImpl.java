@@ -41,7 +41,8 @@ public class ServiceRegistryImpl implements ServiceRegistry {
 
         registerService(ChallengeCreationService.class, new ChallengeCreationServiceImpl(challengeAccess));
 
-        registerService(ChallengesService.class, new ChallengesServiceImpl(locationService, challengeAccess));
+        registerService(ChallengesService.class,
+            new ChallengesServiceImpl(locationService, challengeAccess, profilesAccess));
 
         registerService(ChallengeSolvingService.class,
             new ChallengeSolvingServiceImpl(locationService, loginService, challengeAccess));

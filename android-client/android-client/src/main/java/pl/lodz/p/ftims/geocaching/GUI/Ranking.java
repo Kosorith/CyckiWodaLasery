@@ -5,17 +5,47 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import pl.lodz.p.ftims.geocaching.R;
+import pl.lodz.p.ftims.geocaching.logic.challenges.ChallengesService;
+import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
+import pl.lodz.p.ftims.geocaching.model.RankingEntry;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Ranking extends Activity {
+
+    @InjectPlz
+    private ChallengesService challengesService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
+
+        List<RankingEntry> rankingList = Arrays.asList(new RankingEntry(1, "Johny", 123123, 55),
+            new RankingEntry(2, "Józef", 87687, 30), new RankingEntry(3, "Pieseł", 9965, 19));
+
+//        List<RankingEntry> rankingList = challengesService.getRanking();
+            // challengesService.getRanking(); // ! TODO: Odkomentować jak będzie dao
+
+        TableLayout rankingTable = (TableLayout) findViewById(R.id.profileTableLayout);
+        for (RankingEntry entry : rankingList) {
+            TableRow newRow = (TableRow) LayoutInflater.from(Ranking.this).inflate(R.layout.ranking_row, null);
+            ((TextView) newRow.findViewById(R.id.rankingRowPozycja)).setText(String.valueOf(entry.getPosition()));
+            ((TextView) newRow.findViewById(R.id.rankingRowNick)).setText(entry.getNick());
+            ((TextView) newRow.findViewById(R.id.rankingRowPunkty)).setText(String.valueOf(entry.getPoints()));
+            ((TextView) newRow.findViewById(R.id.rankingRowUkonczono)).setText(String.valueOf(entry.getCompletedChallenges()));
+            rankingTable.addView(newRow);
+        }
     }
 
 
@@ -44,7 +74,6 @@ public class Ranking extends Activity {
                 alert2.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
                 alert2.setNegativeButton("Nie", new DialogInterface.OnClickListener() {

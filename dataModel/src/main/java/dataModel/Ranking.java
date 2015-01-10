@@ -2,7 +2,7 @@ package dataModel;
 
 public class Ranking{
     
-    private int id;
+    private int id;  // Jesteś pewny, że koniecznie chcesz przesłać id rekordu z bazy danych na telefon jakiegoś biednego ludka? Czy to coś innego?
     
     public Ranking() {
 		super();
@@ -32,7 +32,7 @@ public class Ranking{
 		this.completedChallengesNum = completedChallengesNum;
 	}
 
-	public Profile getProfile() {
+	public Profile getProfile() {  // Jesteś pewny, że chcesz przesłać cały profil każdego ludka z rankingu, wraz z hasłem?
 		return profile;
 	}
 

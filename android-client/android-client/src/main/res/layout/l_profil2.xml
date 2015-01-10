@@ -91,8 +91,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/pozRank"
-                android:id="@+id/pozRank"
+                android:text="@string/ukonczyl"
+                android:id="@+id/ukonczyl"
                 android:layout_column="0"
                 android:textColor="#ff08ffea" />
 
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text=""
-                android:id="@+id/pozRankText"
+                android:id="@+id/ukonczylText"
                 android:layout_column="2"
                 android:textColor="#fff0fcff" />
         </TableRow>

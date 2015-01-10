@@ -28,7 +28,7 @@
     <string name="nick">Nick</string>
     <string name="email">Email</string>
     <string name="zdobPkt">Zdobyte Punkty</string>
-    <string name="pozRank">Pozycja w rankingu</string>
+    <string name="ukonczyl">Ukończone gry</string>
     <string name="passReset">Reset Hasła</string>
 
     <!-- Dodawanie nowego wyzwania -->

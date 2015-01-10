@@ -2,6 +2,9 @@ package pl.lodz.p.ftims.geocaching.dao;
 
 import pl.lodz.p.ftims.geocaching.model.Credentials;
 import pl.lodz.p.ftims.geocaching.model.Profile;
+import pl.lodz.p.ftims.geocaching.model.RankingEntry;
+
+import java.util.List;
 
 /**
  *
@@ -11,7 +14,7 @@ public interface IProfilesAccess {
     
 	boolean changePassword(Credentials credentials, String newPassword);
 	
-	//Ranking pickRanking();
+	List<RankingEntry> pickRanking();
 	
 	boolean createNewUser(Profile profile, Credentials credentials);
 

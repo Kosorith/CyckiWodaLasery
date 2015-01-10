@@ -68,5 +68,5 @@ public class Profile {
 
     private String email;
     
-    private Ranking ranking;
+    private Ranking ranking; // TODO: To nie jest trochę źle, że Ranking ma pole Profile, a Profile pole Ranking? 
 }

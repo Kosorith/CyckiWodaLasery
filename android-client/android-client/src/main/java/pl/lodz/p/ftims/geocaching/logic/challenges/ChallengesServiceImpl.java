@@ -1,12 +1,10 @@
 package pl.lodz.p.ftims.geocaching.logic.challenges;
 
 import pl.lodz.p.ftims.geocaching.dao.IChallengeAccess;
+import pl.lodz.p.ftims.geocaching.dao.IProfilesAccess;
 import pl.lodz.p.ftims.geocaching.logic.gps.LocationService;
 import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
-import pl.lodz.p.ftims.geocaching.model.Challenge;
-import pl.lodz.p.ftims.geocaching.model.ChallengeStub;
-import pl.lodz.p.ftims.geocaching.model.GeoCoords;
-import pl.lodz.p.ftims.geocaching.model.Solution;
+import pl.lodz.p.ftims.geocaching.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +16,13 @@ public class ChallengesServiceImpl implements ChallengesService {
 
     private LocationService locationService;
     private IChallengeAccess challengeAccess;
+    private IProfilesAccess profilesAccess;
 
-    public ChallengesServiceImpl(LocationService locationService, IChallengeAccess challengeAccess) {
+    public ChallengesServiceImpl(LocationService locationService, IChallengeAccess challengeAccess,
+                                 IProfilesAccess profilesAccess) {
         this.locationService = locationService;
         this.challengeAccess = challengeAccess;
+        this.profilesAccess = profilesAccess;
     }
 
     @Override
@@ -32,6 +33,11 @@ public class ChallengesServiceImpl implements ChallengesService {
         }
 
         return challengeAccess.pickChallengeList(currentCoords);
+    }
+
+    @Override
+    public List<RankingEntry> getRanking() {
+        return profilesAccess.pickRanking();
     }
 
 }

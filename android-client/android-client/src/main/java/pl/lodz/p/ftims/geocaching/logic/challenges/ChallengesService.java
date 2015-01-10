@@ -1,6 +1,7 @@
 package pl.lodz.p.ftims.geocaching.logic.challenges;
 
 import pl.lodz.p.ftims.geocaching.model.ChallengeStub;
+import pl.lodz.p.ftims.geocaching.model.RankingEntry;
 
 import java.util.List;
 
@@ -10,5 +11,7 @@ import java.util.List;
 public interface ChallengesService {
 
     List<ChallengeStub> getChallengeList();
+
+    List<RankingEntry> getRanking();
 
 }

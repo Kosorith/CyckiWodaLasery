@@ -1,25 +1,31 @@
 package pl.lodz.p.ftims.geocaching.model;
 
-import java.util.Calendar;
-
 /**
- * Created by michal on 11/19/14.
+ * @author Michał Sośnicki <sosnicki.michal@gmail.com>
  */
-public class Profile {
+public class RankingEntry {
 
+    private int position;
     private String nick;
-    private String email;
     private int points;
     private int completedChallenges;
 
-    public Profile() {
+    public RankingEntry() {
     }
 
-    public Profile(String nick, String email, int points, int completedChallenges) {
+    public RankingEntry(int position, String nick, int points, int completedChallenges) {
+        this.position = position;
         this.nick = nick;
-        this.email = email;
         this.points = points;
         this.completedChallenges = completedChallenges;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public String getNick() {
@@ -28,14 +34,6 @@ public class Profile {
 
     public void setNick(String nick) {
         this.nick = nick;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public int getPoints() {
@@ -53,4 +51,5 @@ public class Profile {
     public void setCompletedChallenges(int completedChallenges) {
         this.completedChallenges = completedChallenges;
     }
+
 }

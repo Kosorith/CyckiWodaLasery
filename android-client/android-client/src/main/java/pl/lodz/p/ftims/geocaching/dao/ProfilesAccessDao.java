@@ -8,6 +8,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import java.io.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -53,6 +55,12 @@ public class ProfilesAccessDao implements IProfilesAccess{
         } catch (IOException e) {
             return false;
         }
+    }
+
+    @Override
+    public List<RankingEntry> pickRanking() {
+        // TODO: Implement
+        return null;
     }
 
     public boolean createNewUser(Profile profile, Credentials credentials){
@@ -193,7 +201,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
         private DataModelProfile profil;
 
         public Profile getProfile(){
-            Profile profile = new Profile(profil.nick, profil.email);
+            Profile profile = new Profile(profil.nick, profil.email, 666, 666);  // Tutaj dodaj pola z rankingu
             return profile;
         }
     }

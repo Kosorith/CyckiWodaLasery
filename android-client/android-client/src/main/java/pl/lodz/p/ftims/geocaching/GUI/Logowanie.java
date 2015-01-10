@@ -11,6 +11,7 @@ import pl.lodz.p.ftims.geocaching.R;
 import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
 import pl.lodz.p.ftims.geocaching.logic.user.LoginService;
 import pl.lodz.p.ftims.geocaching.model.Credentials;
+import pl.lodz.p.ftims.geocaching.model.Profile;
 
 
 public class Logowanie extends Activity {
@@ -18,37 +19,18 @@ public class Logowanie extends Activity {
     @InjectPlz
     private LoginService loginService;
 
+    private EditText loginEdit;
+    private EditText passwordEdit;
+    private CheckBox rememberBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logowanie);
 
-        final EditText loginEdit = (EditText) findViewById(R.id.Pole_Login);
-        final EditText passwordEdit = (EditText) findViewById(R.id.Pole_Haslo);
-        final CheckBox rememberBox = (CheckBox) findViewById(R.id.Zapamietac);
-
-        Button OK = (Button) findViewById(R.id.OK);
-        OK.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                String login = loginEdit.getText().toString();
-                String password = passwordEdit.getText().toString();
-                Credentials credentials = new Credentials(login, password);
-                boolean remember = rememberBox.isChecked();
-                boolean ok = loginService.login(credentials, remember);
-                if (ok) {
-                    Intent intent = new Intent(v.getContext(), Profil.class);
-                    startActivityForResult(intent, 0);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Nie udało się zalogować!", Toast.LENGTH_SHORT).show();
-
-                    // TODO: ZOSTAWIŁEM TO PONIŻEJ BY DAŁO SIĘ PRZEJŚĆ DALEJ MIMO BRAKU SERWERA
-                    Intent intent = new Intent(v.getContext(), Profil.class);
-                    startActivityForResult(intent, 0);
-                }
-            }
-        });
-
+        loginEdit = (EditText) findViewById(R.id.Pole_Login);
+        passwordEdit = (EditText) findViewById(R.id.Pole_Haslo);
+        rememberBox = (CheckBox) findViewById(R.id.Zapamietac);
     }
 
 
@@ -76,7 +58,7 @@ public class Logowanie extends Activity {
 
 
 
-// PROFIL
+// PROFIL  // TODO: To rozumiem do rankingu, póki co ranking nie jest tak ważny
  // Tworzenie wiersza Tabeli
     public void profileFillTable(){
         // szukanie tableLayout
@@ -94,5 +76,48 @@ public class Logowanie extends Activity {
         tl.addView(tr, new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,
                             TableRow.LayoutParams.WRAP_CONTENT));
 
+    }
+
+    public void doLogin(View v) {
+        String login = loginEdit.getText().toString();
+        String password = passwordEdit.getText().toString();
+        Credentials credentials = new Credentials(login, password);
+        boolean remember = rememberBox.isChecked();
+
+        if (!loginService.preverifyCredentials(credentials)) {
+            Toast.makeText(getApplicationContext(), "Wpisałeś jakieś bzdury, użytkowniku.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean ok = true; // loginService.login(credentials, remember);
+        // ! TODO: To się niestety sypie przy łączeniu z netem
+        if (ok) {
+            Intent intent = new Intent(v.getContext(), Profil.class);
+            startActivityForResult(intent, 0);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Logowanie nie powiodło się!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void doRegister(View v) {
+        String login = loginEdit.getText().toString();
+        String password = passwordEdit.getText().toString();
+        Credentials credentials = new Credentials(login, password);
+
+        if (!loginService.preverifyCredentials(credentials)) {
+            Toast.makeText(getApplicationContext(), "Wpisałeś jakieś bzdury, użytkowniku.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean ok = true; // loginService.register(credentials, new Profile(login, "abc@def.com"));
+        // ! TODO: To się zapewne również sypie przy łączeniu z netem.
+        // Można dorobić osobny, ładny formularz na rejestrację. Na szybko dodałem tu button.
+        if (ok) {
+            Intent intent = new Intent(v.getContext(), Profil.class);
+            startActivityForResult(intent, 0);
+        } else {
+            Toast.makeText(getApplicationContext(), "Rejestracja nie powiodła się!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

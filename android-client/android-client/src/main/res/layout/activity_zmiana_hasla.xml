@@ -40,7 +40,7 @@
                 android:id="@+id/StareHaslo"
                 android:layout_x="210dp"
                 android:layout_y="75dp"
-                android:inputType="text" />
+                android:inputType="textPassword" />
 
         </LinearLayout>
 
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/NoweHaslo"
-                android:inputType="text" />
+                android:inputType="textPassword" />
         </LinearLayout>
 
         <LinearLayout
@@ -100,7 +100,7 @@
                 android:id="@+id/NoweHasloPowtorz"
                 android:layout_x="207dp"
                 android:layout_y="230dp"
-                android:inputType="text" />
+                android:inputType="textPassword" />
         </LinearLayout>
     </LinearLayout>
 

@@ -30,7 +30,7 @@ public class InjectingLifecycleHandler implements Application.ActivityLifecycleC
                 boolean isAccessible = field.isAccessible();
                 field.setAccessible(true);
 
-                Object serviceToInject = serviceRegistry.getService(field.getDeclaringClass());
+                Object serviceToInject = serviceRegistry.getService(field.getType());
                 try {
                     field.set(object, serviceToInject);
                 } catch (IllegalAccessException e) {

@@ -9,9 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import pl.lodz.p.ftims.geocaching.R;
 import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
 import pl.lodz.p.ftims.geocaching.logic.user.ProfilesService;
+import pl.lodz.p.ftims.geocaching.model.Profile;
 
 public class Profil extends Activity {
 
@@ -22,6 +24,20 @@ public class Profil extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_profil2);
+
+        // profilesService.loadProfile();
+        Profile profile = new Profile("Jerzy", "123@edu.p.lodz.pl"); //profilesService.getCurrentProfile();
+        // ! TODO: odkomentować jak zadziała przesyłanie przez neta
+        if (profile != null) {
+            TextView nickText = (TextView) findViewById(R.id.nickText);
+            TextView emailText = (TextView) findViewById(R.id.emailText);
+            TextView pointsText = (TextView) findViewById(R.id.zdobPktText);
+            TextView rankText = (TextView) findViewById(R.id.pozRankText);
+            nickText.append(profile.getNick());
+            emailText.append(profile.getEmail());
+            pointsText.append("0");
+            rankText.append("0");  // nie obsługujemy rankingu póki co
+        }
 
         // pierwsze menu
         /*
@@ -46,15 +62,9 @@ public class Profil extends Activity {
         */
     }
 
-    public void ZmienHaslo(View v){
-        Button Zmiennn = (Button) findViewById(R.id.HasloButton);
-        Zmiennn.setOnClickListener(new View.OnClickListener(){
-
-            public void onClick(View vi) {
-                Intent intent = new Intent(vi.getContext(),ZmianaHasla.class);
-                startActivityForResult(intent,0);
-            }
-        });
+    public void zmienHaslo(View v){
+        Intent intent = new Intent(v.getContext(), ZmianaHasla.class);
+        startActivityForResult(intent, 0);
     }
 
     @Override
@@ -106,7 +116,7 @@ public class Profil extends Activity {
                 alert2.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        
+                       // TODO: Wygląda na niedokończone. Na pewno chcesz dodawać listener, a nie coś po prostu wykonać?
                     }
                 });
                 alert2.setNegativeButton("Nie", new DialogInterface.OnClickListener() {

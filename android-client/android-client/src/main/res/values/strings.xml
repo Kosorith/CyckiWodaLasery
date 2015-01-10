@@ -21,15 +21,14 @@
     <string name="Haslo">Hasło</string>
     <string name="Zapamietac_Dane">Zapamiętaj dane</string>
     <string name="Zatwierdz">OK</string>
+    <string name="Rejestruj">Załóż</string>
     <string name="Nazwa_Aplikacji">GeoCaching</string>
 
     <!-- Profil użytkownika -->
     <string name="nick">Nick</string>
-    <string name="nickText">#nazwaGracza#</string>
+    <string name="email">Email</string>
     <string name="zdobPkt">Zdobyte Punkty</string>
-    <string name="zdobPktText">#Punkty#</string>
     <string name="pozRank">Pozycja w rankingu</string>
-    <string name="pozRankText">#Pozycja#</string>
     <string name="passReset">Reset Hasła</string>
 
     <!-- Dodawanie nowego wyzwania -->

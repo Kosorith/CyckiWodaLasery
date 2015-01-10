@@ -32,6 +32,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean login(Credentials credentials, boolean remember) {
+        if (!preverifyCredentials(credentials)) {
+            return false;
+        }
+
         if (remember) {
             storeCredentials(credentials);
         }
@@ -61,12 +65,22 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean register(Credentials credentials, Profile profile) {
+        if (!preverifyCredentials(credentials)) {
+            return false;
+        }
+
         return profilesAccess.createNewUser(profile, credentials);
     }
 
     @Override
-    public boolean changePassword(Credentials credentials, String newPassword) {
-        return profilesAccess.changePassword(credentials, newPassword);
+    public boolean changePassword(String oldPassword, String newPassword) {
+        if (credentials == null) {
+           return false;
+        }
+
+        Credentials sentCredentials = new Credentials(credentials.getLogin(), oldPassword);
+
+        return profilesAccess.changePassword(sentCredentials, newPassword);
     }
 
     @Override

@@ -45,8 +45,8 @@
         android:textColorHighlight="#ff4c93ff"
         android:gravity="fill_vertical|center_horizontal"
         android:elegantTextHeight="false"
-        android:hint="@string/podaj_login"
-        android:text="************" />
+        android:hint="@string/podaj_haslo"
+        android:text="" />
 
     <TextView
         android:layout_width="80dp"
@@ -101,7 +101,19 @@
         android:layout_alignEnd="@+id/textView"
         android:layout_marginTop="48dp"
         android:layout_toRightOf="@+id/Haslo_Text"
-        android:layout_toEndOf="@+id/Haslo_Text" />
+        android:layout_toEndOf="@+id/Haslo_Text"
+        android:onClick="doLogin"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Rejestruj"
+        android:id="@+id/Rejestruj"
+        android:layout_below="@+id/Zapamietac"
+        android:layout_marginTop="48dp"
+        android:layout_toRightOf="@+id/OK"
+        android:layout_toEndOf="@+id/OK"
+        android:onClick="doRegister"/>
 
     <ImageView
         android:layout_width="wrap_content"

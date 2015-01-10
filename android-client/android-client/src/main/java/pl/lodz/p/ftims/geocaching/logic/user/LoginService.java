@@ -16,7 +16,7 @@ public interface LoginService {
 
     boolean register(Credentials credentials, Profile profile);
 
-    boolean changePassword(Credentials credentials, String newPassword);
+    boolean changePassword(String oldPassword, String newPassword);
 
     boolean preverifyCredentials(Credentials credentials);
 

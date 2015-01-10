@@ -7,35 +7,56 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 import pl.lodz.p.ftims.geocaching.R;
+import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
+import pl.lodz.p.ftims.geocaching.logic.user.LoginService;
 
 
 public class ZmianaHasla extends Activity {
+
+    @InjectPlz
+    private LoginService loginService;
+
+    private EditText oldPassEdit;
+    private EditText newPass1Edit;
+    private EditText newPass2Edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zmiana_hasla);
+
+        oldPassEdit = (EditText) findViewById(R.id.StareHaslo);
+        newPass1Edit = (EditText) findViewById(R.id.NoweHaslo);
+        newPass2Edit = (EditText) findViewById(R.id.NoweHasloPowtorz);
     }
 
     public void CofnijZmianeHasla(View v){
-        Button Cofnij = (Button) findViewById(R.id.CofnijZmiana);
-        Cofnij.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),Profil.class);
-                startActivityForResult(intent,0);
-            }
-        });
+        Intent intent = new Intent(v.getContext(),Profil.class);
+        startActivityForResult(intent,0);
     }
 
-    public void ZatwierdźZmianaHasla(View v){
-        Button Cofnij = (Button) findViewById(R.id.ZatwierdźZmiana);
-        Cofnij.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),Profil.class);
-                startActivityForResult(intent,0);
-            }
-        });
+    public void ZatwierdźZmianaHasla(View v) {
+        String oldPass = oldPassEdit.getText().toString();
+        String newPass1 = newPass1Edit.getText().toString();
+        String newPass2 = newPass2Edit.getText().toString();
+
+        if (!newPass1.equals(newPass2)) {
+            Toast.makeText(getApplicationContext(), "Wpisane hasła różnią się.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean ok = true; // loginService.changePassword(oldPass, newPass1);
+                           // ! TODO: Wysyłanie przez neta nie działa. Odkomentować jak się to uda.
+        if (ok) {
+            Intent intent = new Intent(v.getContext(), Profil.class);
+            startActivityForResult(intent, 0);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Zmiana hasła nie powiodła się.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

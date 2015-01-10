@@ -76,7 +76,7 @@
         android:layout_alignTop="@+id/Pole_Haslo"
         android:textColor="#ff000000"
         android:gravity="left|center_vertical"
-        android:layout_marginRight="10 px"
+        android:layout_marginRight="10px"
         android:elegantTextHeight="false"
         android:textSize="22dp" />
 

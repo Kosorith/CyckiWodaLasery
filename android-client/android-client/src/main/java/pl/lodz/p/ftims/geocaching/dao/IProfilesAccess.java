@@ -20,8 +20,8 @@ public interface IProfilesAccess {
 
 	boolean login(Credentials credentials);
 
-	Profile getUserProfile(Credentials currentCredentials);
+	//Profile getUserProfile(Credentials currentCredentials); TODO webservice nie obsługuje tego
 
-	//boolean saveUserProfile(Credentials currentCredentials, Profile profile); nie ma klasy do obslugi w datamodelu
+	//boolean saveUserProfile(Credentials currentCredentials, Profile profile); TODO nie ma klasy do obslugi w datamodelu
 
 }

@@ -12,13 +12,13 @@ public interface IChallengeAccess {
     
 	List<ChallengeStub> pickChallengeList(GeoCoords coords);
 	
-	Challenge pickChallengeHints(ChallengeStub challengestub); //brak odpowiednich klas w datamodelu
-	
+	Challenge pickChallengeHints(ChallengeStub challengestub); //TODO webservice być może nie obsługuje wyzwania bez hasła
+
 	Challenge pickChallengeHints(ChallengeStub challengestub, String password);
 	
 	boolean checkChallengeAnswer(Solution solution, Credentials credentials);
 
-	boolean sendNewChallenge(Challenge challenge);
+	//boolean sendNewChallenge(Challenge challenge); TODO webservice nie ma odpowiedniej metody
 
 }
 

@@ -65,7 +65,7 @@ public class Logowanie extends Activity {
 
 
 
-// PROFIL  // TODO: To rozumiem do rankingu, póki co ranking nie jest tak ważny
+// PROFIL  // TODO: To do rankingu? O co tu chodzi...
  // Tworzenie wiersza Tabeli
     public void profileFillTable(){
         // szukanie tableLayout
@@ -116,7 +116,7 @@ public class Logowanie extends Activity {
             return;
         }
 
-        boolean ok = true; // loginService.register(credentials, new Profile(login, "abc@def.com"));
+        boolean ok = true;  // loginService.register(credentials, new Profile(login, "abc@def.com", 0, 0));
         // ! TODO: To się zapewne również sypie przy łączeniu z netem.
         // Można dorobić osobny, ładny formularz na rejestrację. Na szybko dodałem tu button.
         if (ok) {

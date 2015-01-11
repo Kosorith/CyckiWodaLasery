@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by michal on 12/8/14.
+ * Implementacja usługi pozyskującej informacje o wyzwaniach z wykorzystaniem innych
+ * usług i dao.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class ChallengesServiceImpl implements ChallengesService {
 

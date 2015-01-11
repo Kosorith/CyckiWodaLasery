@@ -6,7 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by michal on 12/8/14.
+ * Adnotacja na pola klas, której szuka InjectingLifecycleHandler, decydując,
+ * gdzie wstrzyknąć zależności ze swojego rejestru.
+ *
+ * @author Michał Sośnicki, Andrzej Kurczewski
+ * @see pl.lodz.p.ftims.geocaching.logic.inject.InjectingLifecycleHandler
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

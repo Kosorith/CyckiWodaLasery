@@ -8,7 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by michal on 12/8/14.
+ * Usługa kontrolująca proces tworzenia wyzwania z wykorzystaniem innych usług i dao.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class ChallengeCreationServiceImpl implements ChallengeCreationService {
 

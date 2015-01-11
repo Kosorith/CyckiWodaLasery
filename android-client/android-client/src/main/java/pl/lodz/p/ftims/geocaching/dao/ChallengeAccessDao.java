@@ -23,7 +23,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-// import dataModel.*;  TODO: Wiesz, że możesz z tego korzystać? obawiam się jakim cudem tego nie ma!
+// import dataModel.*;  TODO: Korzystaj z tego!
 
 public class ChallengeAccessDao implements IChallengeAccess {
     private String webServiceAddress;

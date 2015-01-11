@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by michal on 11/19/14.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class Challenge {
 

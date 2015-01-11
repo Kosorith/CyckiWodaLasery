@@ -1,7 +1,7 @@
 package pl.lodz.p.ftims.geocaching.model;
 
 /**
- * Created by michal on 12/9/14.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class ChallengeStub {
     private int id;

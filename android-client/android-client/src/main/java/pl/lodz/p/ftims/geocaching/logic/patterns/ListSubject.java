@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by michal on 12/9/14.
+ * Implementacja klasy obserwowanej w realizowanym wzorcu obserwatora, wykorzystującej
+ * listę do przechowywania powiadamianych obiektów.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
-public class ListSubject<O> implements Subject<O> {
+public abstract class ListSubject<O> implements Subject<O> {
 
     protected List<O> observers = new ArrayList<O>();
 

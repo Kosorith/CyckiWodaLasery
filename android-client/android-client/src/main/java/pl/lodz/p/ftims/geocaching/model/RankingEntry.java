@@ -1,7 +1,7 @@
 package pl.lodz.p.ftims.geocaching.model;
 
 /**
- * @author Michał Sośnicki <sosnicki.michal@gmail.com>
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class RankingEntry {
 

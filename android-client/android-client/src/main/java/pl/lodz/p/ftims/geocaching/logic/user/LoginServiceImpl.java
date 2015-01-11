@@ -3,11 +3,13 @@ package pl.lodz.p.ftims.geocaching.logic.user;
 import android.content.Context;
 import android.content.SharedPreferences;
 import pl.lodz.p.ftims.geocaching.dao.IProfilesAccess;
+import pl.lodz.p.ftims.geocaching.logic.patterns.StringUtils;
 import pl.lodz.p.ftims.geocaching.model.Credentials;
 import pl.lodz.p.ftims.geocaching.model.Profile;
 
 /**
- * Created by michal on 12/8/14.
+ * Implementacja usługi logowania korzystająca z innych usług i dao.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class LoginServiceImpl implements LoginService {
 
@@ -16,9 +18,11 @@ public class LoginServiceImpl implements LoginService {
     private static final String PREFS_KEY_PASSWORD = "PREFS_KEY_PASSWORD";
 
     private Context context;
+
     private IProfilesAccess profilesAccess;
 
     private Credentials credentials;
+
 
     public LoginServiceImpl(Context context, IProfilesAccess profilesAccess) {
         this.context = context;
@@ -39,8 +43,20 @@ public class LoginServiceImpl implements LoginService {
         if (remember) {
             storeCredentials(credentials);
         }
+        else {
+            resetStoredCredentials();
+        }
 
-        return profilesAccess.login(credentials);
+        if (profilesAccess.login(credentials)) {
+            this.credentials = credentials;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void logout() {
+        this.credentials = null;
     }
 
     @Override
@@ -48,7 +64,7 @@ public class LoginServiceImpl implements LoginService {
         SharedPreferences credentialPrefs = context.getSharedPreferences(PREFS_REMEMBERED_CREDENTIALS, Context.MODE_PRIVATE);
 
         String login = credentialPrefs.getString(PREFS_KEY_LOGIN, "");
-        String password = credentialPrefs.getString(PREFS_KEY_PASSWORD, ""); // TODO: To też? Chyba nie, nie? :o
+        String password = credentialPrefs.getString(PREFS_KEY_PASSWORD, "");
 
         return new Credentials(login, password);
     }
@@ -63,13 +79,27 @@ public class LoginServiceImpl implements LoginService {
         prefsEditor.apply();
     }
 
+    private void resetStoredCredentials() {
+        SharedPreferences credentialPrefs = context.getSharedPreferences(PREFS_REMEMBERED_CREDENTIALS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = credentialPrefs.edit();
+
+        prefsEditor.remove(PREFS_KEY_LOGIN);
+        prefsEditor.remove(PREFS_KEY_PASSWORD);
+
+        prefsEditor.apply();
+    }
+
     @Override
     public boolean register(Credentials credentials, Profile profile) {
         if (!preverifyCredentials(credentials)) {
             return false;
         }
 
-        return profilesAccess.createNewUser(profile, credentials);
+        if (profilesAccess.createNewUser(profile, credentials)) {
+            this.credentials = credentials;
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -80,16 +110,16 @@ public class LoginServiceImpl implements LoginService {
 
         Credentials sentCredentials = new Credentials(credentials.getLogin(), oldPassword);
 
-        return profilesAccess.changePassword(sentCredentials, newPassword);
+        if (profilesAccess.changePassword(sentCredentials, newPassword)) {
+            credentials.setPassword(newPassword);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean preverifyCredentials(Credentials credentials) {
-        return notEmpty(credentials.getLogin())
-            && notEmpty(credentials.getPassword());
-    }
-
-    private boolean notEmpty(String string) {
-        return string != null && !string.isEmpty();
+        return StringUtils.notEmpty(credentials.getLogin())
+            && StringUtils.notEmpty(credentials.getPassword());
     }
 }

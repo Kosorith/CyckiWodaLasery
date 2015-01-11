@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by michal on 12/8/14.
+ * Implementacja usługi kontrolującej proces rozwiązywania wyzwania z wykorzystaniem innych usług i dao.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
                                          implements ChallengeSolvingService, LocationObserver {
@@ -39,9 +40,15 @@ public class ChallengeSolvingServiceImpl extends ListSubject<HintsObserver>
     }
 
     @Override
-    public void startChallenge(ChallengeStub challenge, String password) {
+    public boolean startChallenge(ChallengeStub challenge, String password) {
         activeChallenge = challengeAccess.pickChallengeHints(challenge, password);
+
+        if (activeChallenge == null) {
+            return false;
+        }
+
         resetHints();
+        return true;
     }
 
     @Override

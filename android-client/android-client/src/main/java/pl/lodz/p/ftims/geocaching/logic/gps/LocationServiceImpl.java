@@ -9,7 +9,9 @@ import pl.lodz.p.ftims.geocaching.logic.patterns.ListSubject;
 import pl.lodz.p.ftims.geocaching.model.GeoCoords;
 
 /**
- * Created by michal on 12/2/14.
+ * Implementacja usługi lokalizacyjnej, korzystająca z Androidowego LocationManagera
+ * dowolnych Providerow i aktualizująca stan 5 sekund.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class LocationServiceImpl extends ListSubject<LocationObserver>
                                  implements LocationService, LocationListener {
@@ -21,6 +23,13 @@ public class LocationServiceImpl extends ListSubject<LocationObserver>
 
     private String bestProvider;
 
+    /**
+     * Tworzy nową usługę lokalizacyjną, wykorzystującą przekazanego Androidowego LocationManagera
+     * do pobierania informacji o położeniu. Rejestruje się u tego Managera, by uzyskiwać
+     * je co 5 sekund, z aktualizacjami w innym wątku.
+     * @param locationManager Androidowy LocationManager, w którym ta usługa się zarejestruje, by uzyskiwać
+     *                        informacje o aktualnym położeniu.
+     */
     public LocationServiceImpl(LocationManager locationManager) {
         this.locationManager = locationManager;
         bestProvider = locationManager.getBestProvider(new Criteria(), true);
@@ -44,7 +53,7 @@ public class LocationServiceImpl extends ListSubject<LocationObserver>
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        // Ignorowany póki co
+        // ignorowany
     }
 
     @Override

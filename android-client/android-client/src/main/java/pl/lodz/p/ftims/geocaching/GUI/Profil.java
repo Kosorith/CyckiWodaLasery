@@ -25,7 +25,6 @@ public class Profil extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_profil2);
 
-        // profilesService.loadProfile();
         Profile profile = new Profile("Jerzy", "123@edu.p.lodz.pl", 666, 666); //profilesService.getCurrentProfile();
         // ! TODO: odkomentować obie linijkijak zadziała przesyłanie przez neta
         if (profile != null) {

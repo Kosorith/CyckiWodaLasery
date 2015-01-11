@@ -54,7 +54,7 @@
                 android:layout_below="@+id/textView14"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"/>
-<!--            android:layout_alignTop="@+id/scrollView4" TODO: Niestety, jego nie ma w tym layoucie -->
+<!--            android:layout_alignTop="@+id/scrollView4" TODO: Niestety, tego nie ma w tym layoucie -->
         </RelativeLayout>
     </ScrollView>
 

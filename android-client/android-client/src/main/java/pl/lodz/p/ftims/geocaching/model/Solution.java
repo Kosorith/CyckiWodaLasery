@@ -1,7 +1,7 @@
 package pl.lodz.p.ftims.geocaching.model;
 
 /**
- * Created by michal on 11/19/14.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class Solution {
 

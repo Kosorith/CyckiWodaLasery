@@ -5,11 +5,11 @@ import android.location.Location;
 import java.util.Date;
 
 /**
- * Created by michal on 11/19/14.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class GeoCoords {
 
-    private double latitude;  // TODO: Jak to zamodelować? Czy GPS API nie dostarcza własnych klas?
+    private double latitude;
     private double longitude;
 
     public GeoCoords() {

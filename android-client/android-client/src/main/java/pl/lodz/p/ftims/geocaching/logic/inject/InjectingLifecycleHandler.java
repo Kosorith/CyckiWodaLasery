@@ -7,12 +7,20 @@ import android.os.Bundle;
 import java.lang.reflect.Field;
 
 /**
- * Created by michal on 12/8/14.
+ * Implementacja zbioru callbacków do cyklu życia Androidowych Activity, który na zdarzenie
+ * utworzenia Activity reaguje wstrzykując w nią zależności z rejestru usług.
+ * Pozostałe wydarzenia z cyklu życia Activity są ignorowane.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class InjectingLifecycleHandler implements Application.ActivityLifecycleCallbacks {
 
     private ServiceRegistry serviceRegistry;
 
+    /**
+     * Tworzy nowy InjectingLifecycleHandler, wstrzykujący zależności do Activity
+     * z przekazanego jako argument rejestru usług.
+     * @param serviceRegistry Rejestr usług, w ktorym ten obiekt będzie wyszukiwał zależności.
+     */
     public InjectingLifecycleHandler(ServiceRegistry serviceRegistry) {
         this.serviceRegistry = serviceRegistry;
     }
@@ -22,6 +30,14 @@ public class InjectingLifecycleHandler implements Application.ActivityLifecycleC
         injectServices(activity);
     }
 
+    /**
+     * Metoda sprawdza po kolei wszystkie pola w przekazanym obiekcie, szukając tych
+     * z adnotacją @InjectPlz i ustawia je na obiekty wyszukane w ServiceRegistry.
+     * Wyszukiwanie w ServiceRegistry zwraca uwagę wyłącznie na zgodność typów
+     * wskazanego pola i typu, pod jakim obiekt jest zarejestrowany.
+     *
+     * @param object Obiekt, w którego pola zostaną wstrzyknięte usługi.
+     */
     public void injectServices(Object object) {
         Field[] fields = object.getClass().getDeclaredFields();
 

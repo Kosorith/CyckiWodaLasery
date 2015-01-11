@@ -19,7 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by michal on 12/8/14.
+ * Implementacja ServiceRegistry przechowująca usługi w HashMapie i posiadająca
+ * metodę inicjalizującą, wypełniającą rejestr usługami i dao używanymi w projekcie.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class ServiceRegistryImpl implements ServiceRegistry {
 
@@ -28,6 +30,12 @@ public class ServiceRegistryImpl implements ServiceRegistry {
     public ServiceRegistryImpl() {
     }
 
+    /**
+     * Metoda tworzy obiekty usług i dao wykorzystywanych w projekcie android-client, przekazuje je sobie
+     * nawzajem jako argumenty, zgodnie z tym co która potrzebuje i rejestruje je u siebie.
+     * @param application Androidowy obiekt Application, z którego można pozyskać kontekst aplikacji i
+     *                    usługę lokalizacyjną.
+     */
     public void initialize(Application application) {
         IChallengeAccess challengeAccess = new ChallengeAccessDao(application.getApplicationContext());
         IProfilesAccess profilesAccess = new ProfilesAccessDao(application.getApplicationContext());
@@ -51,6 +59,7 @@ public class ServiceRegistryImpl implements ServiceRegistry {
     }
 
     @Override
+    @SuppressWarnings("unchecked")  // jest w porządku, gdyż sprawdziliśmy typ w czasie rejestracji obiektu
     public <A> A getService(Class<A> cls) {
         return (A) services.get(cls);
     }

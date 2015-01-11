@@ -6,12 +6,22 @@ import pl.lodz.p.ftims.geocaching.model.RankingEntry;
 import java.util.List;
 
 /**
- * Created by michal on 11/19/14.
+ * Usługa pozyskująca informacje o wyzwaniach.
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public interface ChallengesService {
 
+    /**
+     * Zwraca listę wszystkich dostępnych wyzwań. Na jedno z nich można się następnie zarejestrować.
+     * Zwracane są tylko zalążki wyzwań - bez części informacji.
+     * @return Lista z informacjami o dostępnych wyzwaniach.
+     */
     List<ChallengeStub> getChallengeList();
 
+    /**
+     * Zwraca ranking użytkowników.
+     * @return Ranking użytkowników.
+     */
     List<RankingEntry> getRanking();
 
 }

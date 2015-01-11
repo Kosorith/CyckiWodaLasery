@@ -60,7 +60,7 @@
                                 <td>
                                     <ul>
                                          <c:forEach items="${elem.hints}" var="hint">
-                                            <li>${hint.id} : ${hint.text} : ${hint.distance} u<img alt="${hint.photo}" src="${hint.photo}"> u</li>
+                                            <li>${hint.id} : ${hint.text} : ${hint.distance} <img alt="A" src="/server/resource/img/img.jpg" width="320" height="240"></li>
                                         </c:forEach>
                                     </ul>
                                 </td>

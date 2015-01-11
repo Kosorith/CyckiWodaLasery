@@ -1,13 +1,11 @@
 package pl.p.lodz.ftims.server.controller;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.util.logging.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -81,12 +79,19 @@ public class PanelController {
 		if(authenticationService.authenticateAdministrator(login, password)) {
 			HttpSession session = request.getSession(false);
 			session.setAttribute("userId", login);
-			model = new ModelAndView("redirect:");
+			model = new ModelAndView("redirect:/");
 		} else {
 			model = new ModelAndView("login");
 			model.addObject("error", "Upss, try again");
 		}
 		return model;
+	}
+	
+	
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public ModelAndView loginGET(HttpServletRequest request) {
+		return new ModelAndView("login");
+		
 	}
 	/**
 	 * Metoda pobierająca listę wyzwań

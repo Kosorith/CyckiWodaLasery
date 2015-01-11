@@ -190,7 +190,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
         }
     }
 
- /*public Profile getUserProfile(Credentials currentCredentials){ //WEBSERVICE NIE MA METODY DO TEGO
+ public Profile getUserProfile(Credentials currentCredentials){
      StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
      StrictMode.setThreadPolicy(policy);
 
@@ -210,7 +210,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
          e.printStackTrace();
      }
      entity.setChunked(true);
-     HttpPost httppost = new HttpPost(profileAddress);
+     HttpPost httppost = new HttpPost(loginAddress);
      httppost.setEntity(entity);
      HttpClient client = new DefaultHttpClient();
      InputStream in;
@@ -232,7 +232,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
         } catch (IOException e) {
             return null;
         }
-     }*/
+     }
 
     /*boolean saveUserProfile(Credentials currentCredentials, Profile profile){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

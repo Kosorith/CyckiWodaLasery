@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.util.logging.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.p.lodz.ftims.server.entities.Challenge;
@@ -69,12 +72,22 @@ public class PanelController {
 	/**
 	 * Metoda uwierzytelniająca administratora
 	 */
-	public ModelAndView login() {
-		// authenticationService.authenticateAdministrator(login, password);
-		ModelAndView model = new ModelAndView("hello");
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public ModelAndView login(HttpServletRequest request) {
+		String login = request.getParameter("login");
+		String password = request.getParameter("pass");
+		ModelAndView model;
+		if(authenticationService.authenticateAdministrator(login, password)) {
+			HttpSession session = request.getSession(false);
+			session.setAttribute("userId", login);
+			model = new ModelAndView("redirect:");
+		} else {
+			model = new ModelAndView("login");
+			model.addObject("error", "Upss, try again");
+		}
 		return model;
 	}
-
 	/**
 	 * Metoda pobierająca listę wyzwań
 	 */

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 
-import dataModel.*;
 import pl.lodz.p.ftims.geocaching.model.*;
 import pl.lodz.p.ftims.geocaching.model.Challenge;
 import pl.lodz.p.ftims.geocaching.model.Credentials;
@@ -43,8 +42,11 @@ public class ChallengeAccessDao implements IChallengeAccess {
         StrictMode.setThreadPolicy(policy);
 
         dataModel.ChallengeListRequest request = new dataModel.ChallengeListRequest(new dataModel.Coordinates(coords.getLatitude(), coords.getLongitude()));
+
         XStream xstreamIn = new XStream(new DomDriver());
-        xstreamIn.autodetectAnnotations(true);
+        xstreamIn.alias("ChallengeListRequest", dataModel.ChallengeListRequest.class);
+        xstreamIn.aliasField("Location", dataModel.ChallengeListRequest.class, "location");
+
         String inputXML = xstreamIn.toXML(request);
         StringEntity entity = null;
         try {
@@ -63,8 +65,12 @@ public class ChallengeAccessDao implements IChallengeAccess {
             in = response.getEntity().getContent();
             String outputXML = IOUtils.toString(in);
             XStream xstreamOut = new XStream(new DomDriver());
-            xstreamOut.autodetectAnnotations(true);
+            xstreamOut.alias("ChallengeListReply", dataModel.ChallengeListReply.class);
+            xstreamOut.aliasField("Challenges", dataModel.ChallengeListReply.class, "challenges");
+            xstreamOut.alias("Challenge", dataModel.Challenge.class);
+            xstreamOut.aliasField("Coordinates", dataModel.Challenge.class, "location");
             dataModel.ChallengeListReply challenges = (dataModel.ChallengeListReply) xstreamOut.fromXML(outputXML);
+
             ArrayList<ChallengeStub> returnList = new ArrayList<ChallengeStub>();
             for (dataModel.ChallengeEntry challengeEntry : challenges.getChallenges()){
                 ChallengeStub challengeStub = new ChallengeStub();
@@ -89,10 +95,10 @@ public class ChallengeAccessDao implements IChallengeAccess {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        dataModel.ChallengeRequest reply = new dataModel.ChallengeRequest(challengestub.getId(),"");
+        dataModel.ChallengeRequest request = new dataModel.ChallengeRequest(challengestub.getId(),"");
         XStream xstreamIn = new XStream(new DomDriver());
-        xstreamIn.autodetectAnnotations(true);
-        String inputXML = xstreamIn.toXML(reply);
+        xstreamIn.alias("ChallengeRequest", dataModel.ChallengeRequest.class);
+        String inputXML = xstreamIn.toXML(request);
 
         StringEntity entity = null;
         try {
@@ -111,7 +117,8 @@ public class ChallengeAccessDao implements IChallengeAccess {
             in = response.getEntity().getContent();
             String outputXML = IOUtils.toString(in);
             XStream xstreamOut = new XStream(new DomDriver());
-            xstreamOut.autodetectAnnotations(true);
+            xstreamOut.alias("ChallengeReply", dataModel.ChallengeReply.class);
+            xstreamOut.aliasField("Challenge", dataModel.ChallengeReply.class, "challenge");
             dataModel.ChallengeReply challengeReply = (dataModel.ChallengeReply) xstreamOut.fromXML(outputXML);
 
             Challenge challenge = new Challenge();
@@ -149,10 +156,10 @@ public class ChallengeAccessDao implements IChallengeAccess {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        dataModel.ChallengeRequest reply = new dataModel.ChallengeRequest(challengestub.getId(), password);
+        dataModel.ChallengeRequest request = new dataModel.ChallengeRequest(challengestub.getId(), password);
         XStream xstreamIn = new XStream(new DomDriver());
-        xstreamIn.autodetectAnnotations(true);
-        String inputXML = xstreamIn.toXML(reply);
+        xstreamIn.alias("ChallengeRequest", dataModel.ChallengeRequest.class);
+        String inputXML = xstreamIn.toXML(request);
 
         StringEntity entity = null;
         try {
@@ -171,7 +178,8 @@ public class ChallengeAccessDao implements IChallengeAccess {
             in = response.getEntity().getContent();
             String outputXML = IOUtils.toString(in);
             XStream xstreamOut = new XStream(new DomDriver());
-            xstreamOut.autodetectAnnotations(true);
+            xstreamOut.alias("ChallengeReply", dataModel.ChallengeReply.class);
+            xstreamOut.aliasField("Challenge", dataModel.ChallengeReply.class, "challenge");
             dataModel.ChallengeReply challengeReply = (dataModel.ChallengeReply) xstreamOut.fromXML(outputXML);
 
             Challenge challenge = new Challenge();
@@ -216,7 +224,9 @@ public class ChallengeAccessDao implements IChallengeAccess {
 
         dataModel.SolutionSubmission submission = new dataModel.SolutionSubmission(dmCredentials, dmSolution);
         XStream xstreamIn = new XStream(new DomDriver());
-        xstreamIn.autodetectAnnotations(true);
+        xstreamIn.alias("SolutionSubmission", dataModel.SolutionSubmission.class);
+        xstreamIn.aliasField("Credentials", dataModel.SolutionSubmission.class, "credentials");
+        xstreamIn.aliasField("Solution", dataModel.SolutionSubmission.class, "solution");
         String inputXML = xstreamIn.toXML(submission);
 
         StringEntity entity = null;

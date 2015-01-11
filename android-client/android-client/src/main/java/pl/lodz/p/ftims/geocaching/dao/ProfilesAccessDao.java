@@ -54,8 +54,11 @@ public class ProfilesAccessDao implements IProfilesAccess{
         dataModel.ChangePasswordRequest request = new dataModel.ChangePasswordRequest();
         request.setCredentials(dmCredentials);
         request.setNewPasswd(newPassword);
+
         XStream xstreamIn = new XStream(new DomDriver());
-        xstreamIn.autodetectAnnotations(true);
+        xstreamIn.alias("ChangePasswordRequest", dataModel.ChangePasswordRequest.class);
+        xstreamIn.aliasField("Credentials", dataModel.ChangePasswordRequest.class, "credentials");
+        xstreamIn.aliasField("newPasswd", dataModel.ChangePasswordRequest.class, "newPasswd");
 
         String inputXML = xstreamIn.toXML(request);
         StringEntity entity = null;
@@ -98,9 +101,12 @@ public class ProfilesAccessDao implements IProfilesAccess{
             HttpResponse response = client.execute(httpget);
             in=response.getEntity().getContent();
             String outputXML = IOUtils.toString(in);
-            XStream xstream = new XStream(new DomDriver());
-            xstream.autodetectAnnotations(true);
-            dataModel.RankingReply rankingReply = (dataModel.RankingReply)xstream.fromXML(outputXML);
+            XStream xstreamOut = new XStream(new DomDriver());
+            xstreamOut.alias("RankingReply", dataModel.RankingReply.class);
+            xstreamOut.aliasField("RankingList", dataModel.RankingReply.class, "ranking");
+            xstreamOut.alias("Ranking", dataModel.Ranking.class);
+
+            dataModel.RankingReply rankingReply = (dataModel.RankingReply)xstreamOut.fromXML(outputXML);
             ArrayList<RankingEntry> returnList = new ArrayList<RankingEntry>();
             for(dataModel.Ranking rep : rankingReply.getRanking()){
                 RankingEntry entry = new RankingEntry();
@@ -129,7 +135,11 @@ public class ProfilesAccessDao implements IProfilesAccess{
         request.setNick(profile.getNick());
 
         XStream xstreamIn = new XStream(new DomDriver());
-        xstreamIn.autodetectAnnotations(true);
+        xstreamIn.alias("CreateUserRequest", dataModel.CreateUserRequest.class);
+        xstreamIn.aliasField("login", dataModel.CreateUserRequest.class, "login");
+        xstreamIn.aliasField("password", dataModel.CreateUserRequest.class, "password");
+        xstreamIn.aliasField("nick", dataModel.CreateUserRequest.class, "nick");
+        xstreamIn.aliasField("email", dataModel.CreateUserRequest.class, "email");
 
         String inputXML = xstreamIn.toXML(request);
         StringEntity entity = null;
@@ -163,11 +173,11 @@ public class ProfilesAccessDao implements IProfilesAccess{
         dataModel.LoginRequest request = new dataModel.LoginRequest(dmCredentials);
 
         XStream xstreamIn = new XStream(new DomDriver());
-        xstreamIn.autodetectAnnotations(true);
+        xstreamIn.alias("LoginRequest", dataModel.LoginRequest.class);
+        xstreamIn.aliasField("Credentials", dataModel.LoginRequest.class, "credentials");
 
         String inputXML;
         inputXML = xstreamIn.toXML(request);
-        System.out.print(inputXML);
         StringEntity entity = null;
         try {
             entity = new StringEntity(inputXML);
@@ -200,7 +210,8 @@ public class ProfilesAccessDao implements IProfilesAccess{
      dataModel.LoginRequest request = new dataModel.LoginRequest(dmCredentials);
 
      XStream xstreamIn = new XStream(new DomDriver());
-     xstreamIn.autodetectAnnotations(true);
+     xstreamIn.alias("ProfileRequest", dataModel.ProfileRequest.class);
+     xstreamIn.aliasField("Credentials", dataModel.ProfileRequest.class, "credentials");
 
      String inputXML = xstreamIn.toXML(request);
      StringEntity entity  = null;
@@ -218,8 +229,10 @@ public class ProfilesAccessDao implements IProfilesAccess{
          HttpResponse response = client.execute(httppost);
          in=response.getEntity().getContent();
          String outputXML = IOUtils.toString(in);
+
          XStream xstreamOut = new XStream(new DomDriver());
-         xstreamOut.autodetectAnnotations(true);
+         xstreamOut.alias("Profile", dataModel.Profile.class);
+
          dataModel.Profile dmProfile = (dataModel.Profile)xstreamOut.fromXML(outputXML);
          Profile profile = new Profile();
          profile.setNick(dmProfile.getNick());

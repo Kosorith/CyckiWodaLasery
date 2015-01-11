@@ -1,6 +1,8 @@
 package pl.lodz.p.ftims.geocaching.dao;
 
 import android.content.Context;
+import android.os.StrictMode;
+import android.util.Log;
 
 import pl.lodz.p.ftims.geocaching.model.*;
 import com.thoughtworks.xstream.XStream;
@@ -17,9 +19,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 
 public class ProfilesAccessDao implements IProfilesAccess{
     private String webServiceAddress;
+    private static final String TAG = "myApp";
 
     public ProfilesAccessDao(Context context){
         PropertyReader reader = new PropertyReader(context);
@@ -27,6 +32,9 @@ public class ProfilesAccessDao implements IProfilesAccess{
     }
 
     public boolean changePassword(Credentials credentials, String newPassword){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         ChangePasswordRequest request = new ChangePasswordRequest(credentials, newPassword);
         XStream xstreamIn = new XStream(new DomDriver());
         xstreamIn.alias("ChangePasswordRequest", ChangePasswordRequest.class);
@@ -42,7 +50,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
-        HttpClient client = HttpClients.createDefault();
+        HttpClient client = new DefaultHttpClient();
 
         InputStream in;
         try {
@@ -64,6 +72,9 @@ public class ProfilesAccessDao implements IProfilesAccess{
     }
 
     public boolean createNewUser(Profile profile, Credentials credentials){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         CreateUserRequest request = new CreateUserRequest(profile, credentials);
         XStream xstreamIn = new XStream(new DomDriver());
         xstreamIn.alias("CreateUserRequest", CreateUserRequest.class);
@@ -78,7 +89,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
-        HttpClient client = HttpClients.createDefault();
+        HttpClient client = new DefaultHttpClient();
 
         InputStream in;
         try {
@@ -94,12 +105,17 @@ public class ProfilesAccessDao implements IProfilesAccess{
     }
 
     public boolean login(Credentials credentials){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         LoginRequest request = new LoginRequest(credentials);
         XStream xstreamIn = new XStream(new DomDriver());
         xstreamIn.alias("LoginRequest", LoginRequest.class);
         xstreamIn.aliasField("Credentials", LoginRequest.class, "credentials");
+
         String inputXML;
         inputXML = xstreamIn.toXML(request);
+        System.out.print(inputXML);
         StringEntity entity = null;
         try {
             entity = new StringEntity(inputXML);
@@ -109,8 +125,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
-        HttpClient client = HttpClients.createDefault();
-
+        HttpClient client = new DefaultHttpClient();
         InputStream in ;
         try {
             HttpResponse response = client.execute(httppost);
@@ -124,7 +139,10 @@ public class ProfilesAccessDao implements IProfilesAccess{
         }
     }
 
-    public Profile getUserProfile(Credentials currentCredentials){
+ public Profile getUserProfile(Credentials currentCredentials){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         LoginRequest request = new LoginRequest(currentCredentials);
         XStream xstreamIn = new XStream(new DomDriver());
         xstreamIn.alias("ProfileRequest", LoginRequest.class);
@@ -141,7 +159,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
-        HttpClient client = HttpClients.createDefault();
+        HttpClient client = new DefaultHttpClient();
         InputStream in;
         try {
             HttpResponse response = client.execute(httppost);
@@ -160,6 +178,9 @@ public class ProfilesAccessDao implements IProfilesAccess{
     }
 
     boolean saveUserProfile(Credentials currentCredentials, Profile profile){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         SaveProfileRequest request = new SaveProfileRequest(currentCredentials, profile);
         XStream xstreamIn = new XStream(new DomDriver());
         xstreamIn.alias("SaveProfileRequest", SaveProfileRequest.class);
@@ -176,7 +197,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
-        HttpClient client = HttpClients.createDefault();
+        HttpClient client = new DefaultHttpClient();
         InputStream in;
         try {
             HttpResponse response = client.execute(httppost);

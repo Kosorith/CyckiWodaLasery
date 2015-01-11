@@ -2,6 +2,7 @@ package pl.lodz.p.ftims.geocaching.dao;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.os.StrictMode;
 
 import pl.lodz.p.ftims.geocaching.model.*;
 
@@ -20,6 +21,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 // import dataModel.*;  TODO: Wiesz, że możesz z tego korzystać? obawiam się jakim cudem tego nie ma!
 
 public class ChallengeAccessDao implements IChallengeAccess {
@@ -32,6 +35,9 @@ public class ChallengeAccessDao implements IChallengeAccess {
 
     @Override
     public ArrayList<ChallengeStub> pickChallengeList(GeoCoords coords) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         ChallengeListRequest request = new ChallengeListRequest(coords);
         XStream xstreamIn = new XStream(new DomDriver());
         xstreamIn.alias("ChallengeListRequest", ChallengeListRequest.class);
@@ -47,7 +53,7 @@ public class ChallengeAccessDao implements IChallengeAccess {
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
-        HttpClient client = HttpClients.createDefault();
+        HttpClient client = new DefaultHttpClient();
         InputStream in;
         try {
             HttpResponse response = client.execute(httppost);
@@ -80,6 +86,9 @@ public class ChallengeAccessDao implements IChallengeAccess {
 
     @Override
     public Challenge pickChallengeHints(ChallengeStub challengestub) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         HintRequest reply = new HintRequest(challengestub);
         XStream xstreamIn = new XStream(new DomDriver());
         xstreamIn.alias("HintRequest", HintRequest.class);
@@ -95,7 +104,7 @@ public class ChallengeAccessDao implements IChallengeAccess {
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
-        HttpClient client = HttpClients.createDefault();
+        HttpClient client = new DefaultHttpClient();
         InputStream in;
 
         try {
@@ -116,6 +125,9 @@ public class ChallengeAccessDao implements IChallengeAccess {
 
     @Override
     public Challenge pickChallengeHints(ChallengeStub challengestub, String password) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         PrivateHintRequest reply = new PrivateHintRequest(challengestub, password);
         XStream xstreamIn = new XStream(new DomDriver());
         xstreamIn.alias("HintRequest", PrivateHintRequest.class);
@@ -132,7 +144,7 @@ public class ChallengeAccessDao implements IChallengeAccess {
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
-        HttpClient client = HttpClients.createDefault();
+        HttpClient client = new DefaultHttpClient();
         InputStream in;
 
         try {
@@ -153,6 +165,9 @@ public class ChallengeAccessDao implements IChallengeAccess {
 
     @Override
     public boolean checkChallengeAnswer(Solution solution, Credentials credentials) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         SolutionSubmission submission = new SolutionSubmission(credentials, solution);
         XStream xstreamIn = new XStream(new DomDriver());
         xstreamIn.alias("SolutionSubmission", SolutionSubmission.class);
@@ -170,7 +185,7 @@ public class ChallengeAccessDao implements IChallengeAccess {
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
-        HttpClient client = HttpClients.createDefault();
+        HttpClient client = new DefaultHttpClient();
         InputStream in;
 
         try {
@@ -188,6 +203,9 @@ public class ChallengeAccessDao implements IChallengeAccess {
 
     @Override
     public boolean sendNewChallenge(Challenge challenge) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         NewChallengeRequest request = new NewChallengeRequest(challenge);
         XStream xstreamIn = new XStream(new DomDriver());
         xstreamIn.alias("NewChallengeRequest", NewChallengeRequest.class);
@@ -204,7 +222,7 @@ public class ChallengeAccessDao implements IChallengeAccess {
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(webServiceAddress);
         httppost.setEntity(entity);
-        HttpClient client = HttpClients.createDefault();
+        HttpClient client = new DefaultHttpClient();
         InputStream in;
 
         try {

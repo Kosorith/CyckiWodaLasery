@@ -3,6 +3,7 @@ package pl.lodz.p.ftims.geocaching.GUI;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,8 +96,7 @@ public class Logowanie extends Activity {
             return;
         }
 
-        boolean ok = true; // loginService.login(credentials, remember);
-        // ! TODO: To się niestety sypie przy łączeniu z netem
+        boolean ok = loginService.login(credentials, remember);
         if (ok) {
             Intent intent = new Intent(v.getContext(), Profil.class);
             startActivityForResult(intent, 0);

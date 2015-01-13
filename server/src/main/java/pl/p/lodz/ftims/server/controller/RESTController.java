@@ -128,8 +128,11 @@ public class RESTController {
 	 */
 	@RequestMapping(value="/profile", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<String> createProfileRest(@RequestBody CreateUserRequest createUserRequest){
-		userProfileService.addUser(createUserRequest);		
-		return new ResponseEntity<String>(HttpStatus.OK);
+		boolean operationSuccess = userProfileService.addUser(createUserRequest);
+		if (operationSuccess==true )
+			return new ResponseEntity<String>(HttpStatus.OK);
+		else
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 	}
 
 	/**

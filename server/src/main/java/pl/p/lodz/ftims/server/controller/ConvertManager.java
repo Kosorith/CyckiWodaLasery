@@ -31,7 +31,8 @@ public class ConvertManager implements IConvertManager {
 		challengeEntry.setId(entityChallenge.getId());
 		challengeEntry.setName(entityChallenge.getName());
 		challengeEntry.setDescription(entityChallenge.getDescription());
-		challengeEntry.setPublicAccess(true);//TODO 
+		challengeEntry.setPublicAccess(true);//TODO
+		
 		return challengeEntry;
 	}
 
@@ -45,7 +46,7 @@ public class ConvertManager implements IConvertManager {
 		challenge.setName(entityChallenge.getName());
 		challenge.setPassword(entityChallenge.getPassword());
 		challenge.setStatus(entityChallenge.getStatus());
-		//challenge.setPhoto(entityChallenge.getPhoto());
+		challenge.setPhoto(entityChallenge.getPhoto().getBytes());
 		challenge.setPoints(entityChallenge.getPoints());
 		challenge.setSecretPassword(entityChallenge.getSecretPassword());
 		Collection<Hint> entityHints = entityChallenge.getHints();
@@ -115,8 +116,8 @@ public class ConvertManager implements IConvertManager {
 	@Override
 	public KHint convertToKHint(Hint entityHint) {
 		String text = entityHint.getText();
-		//byte[] photo = entityHint.getPhoto();
+		byte[] photo = entityHint.getPhoto().getBytes();
 		int distance = entityHint.getDistance();
-		return new KHint(text, null, distance);
+		return new KHint(text, photo, distance);
 	}
 }

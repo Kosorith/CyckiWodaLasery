@@ -18,12 +18,16 @@ import dataModel.Ranking;
 import dataModel.RankingReply;
 
 /**
+ * Klasa, której zadaniem jest konwertowanie obuiektów logiki biznesowej do DTO
  * @author Przemysław Holak
  */
 
 @Component
 public class ConvertManager implements IConvertManager {
 
+	/* (non-Javadoc)
+	 * @see pl.p.lodz.ftims.server.controller.IConvertManager#convertToChallengeEntry(pl.p.lodz.ftims.server.entities.Challenge)
+	 */
 	@Override
 	public ChallengeEntry convertToChallengeEntry(
 			pl.p.lodz.ftims.server.entities.Challenge entityChallenge) {
@@ -36,6 +40,9 @@ public class ConvertManager implements IConvertManager {
 		return challengeEntry;
 	}
 
+	/* (non-Javadoc)
+	 * @see pl.p.lodz.ftims.server.controller.IConvertManager#convertToChallenge(pl.p.lodz.ftims.server.entities.Challenge)
+	 */
 	@Override
 	public Challenge convertToChallenge(
 			pl.p.lodz.ftims.server.entities.Challenge entityChallenge) {
@@ -65,6 +72,9 @@ public class ConvertManager implements IConvertManager {
 		return challenge;
 	}
 
+	/* (non-Javadoc)
+	 * @see pl.p.lodz.ftims.server.controller.IConvertManager#convertChallengeList(java.util.List)
+	 */
 	@Override
 	public ChallengeListReply convertChallengeList(
 			List<pl.p.lodz.ftims.server.entities.Challenge> entityChallenges) {
@@ -77,6 +87,9 @@ public class ConvertManager implements IConvertManager {
 		return challengeListReply;
 	}
 
+	/* (non-Javadoc)
+	 * @see pl.p.lodz.ftims.server.controller.IConvertManager#convertRankingList(java.util.List)
+	 */
 	@Override
 	public RankingReply convertRankingList(
 			List<pl.p.lodz.ftims.server.entities.Ranking> entityRankingList) {
@@ -90,6 +103,9 @@ public class ConvertManager implements IConvertManager {
 		return rankingReply;
 	}
 
+	/* (non-Javadoc)
+	 * @see pl.p.lodz.ftims.server.controller.IConvertManager#convertRanking(pl.p.lodz.ftims.server.entities.Ranking)
+	 */
 	@Override
 	public Ranking convertRanking(
 			pl.p.lodz.ftims.server.entities.Ranking entityRanking) {
@@ -101,6 +117,9 @@ public class ConvertManager implements IConvertManager {
 		return ranking;
 	}
 
+	/* (non-Javadoc)
+	 * @see pl.p.lodz.ftims.server.controller.IConvertManager#convertToProfile(pl.p.lodz.ftims.server.entities.User)
+	 */
 	@Override
 	public Profile convertToProfile(User entityUser) {
 		Profile profile=new Profile();
@@ -113,6 +132,9 @@ public class ConvertManager implements IConvertManager {
 		return profile;
 	}
 
+	/* (non-Javadoc)
+	 * @see pl.p.lodz.ftims.server.controller.IConvertManager#convertToKHint(pl.p.lodz.ftims.server.entities.Hint)
+	 */
 	@Override
 	public KHint convertToKHint(Hint entityHint) {
 		String text = entityHint.getText();

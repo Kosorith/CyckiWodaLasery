@@ -26,7 +26,7 @@ import dataModel.Credentials;
 /**
  * Kontroler umożliwiający komunikację serwera z panelem administracyjnym.
  * 
- * @author Przemysław Holak
+ * @author Bartłomiej Długosz
  */
 
 @Controller
@@ -48,8 +48,9 @@ public class PanelController {
 	private Credentials credentials;
 
 	private static final Logger logger = Logger.getLogger(PanelController.class.getName());
+	
 	/**
-	 * Metoda usuwająca użytkownika
+	 * Obsługa usuwania konkretnego użytkownika
 	 */
 	@RequestMapping("/users/delete")
 	public ModelAndView removeUser(HttpServletRequest request) {
@@ -68,7 +69,7 @@ public class PanelController {
 	}
 
 	/**
-	 * Metoda uwierzytelniająca administratora
+	 * Obsługa uwierzytelniania administratora (przetwarzanie danych podanych w formatce logowania)
 	 */
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
@@ -87,14 +88,16 @@ public class PanelController {
 		return model;
 	}
 	
-	
+	/**
+	 * Obsługa uwierzytelniania administratora (obsługa zapytania get, zwraca jedynie jsp'a z formatką logowania)
+	 */
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView loginGET(HttpServletRequest request) {
 		return new ModelAndView("login");
 		
 	}
 	/**
-	 * Metoda pobierająca listę wyzwań
+	 * Obsługa strony z wyzwaniami (pobieramy listę wyzwań i przesyłamy ją w modelu do jsp'a)
 	 */
 	@RequestMapping("/challenges")
 	public ModelAndView getChallenges() {
@@ -106,7 +109,7 @@ public class PanelController {
 	}
 
 	/**
-	 * Metoda pobierająca ranking
+	 * Obsługa strony z rankingiem (pobieramy listę obiektów reprezentujących wpis w rankingu  i przesyłamy ją w modelu do jsp'a)
 	 */
 	@RequestMapping("/ranking")
 	public ModelAndView getRanking() {
@@ -118,9 +121,7 @@ public class PanelController {
 	}
 	
 	/**
-	 * Metoda pobierająca wyzwanie 
-	 * FIXME Prawdopodobnie do kosza, bo w sumie nie widze senus użycia, bardziej interesują nasz wszytkie
-	 * wyzwania, niż jedno konkretne
+	 * Obsługa strony z konkretnym wyzwaniem (pobieramy wyzwanie  i przesyłamy je w modelu do jsp'a)
 	 */
 	public ModelAndView getChallenge() {
 		// dataModel.ChallengeRequest challengeId = null;
@@ -129,7 +130,7 @@ public class PanelController {
 	}
 
 	/**
-	 * Metoda weryfikująca wyzwanie
+	 * Obsługa weryfikacji wyzwanie
 	 */
 	@RequestMapping("/challenges/veryfi")
 	public ModelAndView verifyChallenge(HttpServletRequest request) {
@@ -142,9 +143,7 @@ public class PanelController {
 	}
 
 	/**
-	 * Metoda usuwająca wyzwanie
-	 * 
-	 * @param challengeId
+	 * Obsługa usuwania wyzwania
 	 */
 	@RequestMapping("/challenges/delete")
 	public ModelAndView removeChallenge(HttpServletRequest request) {
@@ -155,22 +154,19 @@ public class PanelController {
 	}
 
 	/**
-	 * Metoda pobierająca użytkownika
-	 * FIXME Prawdopodobnie do kosza, bo w sumie nie widze senus użycia, bardziej interesują nasz wszytkie
-	 * wyzwania, niż jedno konkretne
+	 * Obsługa strony z konkretnym użytkownikiem (pobieramy użytkownika i przesyłamy go w modelu do jsp'a)
 	 */
 	public ModelAndView getUser() {
 		try {
 			authenticationService.authenticateUser(credentials);
 		} catch (UserAuthenticationFailedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	/**
-	 * Metoda pobierająca listę użytkowników
+	 * Obsługa strony z użytkownikami (pobieramy listę użytkowników i przesyłamy ją w modelu do jsp'a)
 	 */
 	@RequestMapping("/users")
 	public ModelAndView getUsers() {

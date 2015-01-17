@@ -2,8 +2,6 @@ package pl.p.lodz.ftims.server.controller;
 
 import java.util.List;
 
-import javax.xml.bind.JAXBException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -83,7 +81,7 @@ public class RESTController {
 	 * @return List<Ranking>
 	 */
 	@RequestMapping(value = "/ranking", method=RequestMethod.GET)
-	public ResponseEntity<RankingReply> getRankingRest() throws JAXBException{
+	public ResponseEntity<RankingReply> getRankingRest() {
 		List<Ranking> ranking=rankingService.getRanking();
 		RankingReply r=convertManager.convertRankingList(ranking);
 		return new ResponseEntity<RankingReply>(r, HttpStatus.OK);

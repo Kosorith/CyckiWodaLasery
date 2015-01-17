@@ -42,5 +42,7 @@ target/
 build/
 nbactions.xml
 nb-configuration.xml
+doc
 
 
+server/doc/allclasses-frame.html

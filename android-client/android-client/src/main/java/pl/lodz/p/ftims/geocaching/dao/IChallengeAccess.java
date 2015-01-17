@@ -18,7 +18,7 @@ public interface IChallengeAccess {
 	
 	boolean checkChallengeAnswer(Solution solution, Credentials credentials);
 
-	//boolean sendNewChallenge(Challenge challenge); TODO webservice nie ma odpowiedniej metody
+	boolean sendNewChallenge(Challenge challenge); //TODO webservice nie ma odpowiedniej metody
 
 }
 

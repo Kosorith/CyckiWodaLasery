@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
+import org.apache.http.MethodNotSupportedException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -252,9 +253,12 @@ public class ChallengeAccessDao implements IChallengeAccess {
         }
     }
 
-    /*
+
     @Override
     public boolean sendNewChallenge(Challenge challenge) {
+        throw new UnsupportedOperationException("Not implemented!");
+    }
+    /*
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

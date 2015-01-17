@@ -29,6 +29,9 @@ public class Challenge {
     }
 
     public List<Hint> getHints() {
+        if (hints == null) {
+            hints = new ArrayList<Hint>();
+        }
         return hints;
     }
 

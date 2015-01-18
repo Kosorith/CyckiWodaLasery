@@ -14,6 +14,8 @@ import pl.lodz.p.ftims.geocaching.R;
 
 public class Dodaj_wskazowke_2 extends Activity {
 
+	public boolean tak = false;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,31 +46,31 @@ public class Dodaj_wskazowke_2 extends Activity {
     }
 
     public void CzyChceszZatwierdzic(View v) {
-        class BooleanDialogListener implements DialogInterface.OnClickListener {
-            boolean czyTak = false;
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                czyTak = which == DialogInterface.BUTTON_POSITIVE;
-            }
-        }
-        BooleanDialogListener czyTakListener = new BooleanDialogListener();
-
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Zapisać?");
 
-        alert.setMessage("Czy na pewno chcesz zatwierdzić?");
+        alert.setMessage("Czy na pewno chcesz zatwierdzic?");
 
-        alert.setPositiveButton("Tak", czyTakListener);
-        alert.setNegativeButton("Nie", czyTakListener);
+        alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               tak = true;
+            }
+        });
+        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                tak = false;
+            }
+        });
 
         alert.show();
-
-        if (czyTakListener.czyTak){
+        if (tak){
             Intent intent = new Intent(v.getContext(), Profil.class);
             startActivityForResult(intent,0);
         }
 
-//        Button Zatw = (Button) findViewById(R.id.Zatwierdź_wyzwanie);
+//        Button Zatw = (Button) findViewById(R.id.Zatwierd�_wyzwanie);
 //        Zatw.setOnClickListener(new View.OnClickListener() {
 //
 //            public void onClick(View v) {

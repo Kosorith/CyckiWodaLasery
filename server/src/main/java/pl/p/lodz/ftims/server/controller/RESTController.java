@@ -1,5 +1,6 @@
 package pl.p.lodz.ftims.server.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import dataModel.CreateUserRequest;
 import dataModel.Credentials;
 import dataModel.LoginRequest;
 import dataModel.Profile;
+import dataModel.ProfileRequest;
 import dataModel.RankingReply;
 import dataModel.SolutionSubmission;
 
@@ -56,7 +58,7 @@ public class RESTController {
 	 * @param challengeRequest
 	 * @return ChallengeReply
 	 */
-	@RequestMapping(value = "/challenge", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value = "/showchallenge", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<ChallengeReply> getChallengeRest(@RequestBody ChallengeRequest challengeRequest){		
 		pl.p.lodz.ftims.server.entities.Challenge entityChallenge = challengeService.getChallenge(challengeRequest);		
 		Challenge challenge=convertManager.convertToChallenge(entityChallenge);
@@ -124,7 +126,7 @@ public class RESTController {
 	 * Metoda tworząca nowy profil użytkownika.
 	 * @param CreateUserRequest
 	 */
-	@RequestMapping(value="/profile", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value="/createprofile", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<String> createProfileRest(@RequestBody CreateUserRequest createUserRequest){
 		boolean operationSuccess = userProfileService.addUser(createUserRequest);
 		if (operationSuccess==true )
@@ -148,6 +150,37 @@ public class RESTController {
 		}
 		return bool==true ? new ResponseEntity<String>(HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
 	}
+	
+	/**
+	 * Metoda pobierająca profil użytkownika
+	 * @param ProfileRequest
+	 */
+	@RequestMapping(value="/showprofile", method=RequestMethod.POST )
+	public ResponseEntity<Profile> getProfile(@RequestBody ProfileRequest profileRequest){
+		Profile profile=new Profile();
+		try {
+			User user = authenticationService.authenticateUser(profileRequest.getCredentials());
+			profile=convertManager.convertToProfile(user);
+		} catch (UserAuthenticationFailedException e) {
+			return new ResponseEntity<Profile>(HttpStatus.UNAUTHORIZED);
+		}		
+		return new ResponseEntity<Profile>(profile ,HttpStatus.OK);
+	}
+	
+	/**
+	 * Metoda tworząca nowe wyzwanie.
+	 * @param CreateUserRequest
+	 */
+	@RequestMapping(value="/createchallenge", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> createChallengeRest(@RequestBody Challenge challenge){
+		try {
+			challengeService.createChallenge(challenge);
+		} catch (IOException e) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
 }
 	
 	

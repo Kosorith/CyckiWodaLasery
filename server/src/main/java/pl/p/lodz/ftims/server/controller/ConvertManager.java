@@ -113,7 +113,6 @@ public class ConvertManager implements IConvertManager {
 		ranking.setId(entityRanking.getId());
 		ranking.setPoints(entityRanking.getPoints());
 		ranking.setCompletedChallengesNum(entityRanking.getCompletedChallengesNum());
-		ranking.setProfile(convertToProfile(entityRanking.getUser()));
 		return ranking;
 	}
 

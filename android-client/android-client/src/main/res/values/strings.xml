@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--<string name="app_name">Geocaching-Android</string>-->
+    <!-- <string name="app_name">Geocaching-Android</string> -->
     <string name="title_activity_map">Map</string>
 
     <!-- Menu -->
@@ -69,7 +69,10 @@
     <string name="ZH_Powtorz_Nowe_Haslo">Powtórz nowe hasło</string>
     <string name="ZH_Edytuj">Zmień Hasło</string>
     <string name="title_activity_informacje_o_wskazowce">informacje_o_wskazowce</string>
-
     <string name="mapy_activity_akcje">Akcje</string>
+    <string name="title_activity_rejestracja">Rejestracja</string>
+    <string name="podaj_email">podaj email</string>
+    <string name="wróć">wróć</string>
+    <string name="title_activity_lista__wskazowek">Lista_Wskazowek</string>
 
 </resources>

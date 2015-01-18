@@ -9,7 +9,7 @@
     </head>
     <body>
         <center>
-            <form action="/server/panel/login" method="post">
+            <form action="../panel/login" method="post">
                 <p style="color:red">${error}<p>
                 <label for="name">Login:</label>
                 <input id="name" name="login" type="text" ><br>
@@ -21,4 +21,3 @@
         
     </body>
 </html>
-    

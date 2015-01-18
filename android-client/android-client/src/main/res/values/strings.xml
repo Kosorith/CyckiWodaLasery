@@ -74,5 +74,6 @@
     <string name="podaj_email">podaj email</string>
     <string name="wróć">wróć</string>
     <string name="title_activity_lista__wskazowek">Lista_Wskazowek</string>
+    <string name="title_activity_koordynaty_mapa">Koordynaty z mapy</string>
 
 </resources>

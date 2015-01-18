@@ -28,8 +28,8 @@
                 android:layout_margin="5dp">
 
                 <TextView
-                    android:textSize="15dp"
-                    android:paddingRight="10dp"
+                    android:textSize="15sp"
+                    android:paddingRight="10sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
@@ -38,8 +38,8 @@
                     android:textColor="#ff00f7ff" />
 
                 <TextView
-                    android:textSize="15dp"
-                    android:paddingRight="10dp"
+                    android:textSize="15sp"
+                    android:paddingRight="10sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
@@ -49,8 +49,8 @@
                     android:layout_column="1" />
 
                 <TextView
-                    android:textSize="15dp"
-                    android:paddingRight="10dp"
+                    android:textSize="15sp"
+                    android:paddingRight="10sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
@@ -60,7 +60,7 @@
                     android:layout_column="2" />
 
                 <TextView
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"

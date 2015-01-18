@@ -43,36 +43,42 @@ public class Dodaj_wskazowke_2 extends Activity {
         });
     }
 
-    public void CzyChceszZatwierdziÄ‡(View v){
-//        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//        alert.setTitle("ZapisaÄ‡?");
-//
-//        alert.setMessage("Czy na pewno chcesz zatwierdziÄ‡?");
-//
-//        alert.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//            }
-//        });
-//        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//            }
-//        });
-//
-//        alert.show();
+    public void CzyChceszZatwierdziæ(View v){
+    	boolean czyTak = false;
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Zapisaæ?");
 
-        Button Zatw = (Button) findViewById(R.id.ZatwierdÅº_wyzwanie);
-        Zatw.setOnClickListener(new View.OnClickListener() {
+        alert.setMessage("Czy na pewno chcesz zatwierdziæ?");
 
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Profil.class);
-                startActivityForResult(intent,0);
+        alert.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            	czyTak = true;
+            }
+        });
+        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            	czyTak = false;
             }
         });
 
+        alert.show();
+        
+        if(czyTak == true){
+            Intent intent = new Intent(v.getContext(), Profil.class);
+            startActivityForResult(intent,0);
+        }
+
+//        Button Zatw = (Button) findViewById(R.id.ZatwierdÅº_wyzwanie);
+//        Zatw.setOnClickListener(new View.OnClickListener() {
+//
+//            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(), Profil.class);
+//                startActivityForResult(intent,0);
+//            }
+//        });
+//
     }
 
 

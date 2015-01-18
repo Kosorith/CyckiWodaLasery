@@ -38,6 +38,14 @@ public class Logowanie extends Activity {
             loginEdit.setText(stored.getLogin());
             passwordEdit.setText(stored.getPassword());
         }
+        
+        Button Dalej = (Button) findViewById(R.id.rejestracja);
+        Dalej.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),Rejestracja.class);
+                startActivityForResult(intent,0);
+            }
+        });
     }
 
 

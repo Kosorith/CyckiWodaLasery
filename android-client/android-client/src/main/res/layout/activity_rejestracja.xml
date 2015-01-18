@@ -10,51 +10,65 @@
     android:background="@drawable/tlo_aplikacja">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageViewLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView2"
+        android:layout_alignLeft="@+id/imageViewLogo"
+        android:layout_below="@+id/imageViewLogo"
+        android:layout_marginTop="0dp"
         android:layout_centerVertical="true"
-        android:text="Login" 
+        android:text="Login"
         android:textSize="22dp"/>
 
     <TextView
-        android:id="@+id/TextView02"
+        android:id="@+id/textViewHaslo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TextView01"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp"
+        android:layout_alignLeft="@+id/textViewLogin"
+        android:layout_below="@+id/textViewLogin"
+        android:layout_marginTop="17dp"
+        android:text="Hasło"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewHaslo"
+        android:layout_below="@+id/textViewHaslo"
+        android:layout_marginTop="17dp"
         android:text="Email"
         android:textSize="22dp" />
 
     <TextView
-        android:id="@+id/TextView01"
+        android:id="@+id/textViewNick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="31dp"
-        android:text="Hasło"
-        android:textSize="22dp" />
+        android:layout_alignLeft="@+id/textViewEmail"
+        android:layout_below="@+id/textViewEmail"
+        android:layout_marginTop="17dp"
+        android:layout_alignParentBottom="true"
+        android:text="Nick"
+        android:textSize="22dp"/>
 
     <EditText
         android:id="@+id/Pole_Login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/TextView01"
+        android:layout_toRightOf="@+id/textViewLogin"
+        android:layout_alignTop="@+id/textViewLogin"
+        android:layout_alignParentRight="true"
         android:ems="10"
         android:gravity="fill_vertical|center_horizontal"
         android:hint="@string/podaj_login"
@@ -65,11 +79,10 @@
         android:id="@+id/Pole_Haslo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/TextView01"
-        android:layout_alignBottom="@+id/TextView01"
+        android:layout_alignLeft="@+id/Pole_Login"
+        android:layout_alignTop="@+id/textViewHaslo"
         android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/Pole_Login"
-        android:elegantTextHeight="false"
+        android:layout_below="@+id/Pole_Login"
         android:ems="10"
         android:gravity="fill_vertical|center_horizontal"
         android:hint="@string/podaj_haslo"
@@ -80,13 +93,27 @@
         android:id="@+id/Pole_Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/TextView02"
-        android:layout_alignBottom="@+id/TextView02"
-        android:layout_alignStart="@+id/textView"
-        android:layout_toRightOf="@+id/TextView02"
+        android:layout_alignLeft="@+id/Pole_Haslo"
+        android:layout_alignTop="@+id/textViewEmail"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Pole_Haslo"
         android:ems="10"
         android:gravity="fill_vertical|center_horizontal"
         android:hint="@string/podaj_email"
+        android:inputType="textEmailAddress"
+        android:textColorHighlight="#ff4c93ff" />
+
+    <EditText
+        android:id="@+id/Pole_Nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Pole_Email"
+        android:layout_alignTop="@+id/textViewNick"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Pole_Email"
+        android:ems="10"
+        android:gravity="fill_vertical|center_horizontal"
+        android:hint="podaj nick"
         android:inputType="textPersonName"
         android:textColorHighlight="#ff4c93ff" />
 
@@ -94,13 +121,11 @@
         android:id="@+id/OK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_alignLeft="@+id/TextView02"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
-        android:layout_toEndOf="@+id/Haslo_Text"
-        android:layout_toLeftOf="@+id/Pole_Haslo"
-        android:onClick="doLogin"
+        android:onClick="doRegister"
         android:text="@string/Zatwierdz" />
 
     <Button
@@ -109,10 +134,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/OK"
         android:layout_alignBottom="@+id/OK"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_alignRight="@+id/Pole_Email"
-        android:layout_toEndOf="@+id/Haslo_Text"
-        android:onClick="doLogin"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/OK"
         android:text="@string/wróć" />
 
 </RelativeLayout>

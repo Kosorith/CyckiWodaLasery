@@ -43,29 +43,27 @@ public class Dodaj_wskazowke_2 extends Activity {
         });
     }
 
-    public void CzyChceszZatwierdziæ(View v){
-    	boolean czyTak = false;
+    public void CzyChceszZatwierdzic(View v) {
+        class BooleanDialogListener implements DialogInterface.OnClickListener {
+            boolean czyTak = false;
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                czyTak = which == DialogInterface.BUTTON_POSITIVE;
+            }
+        }
+        BooleanDialogListener czyTakListener = new BooleanDialogListener();
+
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Zapisaæ?");
+        alert.setTitle("ZapisaÄ‡?");
 
-        alert.setMessage("Czy na pewno chcesz zatwierdziæ?");
+        alert.setMessage("Czy na pewno chcesz zatwierdziÄ‡?");
 
-        alert.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            	czyTak = true;
-            }
-        });
-        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            	czyTak = false;
-            }
-        });
+        alert.setPositiveButton("Tak", czyTakListener);
+        alert.setNegativeButton("Nie", czyTakListener);
 
         alert.show();
-        
-        if(czyTak == true){
+
+        if (czyTakListener.czyTak){
             Intent intent = new Intent(v.getContext(), Profil.class);
             startActivityForResult(intent,0);
         }

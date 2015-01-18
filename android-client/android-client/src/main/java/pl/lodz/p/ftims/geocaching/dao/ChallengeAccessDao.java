@@ -11,6 +11,7 @@ import pl.lodz.p.ftims.geocaching.model.Solution;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.StreamException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -84,6 +85,9 @@ public class ChallengeAccessDao implements IChallengeAccess {
                 returnList.add(challengeStub);
             }
             return returnList;
+        } catch (StreamException e) {
+            e.printStackTrace();
+            return null;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
             return null;
@@ -149,6 +153,9 @@ public class ChallengeAccessDao implements IChallengeAccess {
             challenge.setStub(challengeStub);
 
             return challenge;
+        } catch (StreamException e) {
+            e.printStackTrace();
+            return null;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
             return null;
@@ -215,6 +222,9 @@ public class ChallengeAccessDao implements IChallengeAccess {
             challenge.setStub(challengeStub);
 
             return challenge;
+        } catch (StreamException e) {
+            e.printStackTrace();
+            return null;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
             return null;

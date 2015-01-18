@@ -9,6 +9,7 @@ import pl.lodz.p.ftims.geocaching.model.Profile;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.StreamException;
 import java.io.*;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +30,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 
 public class ProfilesAccessDao implements IProfilesAccess{
-    private String profileAddress;
+    private String showProfileAddress;
+    private String createProfileAddress;
     private String rankingAddress;
     private String loginAddress;
     private String passwordAddress;
@@ -37,7 +39,8 @@ public class ProfilesAccessDao implements IProfilesAccess{
 
     public ProfilesAccessDao(Context context){
         PropertyReader reader = new PropertyReader(context);
-        profileAddress = reader.getProperties("httpClientProperties.properties").getProperty("ProfileAddress");
+        createProfileAddress = reader.getProperties("httpClientProperties.properties").getProperty("CreateProfileAddress");
+        showProfileAddress = reader.getProperties("httpClientProperties.properties").getProperty("ShowProfileAddress");
         rankingAddress = reader.getProperties("httpClientProperties.properties").getProperty("RankingAddress");
         loginAddress = reader.getProperties("httpClientProperties.properties").getProperty("LoginAddress");
         passwordAddress = reader.getProperties("httpClientProperties.properties").getProperty("PasswordAddress");
@@ -121,6 +124,9 @@ public class ProfilesAccessDao implements IProfilesAccess{
                 returnList.add(entry);
             }
             return returnList;
+        } catch (StreamException e) {
+            e.printStackTrace();
+            return null;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
             return new ArrayList<RankingEntry>();
@@ -156,7 +162,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
             return false;
         }
         entity.setChunked(true);
-        HttpPost httppost = new HttpPost(profileAddress);
+        HttpPost httppost = new HttpPost(createProfileAddress);
         httppost.setEntity(entity);
         httppost.setHeader("Content-Type", "application/xml");
         HttpClient client = new DefaultHttpClient();
@@ -234,7 +240,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
          return null;
      }
      entity.setChunked(true);
-     HttpPost httppost = new HttpPost(profileAddress);
+     HttpPost httppost = new HttpPost(showProfileAddress);
      httppost.setEntity(entity);
      httppost.setHeader("Content-Type", "application/xml");
      HttpClient client = new DefaultHttpClient();
@@ -254,6 +260,9 @@ public class ProfilesAccessDao implements IProfilesAccess{
          profile.setCompletedChallenges(dmProfile.getRanking().getCompletedChallengesNum());
          profile.setEmail(dmProfile.getEmail());
          return profile;
+        } catch (StreamException e) {
+            e.printStackTrace();
+            return null;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
             return null;

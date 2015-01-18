@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import pl.lodz.p.ftims.geocaching.R;
+import pl.lodz.p.ftims.geocaching.GUI.Rejestracja;
 import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
 import pl.lodz.p.ftims.geocaching.logic.user.LoginService;
 import pl.lodz.p.ftims.geocaching.model.Credentials;
@@ -114,24 +115,4 @@ public class Logowanie extends Activity {
         }
     }
 
-    public void doRegister(View v) {
-        String login = loginEdit.getText().toString();
-        String password = passwordEdit.getText().toString();
-        Credentials credentials = new Credentials(login, password);
-
-        if (!loginService.preverifyCredentials(credentials)) {
-            Toast.makeText(getApplicationContext(), "Wpisałeś jakieś bzdury, użytkowniku.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        boolean ok = true;  // loginService.register(credentials, new Profile(login, "abc@def.com", 0, 0));
-        // ! TODO: To się zapewne również sypie przy łączeniu z netem.
-        // Można dorobić osobny, ładny formularz na rejestrację. Na szybko dodałem tu button.
-        if (ok) {
-            Intent intent = new Intent(v.getContext(), Profil.class);
-            startActivityForResult(intent, 0);
-        } else {
-            Toast.makeText(getApplicationContext(), "Rejestracja nie powiodła się!", Toast.LENGTH_SHORT).show();
-        }
-    }
 }

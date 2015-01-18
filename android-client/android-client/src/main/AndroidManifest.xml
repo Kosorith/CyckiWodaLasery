@@ -97,11 +97,11 @@
             android:label="@string/title_activity_informacje_o_wskazowce" >
         </activity>
         <activity
-            android:name=".Rejestracja"
+            android:name=".GUI.Rejestracja"
             android:label="@string/title_activity_rejestracja" >
         </activity>
         <activity
-            android:name=".Lista_Wskazowek"
+            android:name=".GUI.Lista_Wskazowek"
             android:label="@string/title_activity_lista__wskazowek" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

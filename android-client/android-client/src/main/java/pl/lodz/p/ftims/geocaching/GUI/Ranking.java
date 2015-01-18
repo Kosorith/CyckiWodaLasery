@@ -31,11 +31,7 @@ public class Ranking extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
 
-        List<RankingEntry> rankingList = Arrays.asList(new RankingEntry(1, "Johny", 123123, 55),
-            new RankingEntry(2, "Józef", 87687, 30), new RankingEntry(3, "Pieseł", 9965, 19));
-
-//        List<RankingEntry> rankingList = challengesService.getRanking();
-            // challengesService.getRanking(); // ! TODO: Odkomentować jak będzie dao
+        List<RankingEntry> rankingList =  challengesService.getRanking();
 
         TableLayout rankingTable = (TableLayout) findViewById(R.id.profileTableLayout);
         for (RankingEntry entry : rankingList) {

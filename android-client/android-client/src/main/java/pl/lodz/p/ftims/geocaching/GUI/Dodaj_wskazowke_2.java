@@ -45,8 +45,7 @@ public class Dodaj_wskazowke_2 extends Activity {
         });
     }
 
-    public void CzyChceszZatwierdzić(View v){
-
+    public void CzyChceszZatwierdzic(View v) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Zapisać?");
 
@@ -57,7 +56,8 @@ public class Dodaj_wskazowke_2 extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                tak = true;
             }
-        }).setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+        });
+        alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 tak = false;
@@ -65,8 +65,7 @@ public class Dodaj_wskazowke_2 extends Activity {
         });
 
         alert.show();
-        
-        if(tak == true){
+        if (tak){
             Intent intent = new Intent(v.getContext(), Profil.class);
             startActivityForResult(intent,0);
         }

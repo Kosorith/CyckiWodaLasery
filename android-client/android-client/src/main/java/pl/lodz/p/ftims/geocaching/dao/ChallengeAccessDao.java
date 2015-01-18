@@ -11,6 +11,7 @@ import pl.lodz.p.ftims.geocaching.model.Solution;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.StreamException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -59,6 +60,7 @@ public class ChallengeAccessDao implements IChallengeAccess {
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(challengesAddress);
         httppost.setEntity(entity);
+        httppost.setHeader("Content-Type", "application/xml");
         HttpClient client = new DefaultHttpClient();
         InputStream in;
         try {
@@ -83,10 +85,14 @@ public class ChallengeAccessDao implements IChallengeAccess {
                 returnList.add(challengeStub);
             }
             return returnList;
+        } catch (StreamException e) {
+            e.printStackTrace();
+            return null;
         } catch (ClientProtocolException e) {
-            System.out.println(e);
+            e.printStackTrace();
             return null;
         } catch (IOException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -101,15 +107,17 @@ public class ChallengeAccessDao implements IChallengeAccess {
         xstreamIn.alias("ChallengeRequest", dataModel.ChallengeRequest.class);
         String inputXML = xstreamIn.toXML(request);
 
-        StringEntity entity = null;
+        StringEntity entity;
         try {
             entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return null;
         }
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(challengeAddress);
         httppost.setEntity(entity);
+        httppost.setHeader("Content-Type", "application/xml");
         HttpClient client = new DefaultHttpClient();
         InputStream in;
 
@@ -145,9 +153,14 @@ public class ChallengeAccessDao implements IChallengeAccess {
             challenge.setStub(challengeStub);
 
             return challenge;
-        }catch (ClientProtocolException e) {
+        } catch (StreamException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
             return null;
         } catch (IOException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -162,15 +175,18 @@ public class ChallengeAccessDao implements IChallengeAccess {
         xstreamIn.alias("ChallengeRequest", dataModel.ChallengeRequest.class);
         String inputXML = xstreamIn.toXML(request);
 
-        StringEntity entity = null;
+        StringEntity entity;
         try {
             entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return null;
         }
+
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(challengeAddress);
         httppost.setEntity(entity);
+        httppost.setHeader("Content-Type", "application/xml");
         HttpClient client = new DefaultHttpClient();
         InputStream in;
 
@@ -206,9 +222,14 @@ public class ChallengeAccessDao implements IChallengeAccess {
             challenge.setStub(challengeStub);
 
             return challenge;
-        }catch (ClientProtocolException e) {
+        } catch (StreamException e) {
+            e.printStackTrace();
+            return null;
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
             return null;
         } catch (IOException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -230,25 +251,28 @@ public class ChallengeAccessDao implements IChallengeAccess {
         xstreamIn.aliasField("Solution", dataModel.SolutionSubmission.class, "solution");
         String inputXML = xstreamIn.toXML(submission);
 
-        StringEntity entity = null;
+        StringEntity entity;
         try {
             entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return false;
         }
+
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(solutionAddress);
         httppost.setEntity(entity);
+        httppost.setHeader("Content-Type", "application/xml");
         HttpClient client = new DefaultHttpClient();
 
         try {
             HttpResponse response = client.execute(httppost);
-            if (response.getStatusLine().getStatusCode() == 200) return true;
-            else return false;
+            return response.getStatusLine().getStatusCode() == 200;
         } catch (ClientProtocolException e) {
+            e.printStackTrace();
             return false;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }

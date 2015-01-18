@@ -28,6 +28,7 @@ import dataModel.CreateUserRequest;
 import dataModel.Credentials;
 import dataModel.LoginRequest;
 import dataModel.Profile;
+import dataModel.ProfileRequest;
 import dataModel.RankingReply;
 import dataModel.SolutionSubmission;
 
@@ -124,7 +125,7 @@ public class RESTController {
 	 * Metoda tworząca nowy profil użytkownika.
 	 * @param CreateUserRequest
 	 */
-	@RequestMapping(value="/profile", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value="/createprofile", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<String> createProfileRest(@RequestBody CreateUserRequest createUserRequest){
 		boolean operationSuccess = userProfileService.addUser(createUserRequest);
 		if (operationSuccess==true )
@@ -147,6 +148,22 @@ public class RESTController {
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		}
 		return bool==true ? new ResponseEntity<String>(HttpStatus.OK) : new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
+	}
+	
+	/**
+	 * Metoda pobierająca profil użytkownika
+	 * @param ProfileRequest
+	 */
+	@RequestMapping(value="/showprofile", method=RequestMethod.POST )
+	public ResponseEntity<Profile> getProfile(@RequestBody ProfileRequest profileRequest){
+		Profile profile=new Profile();
+		try {
+			User user = authenticationService.authenticateUser(profileRequest.getCredentials());
+			profile=convertManager.convertToProfile(user);
+		} catch (UserAuthenticationFailedException e) {
+			return new ResponseEntity<Profile>(HttpStatus.UNAUTHORIZED);
+		}		
+		return new ResponseEntity<Profile>(profile ,HttpStatus.OK);
 	}
 }
 	

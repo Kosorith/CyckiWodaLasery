@@ -159,7 +159,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/DNW_Hasło_Do_Prywatnego_Wyzwania"
+        android:text="Wyzwanie Prywatne"
         android:id="@+id/Rodzaj_wyzwania"
         android:layout_x="155dp"
         android:layout_y="120dp"

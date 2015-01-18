@@ -136,10 +136,10 @@
         android:id="@+id/XY"
         android:layout_x="90dp"
         android:layout_y="200dp"
-        android:background="@drawable/XY"
         android:textOff=" "
         android:textOn=" "
-        android:checked="false" />
+        android:checked="false"
+        android:background="@drawable/ikona_kordy" />
 
     <ImageButton
         android:layout_width="70dp"
@@ -147,7 +147,7 @@
         android:id="@+id/Kordy_z_mapy"
         android:layout_x="8dp"
         android:layout_y="200dp"
-        android:background="@drawable/Mapa_ikona" />
+        android:background="@drawable/ikona_mapa" />
 
     <LinearLayout
         android:orientation="horizontal"

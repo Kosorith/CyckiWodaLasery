@@ -48,8 +48,8 @@ public class ZmianaHasla extends Activity {
             return;
         }
 
-        boolean ok = true; // loginService.changePassword(oldPass, newPass1);
-                           // ! TODO: Wysyłanie przez neta nie działa. Odkomentować jak się to uda.
+        boolean ok = loginService.changePassword(oldPass, newPass1);
+
         if (ok) {
             Intent intent = new Intent(v.getContext(), Profil.class);
             startActivityForResult(intent, 0);

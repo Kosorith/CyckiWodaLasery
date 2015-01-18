@@ -61,23 +61,26 @@ public class ProfilesAccessDao implements IProfilesAccess{
         xstreamIn.aliasField("newPasswd", dataModel.ChangePasswordRequest.class, "newPasswd");
 
         String inputXML = xstreamIn.toXML(request);
-        StringEntity entity = null;
+        StringEntity entity;
         try {
             entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return false;
         }
         entity.setChunked(true);
         HttpPut httpPut = new HttpPut(passwordAddress);
         httpPut.setEntity(entity);
+        httpPut.setHeader("Content-Type", "application/xml");
         HttpClient client = new DefaultHttpClient();
         try {
             HttpResponse response = client.execute(httpPut);
-            if (response.getStatusLine().getStatusCode() == 200) return true;
-            else return false;
+            return response.getStatusLine().getStatusCode() == 200;
         } catch (ClientProtocolException e) {
+            e.printStackTrace();
             return false;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -93,6 +96,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
             webservice = new URI(rankingAddress);
         } catch (URISyntaxException e) {
             e.printStackTrace();
+            return new ArrayList<RankingEntry>();
         }
         httpget.setURI(webservice);
         HttpClient client = new DefaultHttpClient();
@@ -118,9 +122,11 @@ public class ProfilesAccessDao implements IProfilesAccess{
             }
             return returnList;
         } catch (ClientProtocolException e) {
-            return null;
+            e.printStackTrace();
+            return new ArrayList<RankingEntry>();
         } catch (IOException e) {
-            return null;
+            e.printStackTrace();
+            return new ArrayList<RankingEntry>();
         }
     }
 
@@ -142,23 +148,26 @@ public class ProfilesAccessDao implements IProfilesAccess{
         xstreamIn.aliasField("email", dataModel.CreateUserRequest.class, "email");
 
         String inputXML = xstreamIn.toXML(request);
-        StringEntity entity = null;
+        StringEntity entity;
         try {
             entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return false;
         }
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(profileAddress);
         httppost.setEntity(entity);
+        httppost.setHeader("Content-Type", "application/xml");
         HttpClient client = new DefaultHttpClient();
         try {
             HttpResponse response = client.execute(httppost);
-            if (response.getStatusLine().getStatusCode() == 200) return true;
-            else return false;
+            return response.getStatusLine().getStatusCode() == 200;
         } catch (ClientProtocolException e) {
+            e.printStackTrace();
             return false;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -178,24 +187,27 @@ public class ProfilesAccessDao implements IProfilesAccess{
 
         String inputXML;
         inputXML = xstreamIn.toXML(request);
-        StringEntity entity = null;
+        StringEntity entity;
         try {
             entity = new StringEntity(inputXML);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return false;
         }
         entity.setChunked(true);
         HttpPost httppost = new HttpPost(loginAddress);
         httppost.setEntity(entity);
+        httppost.setHeader("Content-Type", "application/xml");
         HttpClient client = new DefaultHttpClient();
 
         try {
             HttpResponse response = client.execute(httppost);
-            if (response.getStatusLine().getStatusCode() == 200) return true;
-            else return false;
+            return response.getStatusLine().getStatusCode() == 200;
         } catch (ClientProtocolException e) {
+            e.printStackTrace();
             return false;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -219,15 +231,17 @@ public class ProfilesAccessDao implements IProfilesAccess{
          entity = new StringEntity(inputXML);
      } catch (UnsupportedEncodingException e){
          e.printStackTrace();
+         return null;
      }
      entity.setChunked(true);
-     HttpPost httppost = new HttpPost(loginAddress);
+     HttpPost httppost = new HttpPost(profileAddress);
      httppost.setEntity(entity);
+     httppost.setHeader("Content-Type", "application/xml");
      HttpClient client = new DefaultHttpClient();
      InputStream in;
      try {
          HttpResponse response = client.execute(httppost);
-         in=response.getEntity().getContent();
+         in = response.getEntity().getContent();
          String outputXML = IOUtils.toString(in);
 
          XStream xstreamOut = new XStream(new DomDriver());
@@ -241,8 +255,10 @@ public class ProfilesAccessDao implements IProfilesAccess{
          profile.setEmail(dmProfile.getEmail());
          return profile;
         } catch (ClientProtocolException e) {
+            e.printStackTrace();
             return null;
         } catch (IOException e) {
+             e.printStackTrace();
             return null;
         }
      }

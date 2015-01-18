@@ -116,8 +116,7 @@ public class Logowanie extends Activity {
             return;
         }
 
-        boolean ok = true;  // loginService.register(credentials, new Profile(login, "abc@def.com", 0, 0));
-        // ! TODO: To się zapewne również sypie przy łączeniu z netem.
+        boolean ok = loginService.register(credentials, new Profile(login, "abc@def.com", 0, 0));
         // Można dorobić osobny, ładny formularz na rejestrację. Na szybko dodałem tu button.
         if (ok) {
             Intent intent = new Intent(v.getContext(), Profil.class);

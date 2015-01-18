@@ -1,5 +1,6 @@
 package pl.p.lodz.ftims.server.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class RESTController {
 	 * @param challengeRequest
 	 * @return ChallengeReply
 	 */
-	@RequestMapping(value = "/challenge", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value = "/showchallenge", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<ChallengeReply> getChallengeRest(@RequestBody ChallengeRequest challengeRequest){		
 		pl.p.lodz.ftims.server.entities.Challenge entityChallenge = challengeService.getChallenge(challengeRequest);		
 		Challenge challenge=convertManager.convertToChallenge(entityChallenge);
@@ -165,6 +166,21 @@ public class RESTController {
 		}		
 		return new ResponseEntity<Profile>(profile ,HttpStatus.OK);
 	}
+	
+	/**
+	 * Metoda tworząca nowe wyzwanie.
+	 * @param CreateUserRequest
+	 */
+	@RequestMapping(value="/createchallenge", method=RequestMethod.POST, consumes=MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> createChallengeRest(@RequestBody Challenge challenge){
+		try {
+			challengeService.createChallenge(challenge);
+		} catch (IOException e) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
 }
 	
 	

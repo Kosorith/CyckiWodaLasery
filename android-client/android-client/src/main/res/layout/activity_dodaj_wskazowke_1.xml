@@ -131,7 +131,8 @@
         android:layout_toRightOf="@+id/ZdjecieZPamieci"
         android:layout_x="10dp"
         android:layout_y="370dp"
-        android:onClick="ZdjecieKamera" />
+        android:onClick="ZdjecieKamera"
+        android:background="@drawable/aparat" />
 
     <ImageButton
         android:id="@+id/ZdjecieZPamieci"
@@ -142,7 +143,8 @@
         android:layout_below="@+id/Zdjecie"
         android:layout_x="76dp"
         android:layout_y="370dp"
-        android:onClick="ZdjeciePamiec" />
+        android:onClick="ZdjeciePamiec"
+        android:background="@drawable/folder" />
 
     <ImageView
         android:id="@+id/Zdjecie"

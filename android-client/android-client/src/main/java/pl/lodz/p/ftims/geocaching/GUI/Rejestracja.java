@@ -1,4 +1,4 @@
-package pl.lodz.p.ftims.geocaching;
+package pl.lodz.p.ftims.geocaching.GUI;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
@@ -10,13 +10,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+import pl.lodz.p.ftims.geocaching.R;
 
 public class Rejestracja extends ActionBarActivity {
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_rejestracja);	
+		setContentView(R.layout.activity_rejestracja);
 
 		/*
 // Guzik OK		

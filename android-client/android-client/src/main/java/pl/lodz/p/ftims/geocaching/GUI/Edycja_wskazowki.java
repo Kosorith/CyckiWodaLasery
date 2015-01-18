@@ -14,8 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.io.File;
 import java.io.IOException;
@@ -120,6 +125,23 @@ public class Edycja_wskazowki extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_edycja_wskazowki, menu);
         return true;
+    }
+
+    public void Koordynaty_XY (View v){
+        final ToggleButton Czy_Prywatne = (ToggleButton) findViewById(R.id.XY);
+        Czy_Prywatne.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                LinearLayout kordy = (LinearLayout) findViewById(R.id.Kordy);
+
+                if(Czy_Prywatne.isChecked()==true){
+                    kordy.setVisibility(kordy.VISIBLE);
+                }
+                else
+                {
+                    kordy.setVisibility(kordy.INVISIBLE);
+                }
+            }
+        });
     }
 
     @Override

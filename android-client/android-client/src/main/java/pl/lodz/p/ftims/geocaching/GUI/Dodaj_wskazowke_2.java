@@ -45,10 +45,10 @@ public class Dodaj_wskazowke_2 extends Activity {
         });
     }
 
-    public void CzyChceszZatwierdziæ(View v){
+    public void CzyChceszZatwierdziÄ‡(View v){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Zapisaæ?");
+        alert.setTitle("ZapisaÄ‡?");
 
         alert.setMessage("Czy na pewno chcesz zatwierdzic?");
 
@@ -71,7 +71,7 @@ public class Dodaj_wskazowke_2 extends Activity {
             startActivityForResult(intent,0);
         }
 
-//        Button Zatw = (Button) findViewById(R.id.ZatwierdŸ_wyzwanie);
+//        Button Zatw = (Button) findViewById(R.id.Zatwierdï¿½_wyzwanie);
 //        Zatw.setOnClickListener(new View.OnClickListener() {
 //
 //            public void onClick(View v) {

@@ -4,7 +4,7 @@
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
     tools:context="pl.lodz.p.ftims.geocaching.GUI.Koordynaty_mapa"
-    android:background="@drawable/xy">
+    android:background="@drawable/tlo_aplikacja">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

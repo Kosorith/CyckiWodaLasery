@@ -2,7 +2,7 @@ package pl.lodz.p.ftims.geocaching.logic.patterns;
 
 /**
  * Zawiera metody pomocne w operowaniu na stringach.
- * @author Michał Sośnicki <sosnicki.michal@gmail.com>
+ * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class StringUtils {
     /**

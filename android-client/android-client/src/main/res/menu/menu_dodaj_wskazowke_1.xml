@@ -40,11 +40,5 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
-    <!-- Exit -->
-    <item
-        android:id="@+id/action_exit"
-        android:title="@string/action_exit"
-        android:orderInCategory="102"
-        app:showAsAction="never" />
 
 </menu>

@@ -137,12 +137,12 @@ public class Dodaj_wskazowke_1 extends Activity {
                 AlertDialog.Builder alert2 = new AlertDialog.Builder(this);
                 alert2.setTitle("Wyjście");
 
-                alert2.setMessage("Czy na pewno chcesz Wyjść?");
+                alert2.setMessage("Czy na pewno chcesz wyjść?");
 
                 alert2.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        System.exit(0);
                     }
                 });
                 alert2.setNegativeButton("Nie", new DialogInterface.OnClickListener() {

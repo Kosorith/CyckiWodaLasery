@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableRow;
+
 import pl.lodz.p.ftims.geocaching.R;
 
 
@@ -45,6 +47,19 @@ public class Dodaj_wskazowke_2 extends Activity {
         });
     }
 
+    public void Edytuj_wskazowke(View v){
+
+        TableRow Edytuj = (TableRow) findViewById(v.getId());
+        Edytuj.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Edycja_wskazowki.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+    }
+
+
     public void CzyChceszZatwierdzic(View v) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Zapisać?");
@@ -54,7 +69,7 @@ public class Dodaj_wskazowke_2 extends Activity {
         alert.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               tak = true;
+                tak = true;
             }
         });
         alert.setNegativeButton("Nie", new DialogInterface.OnClickListener() {

@@ -104,26 +104,6 @@ public class Profil extends Activity {
 
         switch(item.getItemId()) {
 
-            case R.id.action_exit:
-
-                AlertDialog.Builder alert2 = new AlertDialog.Builder(this);
-                alert2.setTitle("Wyjście");
-
-                alert2.setMessage("Czy na pewno chcesz Wyjść?");
-
-                alert2.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                       // TODO: Wygląda na niedokończone. Na pewno chcesz dodawać listener, a nie coś po prostu wykonać?
-                    }
-                });
-                alert2.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                break;
 
 //                Toast.makeText(Profil.this, "Button Clicked :" + item.getTitle(),
 //                        Toast.LENGTH_SHORT).show();

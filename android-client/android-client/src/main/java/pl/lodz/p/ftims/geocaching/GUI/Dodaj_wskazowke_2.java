@@ -17,7 +17,11 @@ import pl.lodz.p.ftims.geocaching.R;
 public class Dodaj_wskazowke_2 extends Activity {
 
 	public boolean tak = false;
-	
+
+    /**
+     * Powiązanie z layoutem
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +29,10 @@ public class Dodaj_wskazowke_2 extends Activity {
 
     }
 
+    /**
+     * Przejście do poprzedniego layoutu
+     * @param v
+     */
     public void Cofnij_W2(View v){
         Button Wstecz = (Button) findViewById(R.id.Wstecz);
         Wstecz.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +44,11 @@ public class Dodaj_wskazowke_2 extends Activity {
         });
     }
 
+    /**
+     * Przejście do następnego layoutu jeśli użytkownik bedzie chciał
+     * dodać wskazówke
+     * @param v
+     */
     public void Dodaj_wskazowke(View v){
         Button Dodaj_nowa = (Button) findViewById(R.id.Dodaj_wskazowke_text);
         Dodaj_nowa.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +60,10 @@ public class Dodaj_wskazowke_2 extends Activity {
         });
     }
 
+    /**
+     * Możliwość edycji wskazówki po kliknieciu na nią w tabeli
+     * @param v
+     */
     public void Edytuj_wskazowke(View v){
 
         TableRow Edytuj = (TableRow) findViewById(v.getId());
@@ -59,7 +76,10 @@ public class Dodaj_wskazowke_2 extends Activity {
         });
     }
 
-
+    /**
+     * Zatwierdzenie wskazówki, przeniesienie do layoutu profil
+     * @param v
+     */
     public void CzyChceszZatwierdzic(View v) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Zapisać?");
@@ -96,7 +116,11 @@ public class Dodaj_wskazowke_2 extends Activity {
 //
     }
 
-
+    /**
+     * dodanie rozwijanego menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -104,6 +128,11 @@ public class Dodaj_wskazowke_2 extends Activity {
         return true;
     }
 
+    /**
+     * tworzenie rozwijanego menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //menu górne

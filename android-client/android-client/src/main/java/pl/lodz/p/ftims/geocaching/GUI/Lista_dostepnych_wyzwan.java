@@ -10,6 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TableRow;
 
+import pl.lodz.p.ftims.geocaching.R;
+
+
+/**
+ *
+ */
 public class Lista_dostepnych_wyzwan extends ActionBarActivity {
 
 	@Override
@@ -26,7 +32,7 @@ public class Lista_dostepnych_wyzwan extends ActionBarActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {s
+	public boolean onOptionsItemSelected(MenuItem item) {
         //menu gÃ³rne
         super.onContextItemSelected(item);
         //Intent intent;
@@ -63,7 +69,7 @@ public class Lista_dostepnych_wyzwan extends ActionBarActivity {
         return true;
     }
 	
-	// pozwala na wybranie wyzwania poprzez klikniecie w rz¹d z danymi w widoku
+	// pozwala na wybranie wyzwania poprzez klikniecie w rzï¿½d z danymi w widoku
 	// row musi zawierac android:onClick="Wybierz_wyzwanie"
 	public void Wybierz_wyzwanie(View v){
 

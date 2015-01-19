@@ -12,13 +12,21 @@ import pl.lodz.p.ftims.geocaching.R;
 
 public class Koordynaty_mapa extends ActionBarActivity {
 
+    /**
+     * powiąanie z layoutem
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_koordynaty_mapa2);
     }
 
-
+    /**
+     * dodanie menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -41,6 +49,10 @@ public class Koordynaty_mapa extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Powrót do layoutu edycja_wskazówki
+     * @param v
+     */
     public void Cofnij_Koordynaty(View v){
         Button Cofnij = (Button) findViewById(R.id.Powrot_Button);
         Cofnij.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +64,10 @@ public class Koordynaty_mapa extends ActionBarActivity {
         });
     }
 
+    /**
+     * zatwierdzenie koordynatów i powrót do layoutu edycja_wskazówki
+     * @param v
+     */
     public void Zatwierdz_Koordynaty(View v){
         Button Cofnij = (Button) findViewById(R.id.OK_Button);
         Cofnij.setOnClickListener(new View.OnClickListener() {

@@ -34,6 +34,10 @@ public class Edycja_wskazowki extends Activity {
     Bitmap bmp;
     private Uri imageUri;
 
+    /**
+     * Powiązanie z layoutem
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,10 @@ public class Edycja_wskazowki extends Activity {
 
     }
 
+    /**
+     * Dodawanie zdjęcia z kamery
+     * @param v
+     */
     public void ZdjecieKamera2(View v) {
         Widok = (ImageView) findViewById(R.id.Zdjecie2);
         ImageButton Przycisk = (ImageButton) findViewById(R.id.ZdjecieKamera);
@@ -55,6 +63,10 @@ public class Edycja_wskazowki extends Activity {
         });
     }
 
+    /**
+     * dodawanie zdjęcia z pliku
+     * @param v
+     */
     public void ZdjeciePamiec2(View v){
 
         Widok = (ImageView) findViewById(R.id.Zdjecie2);
@@ -70,6 +82,12 @@ public class Edycja_wskazowki extends Activity {
         });
     }
 
+    /**
+     * Wyświetlanie zdjęcia w layoucie
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -94,6 +112,10 @@ public class Edycja_wskazowki extends Activity {
         }
     }
 
+    /**
+     * przejscie do layoutu koordynaty_mapa
+     * @param v
+     */
     public void Mapa_kordy(View v){
         ImageButton Wstecz = (ImageButton) findViewById(R.id.koordynaty);
         Wstecz.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +127,10 @@ public class Edycja_wskazowki extends Activity {
         });
     }
 
-
+    /**
+     * Powrót do layoutu dodaj_wskazówke_2
+     * @param v
+     */
     public void Cofnij_D3(View v){
         Button Cofnij = (Button) findViewById(R.id.Cofnij);
         Cofnij.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +142,10 @@ public class Edycja_wskazowki extends Activity {
         });
     }
 
+    /**
+     * Zatwierdzanie wskazówki
+     * @param v
+     */
     public void Zatwierdź_D3(View v){
         Button Zatwierdź = (Button) findViewById(R.id.Dodaj);
         Zatwierdź.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +157,11 @@ public class Edycja_wskazowki extends Activity {
         });
     }
 
-
+    /**
+     * dodawanie menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -136,23 +169,27 @@ public class Edycja_wskazowki extends Activity {
         return true;
     }
 
-    public void Koordynaty_XY (View v){
-        final ToggleButton Czy_Prywatne = (ToggleButton) findViewById(R.id.XY);
-        Czy_Prywatne.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                LinearLayout kordy = (LinearLayout) findViewById(R.id.Kordy);
+//    public void Koordynaty_XY (View v){
+//        final ToggleButton Czy_Prywatne = (ToggleButton) findViewById(R.id.XY);
+//        Czy_Prywatne.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View v){
+//                LinearLayout kordy = (LinearLayout) findViewById(R.id.Kordy);
+//
+//                if(Czy_Prywatne.isChecked()==true){
+//                    kordy.setVisibility(kordy.VISIBLE);
+//                }
+//                else
+//                {
+//                    kordy.setVisibility(kordy.INVISIBLE);
+//                }
+//            }
+//        });
+//    }
 
-                if(Czy_Prywatne.isChecked()==true){
-                    kordy.setVisibility(kordy.VISIBLE);
-                }
-                else
-                {
-                    kordy.setVisibility(kordy.INVISIBLE);
-                }
-            }
-        });
-    }
-
+    /**
+     * Dodawanie lokalizacji z GPS
+     * @param v
+     */
     public void GPS (View v){
         ImageButton Czy_Prywatne = (ImageButton) findViewById(R.id.GPS);
 //        final ToggleButton Czy_Prywatne = (ToggleButton) findViewById(R.id.GPS);
@@ -165,7 +202,11 @@ public class Edycja_wskazowki extends Activity {
         });
     }
 
-
+    /**
+     * tworzenie rozwijanego menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //menu górne

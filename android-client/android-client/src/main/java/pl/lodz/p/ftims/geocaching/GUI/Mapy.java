@@ -112,9 +112,9 @@ public class Mapy extends FragmentActivity implements HintsObserver, LocationObs
                 break;
                 
             case R.id.rozNoweWyz:
-                Intent intent4;
-                intent4 = new Intent(Mapy.this, Lista_dostepnych_wyzwan.class);
-                startActivityForResult(intent4,0);
+                Intent intent5 = new Intent(Mapy.this, Lista_dostepnych_wyzwan.class);;
+
+                startActivityForResult(intent5,0);
                 break;
 
 

@@ -26,6 +26,7 @@ public class Ranking extends Activity {
     @InjectPlz
     private ChallengesService challengesService;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,24 +61,6 @@ public class Ranking extends Activity {
 
         switch(item.getItemId()) {
 
-            case R.id.action_exit:
-
-                AlertDialog.Builder alert2 = new AlertDialog.Builder(this);
-                alert2.setTitle("Wyjście");
-
-                alert2.setMessage("Czy na pewno chcesz Wyjść?");
-
-                alert2.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                alert2.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
 
 //                Toast.makeText(Profil.this, "Button Clicked :" + item.getTitle(),
 //                        Toast.LENGTH_SHORT).show();
@@ -85,7 +68,6 @@ public class Ranking extends Activity {
 //                intent.addCategory(Intent.CATEGORY_HOME);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                startActivity(intent);
-                break;
 
             case R.id.ekran_Stworz_wyzwanie:
                 Intent intent;

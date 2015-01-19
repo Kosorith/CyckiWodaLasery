@@ -20,14 +20,20 @@ import java.io.IOException;
 
 import pl.lodz.p.ftims.geocaching.R;
 
-
+/**
+ * Klasa odpowiadająca za dodawanie wskazówki (cz.1)
+ */
 public class Dodaj_wskazowke_1 extends Activity {
 
     ImageView Widok;
     Bitmap bmp;
     private Uri imageUri;
 
-
+    /**
+     * Powiązanie z layoutem
+     * Przejście do następnej część dodawania wskazówki
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,10 @@ public class Dodaj_wskazowke_1 extends Activity {
 
     }
 
+    /**
+     * metoda służąca do wczytywania zdjęcia wprost z aparatu
+     * @param v
+     */
     public void ZdjecieKamera(View v) {
         Widok = (ImageView) findViewById(R.id.Zdjecie);
         ImageButton Przycisk = (ImageButton) findViewById(R.id.ZdjecieZAparatu);
@@ -57,6 +67,10 @@ public class Dodaj_wskazowke_1 extends Activity {
         });
     }
 
+    /**
+     * metoda służąca do dodawania zdjecia z pamieci telefonu
+     * @param v
+     */
     public void ZdjeciePamiec(View v){
 
         Widok = (ImageView) findViewById(R.id.Zdjecie);
@@ -72,6 +86,12 @@ public class Dodaj_wskazowke_1 extends Activity {
         });
     }
 
+    /**
+     * Wyśeirtlanie zdjecia w odpowiednim miejscu w layoucie
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -96,7 +116,10 @@ public class Dodaj_wskazowke_1 extends Activity {
         }
     }
 
-
+    /**
+     * metoda dotycząca wyboru rodzaju zagadki: publiczna czy prywatna
+     * @param v
+     */
     public void Czy_Pryw (View v){
         final CheckBox Czy_Prywatne = (CheckBox) findViewById(R.id.Rodzaj_wyzwania);
         Czy_Prywatne.setOnClickListener(new View.OnClickListener(){
@@ -117,6 +140,11 @@ public class Dodaj_wskazowke_1 extends Activity {
         });
     }
 
+    /**
+     * dodawanie rozwijanego menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -124,6 +152,11 @@ public class Dodaj_wskazowke_1 extends Activity {
         return true;
     }
 
+    /**
+     * tworzenie rozwijanego menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //menu górne

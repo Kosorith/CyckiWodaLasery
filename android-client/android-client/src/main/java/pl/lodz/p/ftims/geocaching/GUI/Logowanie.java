@@ -25,6 +25,10 @@ public class Logowanie extends Activity {
     private EditText passwordEdit;
     private CheckBox rememberBox;
 
+    /**
+     * Powiązanie z layoutem, przejście do layoutu rejestracja, powiązanie z logiką
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +53,11 @@ public class Logowanie extends Activity {
         });
     }
 
-
+    /**
+     * dodawanie menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -57,6 +65,11 @@ public class Logowanie extends Activity {
         return true;
     }
 
+    /**
+     * tworzenie menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -73,7 +86,9 @@ public class Logowanie extends Activity {
     }
 
 
-
+    /**
+     * tworzenie jakiejś tabelki
+     */
 // PROFIL  // TODO: To do rankingu? O co tu chodzi...
  // Tworzenie wiersza Tabeli
     public void profileFillTable(){
@@ -94,6 +109,10 @@ public class Logowanie extends Activity {
 
     }
 
+    /**
+     * logika logowania do aplikacji
+     * @param v
+     */
     public void doLogin(View v) {
         String login = loginEdit.getText().toString();
         String password = passwordEdit.getText().toString();

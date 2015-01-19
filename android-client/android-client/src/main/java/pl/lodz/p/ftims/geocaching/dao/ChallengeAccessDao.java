@@ -26,11 +26,22 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+/**
+ * Klasa implementujaca interfejs IChallengeAccess.
+ *
+ * Zapewnia usluge DAO dla aplikacji.
+ *
+ * @author Tobiasz_Kowalski, Jonatan_Gostynski
+ */
 public class ChallengeAccessDao implements IChallengeAccess {
     private String challengeAddress;
     private String challengesAddress;
     private String solutionAddress;
 
+    /**
+     * Konstruktor obiektu klasy. Niezbedny parametr to obiekt klasy Context z pakietu android.content.
+     *
+     */
     public ChallengeAccessDao(Context context){
         PropertyReader reader = new PropertyReader(context);
         challengeAddress = reader.getProperties("httpClientProperties.properties").getProperty("ChallengeAddress");
@@ -38,6 +49,12 @@ public class ChallengeAccessDao implements IChallengeAccess {
         solutionAddress = reader.getProperties("httpClientProperties.properties").getProperty("SolutionAddress");
     }
 
+    /**
+     * Metoda zwracajaca liste wyzwan w postaci listy obiektow klasy ChallengeStub pochodzacej z logiki klienta.
+     * Jako parametr pobierany jest obiekt klasy GeoCoords z logiki klienta. Metoda tlumaczy go na obiekt klasy ChallengeListRequest i wysyła do webservicu.
+     * Jako odpowiedz otrzymuje obiekt ChallengeListReply na podstawie ktoego kreowany jest zwracany obiekt ChallengeStub.
+     *
+     */
     @Override
     public ArrayList<ChallengeStub> pickChallengeList(GeoCoords coords) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -97,6 +114,12 @@ public class ChallengeAccessDao implements IChallengeAccess {
         }
     }
 
+    /**
+     * Metoda zwracajaca obiekt klasy Challenge z logiki klienta. Parametrem jest obiekt klasy ChallengeStub.
+     * Metoda tworzy obiekt dataModel.ChallengeRequest i wysyła do odpowiedniego webservicu
+     * Odpowiedzia jest obiekt dataModel.ChallengeReply ktory przed zwroceniem musi byc zamieniony na obiekt logiki aplikacji.
+     *
+     */
     @Override
     public Challenge pickChallengeHints(ChallengeStub challengestub) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -164,7 +187,12 @@ public class ChallengeAccessDao implements IChallengeAccess {
             return null;
         }
     }
-
+    /**
+     * Metoda zwracajaca obiekt klasy Challenge z logiki klienta. Parametrem jest obiekt klasy ChallengeStub oraz haslo.
+     * Metoda tworzy obiekt dataModelu.ChallengeRequest i wysyla do odpowiedniego webservicu.
+     * Odpowiedzia jest obiekt dataModel.ChallengeReply ktory przed zwroceniem musi byc zamieniony na obiekt logiki aplikacji.
+     *
+     */
     @Override
     public Challenge pickChallengeHints(ChallengeStub challengestub, String password) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -234,6 +262,11 @@ public class ChallengeAccessDao implements IChallengeAccess {
         }
     }
 
+    /**
+     * Metoda sprawdzajaca rozwiazanie. Na podstawie parametrow w postaci obiektow klasy Solution i Credentials z modelu klienta tworzony jest obiekt SolutionSubmission z logiki serwera.
+     * Zwracana wartosc logiczna odpowiada poprawnosci rozwiazania.
+     *
+     */
     @Override
     public boolean checkChallengeAnswer(Solution solution, Credentials credentials) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -277,7 +310,11 @@ public class ChallengeAccessDao implements IChallengeAccess {
         }
     }
 
-
+    /**
+     * Metoda odpowiadajaca za wyslanie nowego wyzwania.
+     * Implementacja metody zaplanowana na kolejna wersje aplikacji
+     *
+     */
     @Override
     public boolean sendNewChallenge(Challenge challenge) {
         throw new UnsupportedOperationException("Not implemented!");

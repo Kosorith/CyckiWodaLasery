@@ -8,7 +8,10 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 /**
- * Created by Jonatan on 2015-01-02.
+ * Klasa zapewniajaca dostep do zawartosci pliku httpClientProperties.properties.
+ * Plik ten zawiera konfiguracje do komunikacji z webservicem.
+ *
+ * @author Tobiasz_Kowalski, Jonatan_Gostynski
  */
 public class PropertyReader {
     private Context context;

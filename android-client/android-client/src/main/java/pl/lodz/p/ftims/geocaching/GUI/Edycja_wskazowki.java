@@ -94,7 +94,16 @@ public class Edycja_wskazowki extends Activity {
         }
     }
 
+    public void Mapa_kordy(View v){
+        ImageButton Wstecz = (ImageButton) findViewById(R.id.koordynaty);
+        Wstecz.setOnClickListener(new View.OnClickListener() {
 
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Koordynaty_mapa.class);
+                startActivityForResult(intent,0);
+            }
+        });
+    }
 
 
     public void Cofnij_D3(View v){
@@ -144,6 +153,19 @@ public class Edycja_wskazowki extends Activity {
         });
     }
 
+    public void GPS (View v){
+        ImageButton Czy_Prywatne = (ImageButton) findViewById(R.id.GPS);
+//        final ToggleButton Czy_Prywatne = (ToggleButton) findViewById(R.id.GPS);
+        Czy_Prywatne.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                LinearLayout kordy = (LinearLayout) findViewById(R.id.Kordy);
+
+
+            }
+        });
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //menu górne
@@ -152,25 +174,6 @@ public class Edycja_wskazowki extends Activity {
 
         switch(item.getItemId()) {
 
-            case R.id.action_exit:
-
-                AlertDialog.Builder alert2 = new AlertDialog.Builder(this);
-                alert2.setTitle("Wyjście");
-
-                alert2.setMessage("Czy na pewno chcesz Wyjść?");
-
-                alert2.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert2.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
 
 //                Toast.makeText(Profil.this, "Button Clicked :" + item.getTitle(),
 //                        Toast.LENGTH_SHORT).show();
@@ -178,7 +181,7 @@ public class Edycja_wskazowki extends Activity {
 //                intent.addCategory(Intent.CATEGORY_HOME);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                startActivity(intent);
-                break;
+
 
             case R.id.ekran_Profil:
                 intent = new Intent(Edycja_wskazowki.this, Profil.class);

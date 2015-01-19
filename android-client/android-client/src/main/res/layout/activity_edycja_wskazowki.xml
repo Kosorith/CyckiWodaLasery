@@ -121,25 +121,14 @@
         android:background="@drawable/aparat"
         android:layout_weight="0.91" />
 
-    <ToggleButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text=" "
-        android:id="@+id/XY"
-        android:layout_x="80dp"
-        android:layout_y="210dp"
-        android:textOff=" "
-        android:textOn=" "
-        android:checked="false"
-        android:background="@drawable/ikona_kordy" />
-
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/Kordy_z_mapy"
+        android:id="@+id/koordynaty"
         android:layout_x="20dp"
         android:layout_y="210dp"
-        android:background="@drawable/ikona_mapa" />
+        android:onClick="Mapa_kordy"
+        android:background="@drawable/mapka_ikona" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -148,7 +137,8 @@
         android:layout_x="160dp"
         android:layout_y="210dp"
         android:weightSum="1"
-        android:visibility="invisible"
+        android:onClick="GPS"
+        android:visibility="visible"
         android:id="@+id/Kordy">
 
         <TextView
@@ -185,5 +175,13 @@
             android:layout_gravity="left|bottom"
             android:layout_weight="0.10" />
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/GPS"
+        android:layout_x="75dp"
+        android:layout_y="210dp"
+        android:background="@drawable/gps_ikona" />
 
 </AbsoluteLayout>

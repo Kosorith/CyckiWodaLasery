@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="323dp"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_x="75dp"
         android:layout_y="440dp">
@@ -91,76 +91,68 @@
         android:textColor="#ff000000"
         android:textSize="18dp" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="124dp"
-        android:layout_x="12dp"
-        android:layout_y="300dp"
-        android:weightSum="1">
-
-        <ImageButton
-            android:layout_width="56dp"
-            android:layout_height="54dp"
-            android:id="@+id/ZdjecieKamera"
-            android:onClick="ZdjecieKamera2"
-            android:layout_x="25dp"
-            android:layout_y="308dp"
-            android:background="@drawable/aparat"
-            android:layout_weight="0.91" />
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:id="@+id/ZdjeciePamiec"
-            android:onClick="ZdjeciePamiec2"
-            android:layout_x="31dp"
-            android:layout_y="385dp"
-            android:background="@drawable/folder"
-            android:layout_weight="1.06" />
-    </LinearLayout>
-
     <ImageView
-        android:layout_width="164dp"
-        android:layout_height="164dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:id="@+id/Zdjecie2"
-        android:layout_x="179dp"
-        android:layout_y="265dp"
+        android:layout_x="170dp"
+        android:layout_y="280dp"
         android:adjustViewBounds="true"
         android:visibility="visible" />
 
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/ZdjeciePamiec"
+        android:onClick="ZdjeciePamiec2"
+        android:layout_x="20dp"
+        android:layout_y="360dp"
+        android:background="@drawable/folder"
+        android:layout_weight="1.06"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/ZdjecieKamera"
+        android:onClick="ZdjecieKamera2"
+        android:layout_x="20dp"
+        android:layout_y="300dp"
+        android:background="@drawable/aparat"
+        android:layout_weight="0.91" />
+
     <ToggleButton
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:text=" "
         android:id="@+id/XY"
-        android:layout_x="90dp"
-        android:layout_y="200dp"
+        android:layout_x="80dp"
+        android:layout_y="210dp"
         android:textOff=" "
         android:textOn=" "
         android:checked="false"
         android:background="@drawable/ikona_kordy" />
 
     <ImageButton
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id="@+id/Kordy_z_mapy"
-        android:layout_x="8dp"
-        android:layout_y="200dp"
+        android:layout_x="20dp"
+        android:layout_y="210dp"
         android:background="@drawable/ikona_mapa" />
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="220dp"
         android:layout_height="54dp"
-        android:layout_x="168dp"
-        android:layout_y="202dp"
+        android:layout_x="160dp"
+        android:layout_y="210dp"
         android:weightSum="1"
         android:visibility="invisible"
         android:id="@+id/Kordy">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="20dp"
             android:layout_height="match_parent"
             android:text="X:"
             android:id="@+id/X_Cord"
@@ -169,7 +161,7 @@
             android:gravity="fill_horizontal|bottom" />
 
         <EditText
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
@@ -185,7 +177,7 @@
             android:textSize="32dp" />
 
         <EditText
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"

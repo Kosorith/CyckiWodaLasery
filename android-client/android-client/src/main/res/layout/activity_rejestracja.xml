@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,50 +21,58 @@
 
     <TextView
         android:id="@+id/textViewLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/imageViewLogo"
         android:layout_below="@+id/imageViewLogo"
         android:layout_marginTop="0dp"
         android:layout_centerVertical="true"
         android:text="Login"
-        android:textSize="22dp"/>
+        android:textSize="22dp"
+        android:layout_y="180dp"
+        android:gravity="center_vertical|center" />
 
     <TextView
         android:id="@+id/textViewHaslo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/textViewLogin"
         android:layout_below="@+id/textViewLogin"
         android:layout_marginTop="17dp"
         android:text="Hasło"
-        android:textSize="22dp" />
+        android:textSize="22dp"
+        android:layout_y="230dp"
+        android:gravity="center_vertical|center" />
 
     <TextView
         android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/textViewHaslo"
         android:layout_below="@+id/textViewHaslo"
         android:layout_marginTop="17dp"
         android:text="Email"
-        android:textSize="22dp" />
+        android:textSize="22dp"
+        android:layout_y="280dp"
+        android:gravity="center_vertical|center" />
 
     <TextView
         android:id="@+id/textViewNick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/textViewEmail"
         android:layout_below="@+id/textViewEmail"
         android:layout_marginTop="17dp"
         android:layout_alignParentBottom="true"
         android:text="Nick"
-        android:textSize="22dp"/>
+        android:textSize="22dp"
+        android:layout_y="320dp"
+        android:gravity="center_vertical|center" />
 
     <EditText
         android:id="@+id/Pole_Login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/textViewLogin"
         android:layout_alignTop="@+id/textViewLogin"
@@ -73,12 +81,14 @@
         android:gravity="fill_vertical|center_horizontal"
         android:hint="@string/podaj_login"
         android:inputType="textPersonName"
-        android:textColorHighlight="#ff4c93ff" />
+        android:textColorHighlight="#ff4c93ff"
+        android:layout_y="180dp"
+        android:layout_x="100dp" />
 
     <EditText
         android:id="@+id/Pole_Haslo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/Pole_Login"
         android:layout_alignTop="@+id/textViewHaslo"
         android:layout_alignParentRight="true"
@@ -87,12 +97,14 @@
         android:gravity="fill_vertical|center_horizontal"
         android:hint="@string/podaj_haslo"
         android:inputType="textPassword"
-        android:textColorHighlight="#ff4c93ff" />
+        android:textColorHighlight="#ff4c93ff"
+        android:layout_x="100dp"
+        android:layout_y="230dp" />
 
     <EditText
         android:id="@+id/Pole_Email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/Pole_Haslo"
         android:layout_alignTop="@+id/textViewEmail"
         android:layout_alignParentRight="true"
@@ -101,12 +113,14 @@
         android:gravity="fill_vertical|center_horizontal"
         android:hint="@string/podaj_email"
         android:inputType="textEmailAddress"
-        android:textColorHighlight="#ff4c93ff" />
+        android:textColorHighlight="#ff4c93ff"
+        android:layout_x="100dp"
+        android:layout_y="280dp" />
 
     <EditText
         android:id="@+id/Pole_Nick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/Pole_Email"
         android:layout_alignTop="@+id/textViewNick"
         android:layout_alignParentRight="true"
@@ -115,27 +129,33 @@
         android:gravity="fill_vertical|center_horizontal"
         android:hint="podaj nick"
         android:inputType="textPersonName"
-        android:textColorHighlight="#ff4c93ff" />
+        android:textColorHighlight="#ff4c93ff"
+        android:layout_x="100dp"
+        android:layout_y="320dp" />
 
     <Button
         android:id="@+id/OK"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_alignRight="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
         android:onClick="doRegister"
-        android:text="@string/Zatwierdz" />
+        android:text="@string/Zatwierdz"
+        android:layout_x="150dp"
+        android:layout_y="380dp" />
 
     <Button
         android:id="@+id/Wroc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_alignBaseline="@+id/OK"
         android:layout_alignBottom="@+id/OK"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/OK"
-        android:text="@string/wróć" />
+        android:text="@string/wróć"
+        android:layout_x="15dp"
+        android:layout_y="380dp" />
 
-</RelativeLayout>
+</AbsoluteLayout>

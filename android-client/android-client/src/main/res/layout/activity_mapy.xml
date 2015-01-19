@@ -1,27 +1,26 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@drawable/logo">
+    android:background="@drawable/tlo_aplikacja">
 
     <fragment
-        android:layout_width="305dp"
-        android:layout_height="440dp"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
         android:id="@+id/map"
         android:layout_gravity="center"
         tools:context="pl.lodz.p.ftims.geocaching.Mapy"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_x="-22dp"
-        android:layout_y="-28dp" />
+        android:layout_x="20dp"
+        android:layout_y="0dp" />
 
     <Button
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:text="@string/mapy_activity_akcje"
         android:id="@+id/button"
-        android:layout_x="0dp"
-        android:layout_y="437dp" />
+        android:layout_y="420dp"
+        android:layout_x="95dp" />
 
 </AbsoluteLayout>

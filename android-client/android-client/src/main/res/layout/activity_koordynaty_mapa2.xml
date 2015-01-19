@@ -17,20 +17,20 @@
         android:layout_y="17dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:text="Powrót"
         android:id="@+id/Powrot_Button"
-        android:layout_x="30dp"
+        android:layout_x="70dp"
         android:onClick="Cofnij_Koordynaty"
         android:layout_y="440dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:text="Zatwierdź"
         android:id="@+id/OK_Button"
-        android:layout_x="250dp"
+        android:layout_x="200dp"
         android:onClick="Zatwierdz_Koordynaty"
         android:layout_y="440dp" />
 

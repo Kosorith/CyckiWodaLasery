@@ -32,14 +32,16 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         String loginURL = request.getContextPath() + "/panel/login";
         String ressURL = "/css/";
+        String restURL = "/rest/";
 
         HttpSession session = request.getSession(false);
         
         boolean loggedIn = (session != null && session.getAttribute("userId") != null);
         boolean loginRequest = request.getRequestURI().startsWith(loginURL);
         boolean resourceRequest = request.getRequestURI().contains(ressURL);
+        boolean webServiceRequest = request.getRequestURI().contains(restURL);
         
-        if (loggedIn || loginRequest || resourceRequest) {
+        if (loggedIn || loginRequest || resourceRequest|| webServiceRequest) {
             if (!resourceRequest) {
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                 response.setHeader("Pragma", "no-cache");

@@ -1,0 +1,138 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16sp"
+    android:paddingLeft="16sp"
+    android:paddingRight="16sp"
+    android:paddingTop="16sp"
+    tools:context="pl.lodz.p.ftims.geocaching.Lista_dostepnych_wyzwan" 
+    android:background="@drawable/tlo_aplikacja">
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="240sp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" 
+        android:layout_alignParentBottom="true">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tableRow1_textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nazwa"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="10sp" />
+
+                <TextView
+                    android:id="@+id/tableRow1_textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Odległość"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="10sp" />
+                
+                <TextView
+                    android:id="@+id/tableRow1_textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="dostęp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="10sp" />
+                
+
+            </TableRow>
+            
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="Wybierz_wyzwanie" >
+
+                <TextView
+                    android:id="@+id/tableRow2_textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nazwa"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="10sp" />
+
+                <TextView
+                    android:id="@+id/tableRow2_textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Odległość"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="10sp" />
+                
+                <TextView
+                    android:id="@+id/tableRow2_textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="dostęp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingRight="10sp" />
+                
+
+            </TableRow>
+            
+        </TableLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100sp"
+        android:layout_height="50sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="&lt;1km" />
+
+    <Button
+        android:id="@+id/button2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100sp"
+        android:layout_height="50sp"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_below="@+id/button1"
+        android:text="1km-4km" />
+
+    <Button
+        android:id="@+id/button3"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100sp"
+        android:layout_height="50sp"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_below="@+id/button2"
+        android:text="4km-10km" />
+    
+    <Button
+        android:id="@+id/button4"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100sp"
+        android:layout_height="50sp"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_below="@+id/button3"
+        android:text="publiczne" />
+    
+    <Button
+        android:id="@+id/button5"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100sp"
+        android:layout_height="50sp"
+        android:layout_alignLeft="@+id/button4"
+        android:layout_below="@+id/button4"
+        android:text="prywatne" />
+    
+</RelativeLayout>

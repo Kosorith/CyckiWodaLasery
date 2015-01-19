@@ -75,5 +75,6 @@
     <string name="wróć">wróć</string>
     <string name="title_activity_lista__wskazowek">Lista_Wskazowek</string>
     <string name="title_activity_koordynaty_mapa">Koordynaty z mapy</string>
+    <string name="title_activity_lista_dostepnych_wyzwan">Lista_dostepnych_wyzwan</string>
 
 </resources>

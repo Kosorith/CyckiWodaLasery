@@ -36,8 +36,8 @@ public class Rejestracja extends ActionBarActivity {
         });
         */
 // Guzik Wroc		
-        Button Dalej = (Button) findViewById(R.id.Wroc);
-        Dalej.setOnClickListener(new View.OnClickListener(){
+        Button Wroc = (Button) findViewById(R.id.Wroc);
+        Wroc.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),Logowanie.class);
                 startActivityForResult(intent,0);

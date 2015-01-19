@@ -193,7 +193,7 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView30" />
+                    android:id="@+id/textView90" />
             </TableRow>
 
             <TableRow

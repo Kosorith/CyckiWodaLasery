@@ -1,6 +1,8 @@
 package pl.lodz.p.ftims.geocaching.GUI;
 
 import android.support.v7.app.ActionBarActivity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,18 +26,45 @@ public class Lista_dostepnych_wyzwan extends ActionBarActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+	public boolean onOptionsItemSelected(MenuItem item) {s
+        //menu g√≥rne
+        super.onContextItemSelected(item);
+        //Intent intent;
+
+        switch(item.getItemId()) {
+
+            case R.id.ekran_Stworz_wyzwanie:
+                Intent intent;
+                intent = new Intent(Mapy.this, Dodaj_wskazowke_1.class);
+                startActivityForResult(intent,0);
+                break;
+
+            case R.id.ekran_Ranking:
+                Intent intent2;
+                intent2 = new Intent(Mapy.this, Ranking.class);
+                startActivityForResult(intent2,0);
+                break;
+
+            case R.id.ekran_Profil:
+                Intent intent3;
+                intent3 = new Intent(Mapy.this, Profil.class);
+                startActivityForResult(intent3,0);
+                break;
+                
+            case R.id.ekran_Mapa:
+                Intent intent4;
+                intent3 = new Intent(Profil.this, Mapy.class);
+                startActivityForResult(intent3,0);
+                break;
+
+            default:
+                return false;
+        }
+        return true;
+    }
 	
-	// pozwala na wybranie wyzwania poprzez klikniecie w rzπd z danymi w widoku 
+	// pozwala na wybranie wyzwania poprzez klikniecie w rzπd z danymi w widoku
+	// row musi zawierac android:onClick="Wybierz_wyzwanie"
 	public void Wybierz_wyzwanie(View v){
 
 	    TableRow Wybierz = (TableRow) findViewById(v.getId());

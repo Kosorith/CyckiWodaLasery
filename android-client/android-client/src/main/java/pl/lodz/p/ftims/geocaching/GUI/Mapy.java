@@ -80,15 +80,6 @@ public class Mapy extends FragmentActivity implements HintsObserver, LocationObs
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_mapa, menu);
 
-        //drugie menu
-        /*
-        String title = "Element w kodzie";
-        int groupId = Menu.NONE;
-        int itemId = Menu.FIRST;
-        int order = 103;
-        menu.add(groupId, itemId, order, title);
-        */
-
         return true;
     }
 
@@ -116,37 +107,18 @@ public class Mapy extends FragmentActivity implements HintsObserver, LocationObs
 
             case R.id.infoOWsk:
                 Intent intent4;
-                intent4 = new Intent(Mapy.this, Ranking.class);
+                intent4 = new Intent(Mapy.this, Lista_Wskazowek.class);
+                startActivityForResult(intent4,0);
+                break;
+                
+            case R.id.rozNoweWyz:
+                Intent intent4;
+                intent4 = new Intent(Mapy.this, Lista_dostepnych_wyzwan.class);
                 startActivityForResult(intent4,0);
                 break;
 
-            case R.id.action_exit:
-                AlertDialog.Builder alert2 = new AlertDialog.Builder(this);
-                alert2.setTitle("Wyjście");
 
-                alert2.setMessage("Czy na pewno chcesz Wyjść?");
-
-                alert2.setPositiveButton("Tak",new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert2.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                break;
-
-//                Toast.makeText(Profil.this, "Button Clicked :" + item.getTitle(),
-//                        Toast.LENGTH_SHORT).show();
-//                intent = new Intent(Intent.ACTION_MAIN);
-//                intent.addCategory(Intent.CATEGORY_HOME);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-
+                
             case R.id.ekran_Stworz_wyzwanie:
                 Intent intent;
                 intent = new Intent(Mapy.this, Dodaj_wskazowke_1.class);

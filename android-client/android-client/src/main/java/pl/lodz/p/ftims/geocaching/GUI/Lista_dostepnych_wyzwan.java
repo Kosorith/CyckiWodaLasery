@@ -34,17 +34,18 @@ public class Lista_dostepnych_wyzwan extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	// pozwala na wybranie wyzwania poprzez klikniecie w rz¹d z danymi w widoku 
+	public void Wybierz_wyzwanie(View v){
+
+	    TableRow Wybierz = (TableRow) findViewById(v.getId());
+	    Wybierz.setOnClickListener(new View.OnClickListener() {
+
+	        public void onClick(View v) {
+	            // tu cos powinien zrobic
+	        }
+	    });
+	}	
 }
 
 
-// pozwala na wybranie wyzwania poprzez klikniecie w rz¹d z danymi w widoku 
-public void Wybierz_wyzwanie(View v){
-
-    TableRow Wybierz = (TableRow) findViewById(v.getId());
-    Wybierz.setOnClickListener(new View.OnClickListener() {
-
-        public void onClick(View v) {
-            // tu cos powinien zrobic
-        }
-    });
-}

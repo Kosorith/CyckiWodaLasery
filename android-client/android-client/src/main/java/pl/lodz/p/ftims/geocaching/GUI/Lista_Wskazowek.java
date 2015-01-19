@@ -1,4 +1,4 @@
-package pl.lodz.p.ftims.geocaching;
+package pl.lodz.p.ftims.geocaching.GUI;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;

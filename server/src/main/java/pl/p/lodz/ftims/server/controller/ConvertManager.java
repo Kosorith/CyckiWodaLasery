@@ -36,6 +36,7 @@ public class ConvertManager implements IConvertManager {
 		challengeEntry.setName(entityChallenge.getName());
 		challengeEntry.setDescription(entityChallenge.getDescription());
 		challengeEntry.setPublicAccess(true);//TODO
+        challengeEntry.setLocation(new Coordinates(entityChallenge.getLocation()));
 		
 		return challengeEntry;
 	}

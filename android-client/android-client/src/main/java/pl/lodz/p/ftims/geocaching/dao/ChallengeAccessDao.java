@@ -87,8 +87,9 @@ public class ChallengeAccessDao implements IChallengeAccess {
             XStream xstreamOut = new XStream(new DomDriver());
             xstreamOut.alias("ChallengeListReply", dataModel.ChallengeListReply.class);
             xstreamOut.aliasField("Challenges", dataModel.ChallengeListReply.class, "challenges");
-            xstreamOut.alias("Challenge", dataModel.Challenge.class);
-            xstreamOut.aliasField("Coordinates", dataModel.Challenge.class, "location");
+            xstreamOut.alias("Challenge", dataModel.ChallengeEntry.class);
+            xstreamOut.aliasField("Coordinates", dataModel.ChallengeEntry.class, "location");
+            xstreamOut.alias("Coordinates", dataModel.Coordinates.class);
             dataModel.ChallengeListReply challenges = (dataModel.ChallengeListReply) xstreamOut.fromXML(outputXML);
 
             ArrayList<ChallengeStub> returnList = new ArrayList<ChallengeStub>();

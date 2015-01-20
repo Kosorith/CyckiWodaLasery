@@ -12,6 +12,9 @@ public class ProfileRequest {
     @XmlElement(name = "Credentials")
     private Credentials credentials;
 
+    public ProfileRequest() {
+    }
+
     public ProfileRequest(Credentials credentials) {
         this.setCredentials(credentials);
     }

@@ -90,6 +90,7 @@ public class ChallengeAccessDao implements IChallengeAccess {
             xstreamOut.alias("Challenge", dataModel.ChallengeEntry.class);
             xstreamOut.aliasField("Coordinates", dataModel.ChallengeEntry.class, "location");
             xstreamOut.alias("Coordinates", dataModel.Coordinates.class);
+            xstreamOut.aliasField("longtitude", dataModel.Coordinates.class, "longitude");
             dataModel.ChallengeListReply challenges = (dataModel.ChallengeListReply) xstreamOut.fromXML(outputXML);
 
             ArrayList<ChallengeStub> returnList = new ArrayList<ChallengeStub>();

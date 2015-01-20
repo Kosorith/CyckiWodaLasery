@@ -147,7 +147,7 @@ public class ProfilesAccessDao implements IProfilesAccess{
             return returnList;
         } catch (StreamException e) {
             e.printStackTrace();
-            return null;
+            return new ArrayList<RankingEntry>();
         } catch (ClientProtocolException e) {
             e.printStackTrace();
             return new ArrayList<RankingEntry>();

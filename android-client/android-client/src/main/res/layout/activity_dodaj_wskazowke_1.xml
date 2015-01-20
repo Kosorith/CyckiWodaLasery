@@ -19,6 +19,7 @@
         android:layout_toRightOf="@+id/Zdjecie"
         android:layout_x="220dp"
         android:layout_y="400dp"
+        android:onClick="przejdzDalej"
         android:text="@string/DNW_Przycisk" />
 
     <LinearLayout

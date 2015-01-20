@@ -18,11 +18,12 @@
         android:layout_alignParentBottom="true">
 
         <TableLayout
+            android:id="@+id/wyzwaniaLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
             <TableRow
-                android:id="@+id/tableRow1"
+                android:id="@+id/wyzwanieHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -53,39 +54,6 @@
 
             </TableRow>
             
-            <TableRow
-                android:id="@+id/tableRow2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="Wybierz_wyzwanie" >
-
-                <TextView
-                    android:id="@+id/tableRow2_textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nazwa"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:paddingRight="10sp" />
-
-                <TextView
-                    android:id="@+id/tableRow2_textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Odległość"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:paddingRight="10sp" />
-                
-                <TextView
-                    android:id="@+id/tableRow2_textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="dostęp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:paddingRight="10sp" />
-                
-
-            </TableRow>
-            
         </TableLayout>
 
     </ScrollView>
@@ -97,6 +65,7 @@
         android:layout_height="50sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:onClick="filter1km"
         android:text="&lt;1km" />
 
     <Button
@@ -106,6 +75,7 @@
         android:layout_height="50sp"
         android:layout_alignLeft="@+id/button1"
         android:layout_below="@+id/button1"
+        android:onClick="filter14km"
         android:text="1km-4km" />
 
     <Button
@@ -115,6 +85,7 @@
         android:layout_height="50sp"
         android:layout_alignLeft="@+id/button2"
         android:layout_below="@+id/button2"
+        android:onClick="filter410km"
         android:text="4km-10km" />
     
     <Button
@@ -124,6 +95,7 @@
         android:layout_height="50sp"
         android:layout_alignLeft="@+id/button3"
         android:layout_below="@+id/button3"
+        android:onClick="filterPublic"
         android:text="publiczne" />
     
     <Button
@@ -133,6 +105,7 @@
         android:layout_height="50sp"
         android:layout_alignLeft="@+id/button4"
         android:layout_below="@+id/button4"
+        android:onClick="filterPrivate"
         android:text="prywatne" />
     
 </RelativeLayout>

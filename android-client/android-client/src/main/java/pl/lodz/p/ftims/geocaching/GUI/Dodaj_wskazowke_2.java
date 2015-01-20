@@ -35,13 +35,8 @@ public class Dodaj_wskazowke_2 extends Activity {
      */
     public void Cofnij_W2(View v){
         Button Wstecz = (Button) findViewById(R.id.Wstecz);
-        Wstecz.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Dodaj_wskazowke_1.class);
-                startActivityForResult(intent,0);
-            }
-        });
+        Intent intent = new Intent(v.getContext(), Dodaj_wskazowke_1.class);
+        startActivityForResult(intent,0);
     }
 
     /**
@@ -51,13 +46,8 @@ public class Dodaj_wskazowke_2 extends Activity {
      */
     public void Dodaj_wskazowke(View v){
         Button Dodaj_nowa = (Button) findViewById(R.id.Dodaj_wskazowke_text);
-        Dodaj_nowa.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), Edycja_wskazowki.class);
-            startActivityForResult(intent, 0);
-            }
-        });
+        Intent intent = new Intent(v.getContext(), Edycja_wskazowki.class);
+        startActivityForResult(intent, 0);
     }
 
     /**
@@ -65,15 +55,9 @@ public class Dodaj_wskazowke_2 extends Activity {
      * @param v
      */
     public void Edytuj_wskazowke(View v){
-
         TableRow Edytuj = (TableRow) findViewById(v.getId());
-        Edytuj.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Edycja_wskazowki.class);
-                startActivityForResult(intent, 0);
-            }
-        });
+        Intent intent = new Intent(v.getContext(), Edycja_wskazowki.class);
+        startActivityForResult(intent, 0);
     }
 
     /**

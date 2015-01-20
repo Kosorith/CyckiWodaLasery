@@ -2,17 +2,33 @@ package pl.lodz.p.ftims.geocaching.GUI;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
+import pl.lodz.p.ftims.geocaching.R;
+import pl.lodz.p.ftims.geocaching.logic.challenges.ChallengeSolvingService;
+import pl.lodz.p.ftims.geocaching.logic.challenges.HintsObserver;
+import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
+import pl.lodz.p.ftims.geocaching.model.Challenge;
+import pl.lodz.p.ftims.geocaching.model.ChallengeStub;
+import pl.lodz.p.ftims.geocaching.model.Hint;
 
-public class Lista_Wskazowek extends ActionBarActivity {
+import java.util.List;
+
+public class Lista_Wskazowek extends ActionBarActivity implements HintsObserver {
+
+	@InjectPlz
+	private ChallengeSolvingService challengeSolvingService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lista__wskazowek);
+		challengeSolvingService.subscribe(this);
 	}
 
 	@Override
@@ -34,16 +50,35 @@ public class Lista_Wskazowek extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	// pozwala na wybranie wskazowki poprzez klikniecie w rz�d z danymi w widoku
-	// row musi zawierac android:onClick="Wybierz_wskazowke"
-	public void Wybierz_wskazowke(View v){
+	@Override
+	public void onNewHint(Hint hint) {
+        TableLayout hintTable = (TableLayout) findViewById(R.id.wskazowkiLayout);
 
-	    TableRow Wybierz = (TableRow) findViewById(v.getId());
-	    Wybierz.setOnClickListener(new View.OnClickListener() {
+/*        while (challengeTable.getChildCount() > 1) {
+            challengeTable.removeViewAt(1);
+        } Sorki, mój błąd */
 
-	        public void onClick(View v) {
-	            // tu cos powinien zrobic
-	        }
-	    });
+		TableRow newRow = (TableRow) LayoutInflater.from(Lista_Wskazowek.this).inflate(R.layout.wskazowka_row, null);
+		((TextView) newRow.findViewById(R.id.wskazowkaRowLP)).setText(hintTable.getChildCount());
+		((TextView) newRow.findViewById(R.id.wskazowkaRowNazwa)).setText(hint.getDescription());
+
+        final Hint finalHint = hint;
+        newRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Wybierz_wskazowke(finalHint);
+            }
+        });
+        hintTable.addView(newRow);
 	}
+
+	@Override
+	public void onHeatChange(int temperature) {
+		// ignore
+	}
+
+	private void Wybierz_wskazowke(Hint hint) {
+		// tutaj przydałoby sie przejść do widoku ze szczegółami hinta, nie zrobię już tego
+	}
+
 }

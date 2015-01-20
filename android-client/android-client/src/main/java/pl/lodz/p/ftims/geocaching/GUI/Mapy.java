@@ -46,7 +46,24 @@ public class Mapy extends FragmentActivity implements HintsObserver, LocationObs
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(Mapy.this, actionButton);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_mapa_popup, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new ActionPopupClickListener());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent intent;
+                        switch (item.getItemId()) {
+                            case R.id.rozNoweWyz:
+                                intent = new Intent(Mapy.this, Lista_dostepnych_wyzwan.class);
+                                startActivityForResult(intent, 0);
+                                return true;
+                            case R.id.infoOWsk:
+                                intent = new Intent(Mapy.this, Lista_Wskazowek.class);
+                                startActivityForResult(intent, 0);
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
                 popupMenu.show();
             }
         });
@@ -110,33 +127,25 @@ public class Mapy extends FragmentActivity implements HintsObserver, LocationObs
                 intent4 = new Intent(Mapy.this, Lista_Wskazowek.class);
                 startActivityForResult(intent4,0);
                 break;
-                
             case R.id.rozNoweWyz:
                 Intent intent5 = new Intent(Mapy.this, Lista_dostepnych_wyzwan.class);;
-
                 startActivityForResult(intent5,0);
                 break;
-
-
-                
             case R.id.ekran_Stworz_wyzwanie:
                 Intent intent;
                 intent = new Intent(Mapy.this, Dodaj_wskazowke_1.class);
                 startActivityForResult(intent,0);
                 break;
-
             case R.id.ekran_Ranking:
                 Intent intent2;
                 intent2 = new Intent(Mapy.this, Ranking.class);
                 startActivityForResult(intent2,0);
                 break;
-
             case R.id.ekran_Profil:
                 Intent intent3;
                 intent3 = new Intent(Mapy.this, Profil.class);
                 startActivityForResult(intent3,0);
                 break;
-
             default:
                 return false;
         }
@@ -186,7 +195,6 @@ public class Mapy extends FragmentActivity implements HintsObserver, LocationObs
     private void setUpMap() {
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         challengeSolvingService.subscribe(this);
-        // TODO: Trzeba gdzieś wywołać challengeSolvingService.startChallenge() by to cokolwiek robiło
         locationService.subscribe(this);
     }
 

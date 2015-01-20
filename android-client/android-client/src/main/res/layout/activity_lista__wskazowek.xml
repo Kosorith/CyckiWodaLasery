@@ -12,11 +12,12 @@
     android:background="@drawable/tlo_aplikacja">
 
     <TableLayout
+        android:id="@+id/wskazowkiLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
         <TableRow
-            android:id="@+id/tableRow1"
+            android:id="@+id/wskazowkiHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
@@ -37,30 +38,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </TableRow>
-        
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="Wybierz_wskazowke" >
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="30dp"
-                android:paddingRight="16dp"
-                android:text="-1"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TEST"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        </TableRow>
     </TableLayout>
 
 </ScrollView>

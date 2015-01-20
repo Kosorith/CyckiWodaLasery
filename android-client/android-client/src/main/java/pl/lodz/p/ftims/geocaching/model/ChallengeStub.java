@@ -4,6 +4,7 @@ package pl.lodz.p.ftims.geocaching.model;
  * @author Michał Sośnicki, Andrzej Kurczewski
  */
 public class ChallengeStub {
+
     private int id;
     private String name;
     private String description;
@@ -11,6 +12,13 @@ public class ChallengeStub {
     private boolean publicAccess;
 
     public ChallengeStub() {
+    }
+
+    public ChallengeStub(String name, String description, GeoCoords location, boolean publicAccess) {
+        this.name = name;
+        this.description = description;
+        this.location = location;
+        this.publicAccess = publicAccess;
     }
 
     public int getId() {

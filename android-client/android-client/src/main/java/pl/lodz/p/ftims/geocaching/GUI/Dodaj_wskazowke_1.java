@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,14 +21,25 @@ import java.io.File;
 import java.io.IOException;
 
 import pl.lodz.p.ftims.geocaching.R;
+import pl.lodz.p.ftims.geocaching.logic.challenges.ChallengeCreationService;
+import pl.lodz.p.ftims.geocaching.logic.gps.LocationService;
+import pl.lodz.p.ftims.geocaching.logic.inject.InjectPlz;
+import pl.lodz.p.ftims.geocaching.model.Challenge;
+import pl.lodz.p.ftims.geocaching.model.ChallengeStub;
+import pl.lodz.p.ftims.geocaching.model.GeoCoords;
 
 /**
  * Klasa odpowiadająca za dodawanie wskazówki (cz.1)
  */
 public class Dodaj_wskazowke_1 extends Activity {
 
-    ImageView Widok;
-    Bitmap bmp;
+    @InjectPlz
+    private LocationService locationService;
+    @InjectPlz
+    private ChallengeCreationService challengeCreationService;
+
+    private ImageView Widok;
+    private Bitmap bmp;
     private Uri imageUri;
 
     /**
@@ -38,15 +51,30 @@ public class Dodaj_wskazowke_1 extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dodaj_wskazowke_1);
+        Widok = (ImageView) findViewById(R.id.Zdjecie);
+    }
 
-        Button Dalej = (Button) findViewById(R.id.Dalej);
-        Dalej.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),Dodaj_wskazowke_2.class);
-                startActivityForResult(intent,0);
-            }
-        });
+    public void przejdzDalej(View v) {
+        Intent intent = new Intent(v.getContext(),Dodaj_wskazowke_2.class);
+        startActivityForResult(intent,0);
 
+        CheckBox publicBox = (CheckBox) findViewById(R.id.Rodzaj_wyzwania);
+        EditText nameEdit = (EditText) findViewById(R.id.Nazwa);
+        EditText passEdit = (EditText) findViewById(R.id.Hasło);
+        EditText descEdit = (EditText) findViewById(R.id.Opis);
+
+        boolean publicAccess = publicBox.isChecked();
+        String name = nameEdit.getText().toString();
+        String password = publicAccess ? null : passEdit.getText().toString();
+        String description = descEdit.getText().toString();
+        GeoCoords location = locationService.getCurrentLocation();
+
+        challengeCreationService.initCreation();
+        Challenge challenge = challengeCreationService.getEditedChallenge();
+        challenge.setStub(new ChallengeStub(name, description, location, publicAccess));
+        challenge.setPhoto(bmp);
+        challenge.setPoints(123);
+        // coś jest nie tak w sumie, ale i tak dao nie obsługuje tworzenia challenge
     }
 
     /**
@@ -54,17 +82,11 @@ public class Dodaj_wskazowke_1 extends Activity {
      * @param v
      */
     public void ZdjecieKamera(View v) {
-        Widok = (ImageView) findViewById(R.id.Zdjecie);
-        ImageButton Przycisk = (ImageButton) findViewById(R.id.ZdjecieZAparatu);
-        Przycisk.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent("android.media.action.IMAGE_CAPTURE");
-                File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "zdjecie.jpg");
-                imageUri = Uri.fromFile(photo);
-                i.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(i,0);
-            }
-        });
+        Intent i = new Intent("android.media.action.IMAGE_CAPTURE");
+        File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "zdjecie.jpg");
+        imageUri = Uri.fromFile(photo);
+        i.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(i,0);
     }
 
     /**
@@ -72,18 +94,10 @@ public class Dodaj_wskazowke_1 extends Activity {
      * @param v
      */
     public void ZdjeciePamiec(View v){
-
-        Widok = (ImageView) findViewById(R.id.Zdjecie);
-        ImageButton Przycisk2 = (ImageButton) findViewById(R.id.ZdjecieZPamieci);
-        Przycisk2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Wybierz Zdjecie"), 1);
-            }
-        });
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Wybierz Zdjecie"), 1);
     }
 
     /**
@@ -96,16 +110,21 @@ public class Dodaj_wskazowke_1 extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
         if(resultCode == RESULT_OK){
-            if(requestCode == 0){
+            if (requestCode == 0){
                 Uri selected = imageUri;
-                getContentResolver().notifyChange(selected, null );
-
                 ContentResolver cr = getContentResolver();
+                cr.notifyChange(selected, null);
 
                 try {
-                    bmp = MediaStore.Images.Media.getBitmap(cr, selected);
-                    Widok.setImageBitmap(bmp);
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 4;
 
+                    AssetFileDescriptor fileDescriptor;
+                    fileDescriptor = cr.openAssetFileDescriptor(selected, "r");
+
+                    bmp = BitmapFactory.decodeFileDescriptor(fileDescriptor.getFileDescriptor(), null, options);
+
+                    Widok.setImageBitmap(bmp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -122,22 +141,16 @@ public class Dodaj_wskazowke_1 extends Activity {
      */
     public void Czy_Pryw (View v){
         final CheckBox Czy_Prywatne = (CheckBox) findViewById(R.id.Rodzaj_wyzwania);
-        Czy_Prywatne.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                TextView Haslo_text = (TextView) findViewById(R.id.Hasło_text);
-                EditText Haslo = (EditText) findViewById(R.id.Hasło);
-                if(Czy_Prywatne.isChecked())
-                {
-                    Haslo_text.setVisibility(Haslo_text.VISIBLE);
-                    Haslo.setVisibility(Haslo.VISIBLE);
-                }
-                else
-                {
-                    Haslo_text.setVisibility(Haslo_text.INVISIBLE);
-                    Haslo.setVisibility(Haslo.INVISIBLE);
-                }
-            }
-        });
+        TextView Haslo_text = (TextView) findViewById(R.id.Hasło_text);
+        EditText Haslo = (EditText) findViewById(R.id.Hasło);
+        if(Czy_Prywatne.isChecked()) {
+            Haslo_text.setVisibility(TextView.VISIBLE);
+            Haslo.setVisibility(EditText.VISIBLE);
+        }
+        else {
+            Haslo_text.setVisibility(TextView.INVISIBLE);
+            Haslo.setVisibility(EditText.INVISIBLE);
+        }
     }
 
     /**
